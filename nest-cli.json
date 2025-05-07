@@ -55,6 +55,15 @@
         "tsConfigPath": "apps/thaovh/tsconfig.app.json"
       }
     },
+    "the-bhyt": {
+      "type": "application",
+      "root": "apps/the-bhyt",
+      "entryFile": "main",
+      "sourceRoot": "apps/the-bhyt/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/the-bhyt/tsconfig.app.json"
+      }
+    },
     "tracnn": {
       "type": "application",
       "root": "apps/tracnn",

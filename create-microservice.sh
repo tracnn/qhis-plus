@@ -309,7 +309,6 @@ import { EnvConfig } from '../../shared/config/env.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.setGlobalPrefix('api');
   app.enableCors();
   app.useGlobalFilters(new HttpExceptionFilter());
 
