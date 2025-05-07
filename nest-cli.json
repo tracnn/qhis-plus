@@ -19,6 +19,24 @@
         "tsConfigPath": "apps/auth-service/tsconfig.app.json"
       }
     },
+    "kiem-tra-the-bhyt": {
+      "type": "application",
+      "root": "apps/kiem-tra-the-bhyt",
+      "entryFile": "main",
+      "sourceRoot": "apps/kiem-tra-the-bhyt/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/kiem-tra-the-bhyt/tsconfig.app.json"
+      }
+    },
+    "kiennt": {
+      "type": "application",
+      "root": "apps/kiennt",
+      "entryFile": "main",
+      "sourceRoot": "apps/kiennt/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/kiennt/tsconfig.app.json"
+      }
+    },
     "qhis-plus": {
       "type": "application",
       "root": "apps/qhis-plus",

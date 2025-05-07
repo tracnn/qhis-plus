@@ -7,17 +7,14 @@ import { TracnnDto } from '../dtos/tracnn.dto';
 @Injectable()
 export class TracnnUseCase implements ITracnnUseCase {
   constructor(
-    @Inject('ITracnnRepository')
-    private readonly repo: ITracnnRepository
+	  @Inject('ITracnnRepository') private readonly repo: ITracnnRepository
   ) {}
 
   async hello(): Promise<string> {
     return 'Hello';
   }
-
-  async execute(input: Partial<Tracnn>): Promise<any> {
-    const entity = new Tracnn(input.id!, input.value!);
-    await this.repo.save(entity);
-    return { success: true };
+  
+  async execute(input: TracnnDto): Promise<any> {
+    return;
   }
 }

@@ -55,8 +55,7 @@ import { ${CLASS_NAME}Dto } from '../dtos/${SERVICE_NAME}.dto';
 @Injectable()
 export class ${CLASS_NAME}UseCase implements I${CLASS_NAME}UseCase {
   constructor(
-	@Inject('I${CLASS_NAME}Repository')
-	private readonly repo: I${CLASS_NAME}Repository
+	  @Inject('I${CLASS_NAME}Repository') private readonly repo: I${CLASS_NAME}Repository
   ) {}
 
   async hello(): Promise<string> {
@@ -225,8 +224,8 @@ EOF
 # Config
 cat <<EOF > $SRC_DIR/infrastructure/config/env.config.ts
 export const EnvConfig = {
-  base_url: process.env.${SERVICE_NAME}_BASE_URL || 'localhost',
-  port: parseInt(process.env.${SERVICE_NAME}_PORT || '3000', 10),
+  base_url: 'localhost',
+  port: '3000',
 };
 EOF
 
@@ -282,7 +281,6 @@ EOF
 cat <<EOF > $SRC_DIR/app.module.ts
 import { Module } from '@nestjs/common';
 import { ${CLASS_NAME}Controller } from './presentation/controllers/${SERVICE_NAME}.controller';
-import { I${CLASS_NAME}UseCase } from './application/ports/inbound/${SERVICE_NAME}.usecase.interface';
 import { ${CLASS_NAME}UseCase } from './application/use-cases/${SERVICE_NAME}.use-case';
 import { ${CLASS_NAME}Repository } from './infrastructure/database/${SERVICE_NAME}.repository';
 
@@ -306,11 +304,17 @@ EOF
 cat <<EOF > $SRC_DIR/main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import { HttpExceptionFilter } from './presentation/filters/http-exception.filter';
+import { EnvConfig } from '../../shared/config/env.config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  await app.listen(process.env.port);
-  console.log('🚀 ${CLASS_NAME} microservice running http://localhost:process.env.port');
+  app.setGlobalPrefix('api');
+  app.enableCors();
+  app.useGlobalFilters(new HttpExceptionFilter());
+
+  await app.listen(EnvConfig.${CLASS_NAME}Port);
+  console.log(\`🚀 ${SERVICE_NAME} microservice running http://localhost:\${EnvConfig.${CLASS_NAME}Port}\`);
 }
 
 bootstrap();

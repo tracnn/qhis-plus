@@ -5,8 +5,8 @@ import { ITracnnUseCase } from '../../application/ports/inbound/tracnn.usecase.i
 @Controller('tracnn')
 export class TracnnController {
   constructor(
-    @Inject('ITracnnUseCase')
-    private readonly useCase: ITracnnUseCase
+	@Inject('ITracnnUseCase')
+	private readonly useCase: ITracnnUseCase
   ) {}
 
   @Get()
