@@ -14,6 +14,8 @@ import { CheckHeinCardService } from './domain/services/check-hein-card.service'
 import { CheckHeinCardValidatorService } from './domain/services/check-hein-card-validator.service';
 import { databaseConfig } from './infrastructure/config/database.config';
 import { IBhxhAuthService } from './infrastructure/interfaces/bhxh-auth.service.interface';
+import { ITheBhytValidator } from './domain/interfaces/the-bhyt-validator.interface';
+import { ValidationExceptionFilter } from './presentation/filters/validation-exception.filter';
 
 @Module({
   imports: [
@@ -31,6 +33,10 @@ import { IBhxhAuthService } from './infrastructure/interfaces/bhxh-auth.service.
     {
       provide: 'IBhxhAuthService',
       useClass: BhxhAuthService,
+    },
+    {
+      provide: 'ITheBhytValidator',
+      useClass: TheBhytValidatorService,
     },
     TheBhytValidatorService,
     CheckHeinCardValidatorService,

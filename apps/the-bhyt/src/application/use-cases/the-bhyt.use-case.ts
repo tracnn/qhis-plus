@@ -1,8 +1,8 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, BadRequestException } from '@nestjs/common';
 import { ITheBhytRepository } from '../../domain/interfaces/the-bhyt.repository.interface';
 import { ICheckHeinCardRepository } from '../../domain/interfaces/check-hein-card.repository.interface';
 import { CheckTheBhytDto } from '../dtos/check-the-bhyt.dto';
-import { TheBhytValidatorService } from '../../domain/services/the-bhyt-validator.service';
+import { ITheBhytValidator } from '../../domain/interfaces/the-bhyt-validator.interface';
 import { CheckHeinCard } from '../../domain/entities/check-hein-card.entity';
 import { CheckHeinCardService } from '../../domain/services/check-hein-card.service';
 import { CheckHeinCardValidatorService } from '../../domain/services/check-hein-card-validator.service';
@@ -15,11 +15,36 @@ export class TheBhytUseCase {
     @Inject('ICheckHeinCardRepository') private readonly checkHeinCardRepo: ICheckHeinCardRepository,
     @Inject('ICheckHeinCardService') private readonly checkHeinCardService: CheckHeinCardService,
     @Inject('IBhxhAuthService') private readonly authService: IBhxhAuthService,
-    private readonly validatorService: TheBhytValidatorService,
+    @Inject('ITheBhytValidator') private readonly validatorService: ITheBhytValidator,
     private readonly checkHeinCardValidatorService: CheckHeinCardValidatorService,
   ) {}
 
   async checkTheBhyt(params: CheckTheBhytDto) {
+    // Validate all fields
+    const validationResults = [
+      this.validatorService.validateMaThe(params.maThe),
+      this.validatorService.validateHoTen(params.hoTen),
+      this.validatorService.validateNgaySinh(params.ngaySinh),
+      this.validatorService.validateGioiTinh(params.gioiTinh)
+    ];
+
+    // Collect all validation errors
+    const validationErrors = validationResults
+      .filter(result => !result.isValid)
+      .map(result => ({
+        field: result.fieldName,
+        message: result.errorMessage
+      }));
+
+    // If there are any errors, throw them all at once
+    if (validationErrors.length > 0) {
+      throw new BadRequestException({
+        statusCode: 400,
+        message: 'Validation failed',
+        validationErrors
+      });
+    }
+
     // Kiểm tra điều kiện trước khi check thẻ
     const shouldCheck = await this.checkHeinCardValidatorService.shouldCheckTheBhyt(params.ma_lk);
        
