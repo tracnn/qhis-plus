@@ -1,0 +1,31 @@
+export enum MaTracuuKHL {
+  MA_TRACUU_1 = '003',
+  MA_TRACUU_2 = '010',
+  MA_TRACUU_3 = '050',
+  MA_TRACUU_4 = '051',
+  MA_TRACUU_5 = '052',
+  MA_TRACUU_6 = '053',
+  MA_TRACUU_7 = '060',
+  MA_TRACUU_8 = '061',
+  MA_TRACUU_9 = '070',
+  MA_TRACUU_10 = '110',
+  MA_TRACUU_11 = '120',
+  MA_TRACUU_12 = '121',
+  MA_TRACUU_13 = '122',
+  MA_TRACUU_14 = '123',
+  MA_TRACUU_15 = '124',
+  MA_TRACUU_16 = '130',
+}
+
+export enum MaKiemtraKHL {
+  MA_KIEMTRA_1 = '01',
+  MA_KIEMTRA_2 = '02',
+  MA_KIEMTRA_3 = '03',
+  MA_KIEMTRA_4 = '04',
+  MA_KIEMTRA_5 = '05',
+  MA_KIEMTRA_6 = '06',
+  MA_KIEMTRA_7 = '07',
+  MA_KIEMTRA_8 = '08',
+  MA_KIEMTRA_9 = '09',
+  MA_KIEMTRA_11 = '11',
+} 

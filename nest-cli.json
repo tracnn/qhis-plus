@@ -46,6 +46,15 @@
         "tsConfigPath": "apps/qhis-plus/tsconfig.app.json"
       }
     },
+    "rule-evaluator": {
+      "type": "application",
+      "root": "apps/rule-evaluator",
+      "entryFile": "main",
+      "sourceRoot": "apps/rule-evaluator/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/rule-evaluator/tsconfig.app.json"
+      }
+    },
     "thaovh": {
       "type": "application",
       "root": "apps/thaovh",

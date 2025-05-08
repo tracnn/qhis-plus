@@ -9,8 +9,8 @@ BASE_DIR="apps/$SERVICE_NAME"
 SRC_DIR="$BASE_DIR/src"
 
 mkdir -p $SRC_DIR/application/use-cases
-mkdir -p $SRC_DIR/application/ports/inbound
-mkdir -p $SRC_DIR/application/ports/outbound
+mkdir -p $SRC_DIR/application/interfaces/inbound
+mkdir -p $SRC_DIR/application/interfaces/outbound
 mkdir -p $SRC_DIR/application/dtos
 mkdir -p $SRC_DIR/application/services
 
@@ -18,8 +18,10 @@ mkdir -p $SRC_DIR/domain/entities
 mkdir -p $SRC_DIR/domain/value-objects
 mkdir -p $SRC_DIR/domain/validators
 mkdir -p $SRC_DIR/domain/services
+mkdir -p $SRC_DIR/domain/interfaces
 
 mkdir -p $SRC_DIR/infrastructure/database
+mkdir -p $SRC_DIR/infrastructure/interfaces
 mkdir -p $SRC_DIR/infrastructure/external/example/custom-operators
 mkdir -p $SRC_DIR/infrastructure/config
 
@@ -47,8 +49,8 @@ EOF
 # File mẫu UseCase
 cat <<EOF > $SRC_DIR/application/use-cases/${SERVICE_NAME}.use-case.ts
 import { Inject, Injectable } from '@nestjs/common';
-import { I${CLASS_NAME}UseCase } from '../ports/inbound/${SERVICE_NAME}.usecase.interface';
-import { I${CLASS_NAME}Repository } from '../ports/outbound/${SERVICE_NAME}.repository.interface';
+import { I${CLASS_NAME}UseCase } from '../interfaces/inbound/${SERVICE_NAME}.usecase.interface';
+import { I${CLASS_NAME}Repository } from '../interfaces/outbound/${SERVICE_NAME}.repository.interface';
 import { ${CLASS_NAME} } from '../../domain/entities/${SERVICE_NAME}.entity';
 import { ${CLASS_NAME}Dto } from '../dtos/${SERVICE_NAME}.dto';
 
@@ -87,7 +89,7 @@ export class ${CLASS_NAME} {
 EOF
 
 # Inbound Interface
-cat <<EOF > $SRC_DIR/application/ports/inbound/${SERVICE_NAME}.usecase.interface.ts
+cat <<EOF > $SRC_DIR/application/interfaces/inbound/${SERVICE_NAME}.usecase.interface.ts
 import { ${CLASS_NAME} } from '../../../domain/entities/${SERVICE_NAME}.entity';
 
 export interface I${CLASS_NAME}UseCase {
@@ -97,7 +99,7 @@ export interface I${CLASS_NAME}UseCase {
 EOF
 
 # Outbound Interface
-cat <<EOF > $SRC_DIR/application/ports/outbound/${SERVICE_NAME}.repository.interface.ts
+cat <<EOF > $SRC_DIR/application/interfaces/outbound/${SERVICE_NAME}.repository.interface.ts
 import { ${CLASS_NAME} } from '../../../domain/entities/${SERVICE_NAME}.entity';
 
 export interface I${CLASS_NAME}Repository {
@@ -110,13 +112,12 @@ EOF
 cat <<EOF > $SRC_DIR/presentation/controllers/${SERVICE_NAME}.controller.ts
 import { Controller, Post, Body, Inject, Get } from '@nestjs/common';
 import { ${CLASS_NAME}Dto } from '../../application/dtos/${SERVICE_NAME}.dto';
-import { I${CLASS_NAME}UseCase } from '../../application/ports/inbound/${SERVICE_NAME}.usecase.interface';
+import { I${CLASS_NAME}UseCase } from '../../application/interfaces/inbound/${SERVICE_NAME}.usecase.interface';
 
 @Controller('${SERVICE_NAME}')
 export class ${CLASS_NAME}Controller {
   constructor(
-	@Inject('I${CLASS_NAME}UseCase')
-	private readonly useCase: I${CLASS_NAME}UseCase
+	@Inject('I${CLASS_NAME}UseCase') private readonly useCase: I${CLASS_NAME}UseCase
   ) {}
 
   @Get()
@@ -174,7 +175,7 @@ EOF
 # Repository Mock
 cat <<EOF > $SRC_DIR/infrastructure/database/${SERVICE_NAME}.repository.ts
 import { Injectable } from '@nestjs/common';
-import { I${CLASS_NAME}Repository } from '../../application/ports/outbound/${SERVICE_NAME}.repository.interface';
+import { I${CLASS_NAME}Repository } from '../../application/interfaces/outbound/${SERVICE_NAME}.repository.interface';
 import { ${CLASS_NAME} } from '../../domain/entities/${SERVICE_NAME}.entity';
 
 export class ${CLASS_NAME}Repository implements I${CLASS_NAME}Repository {
@@ -224,8 +225,8 @@ EOF
 # Config
 cat <<EOF > $SRC_DIR/infrastructure/config/env.config.ts
 export const EnvConfig = {
-  base_url: 'localhost',
-  port: '3000',
+  BASE_URL: 'localhost',
+  PORT: '3000',
 };
 EOF
 
@@ -258,7 +259,7 @@ EOF
 # Test
 cat <<EOF > $BASE_DIR/test/${SERVICE_NAME}.use-case.spec.ts
 import { ${CLASS_NAME}UseCase } from '../src/application/use-cases/${SERVICE_NAME}.use-case';
-import { I${CLASS_NAME}Repository } from '../src/application/ports/outbound/${SERVICE_NAME}.repository.interface';
+import { I${CLASS_NAME}Repository } from '../src/application/interfaces/outbound/${SERVICE_NAME}.repository.interface';
 
 describe('${CLASS_NAME}UseCase', () => {
   let useCase: ${CLASS_NAME}UseCase;
