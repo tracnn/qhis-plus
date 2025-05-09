@@ -4,27 +4,31 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TheBhytController } from './presentation/controllers/the-bhyt.controller';
 import { TheBhytUseCase } from './application/use-cases/the-bhyt.use-case';
-import { TheBhytRepository } from './infrastructure/database/the-bhyt.repository';
-import { BhxhAuthService } from './infrastructure/services/bhxh-auth.service';
-import { BhxhApiService } from './infrastructure/external/bhxh-api.service';
+import { BhxhAuthService } from './infrastructure/external/bhxh/auth.service';
+import { BhxhApiService } from './infrastructure/external/bhxh/bhxh-api.service';
 import { TheBhytValidatorService } from './domain/services/the-bhyt-validator.service';
-import { CheckHeinCard } from './domain/entities/check-hein-card.entity';
-import { CheckHeinCardRepository } from './infrastructure/database/check-hein-card.repository';
+import { CheckHeinCardModel } from './infrastructure/database/models/check-hein-card.model';
+import { CheckHeinCardRepository } from './infrastructure/repositories/check-hein-card.repository';
 import { CheckHeinCardService } from './domain/services/check-hein-card.service';
-import { CheckHeinCardValidatorService } from './domain/services/check-hein-card-validator.service';
+import { CheckHeinCardValidatorService } from './application/services/check-hein-card-validator.service';
 import { databaseConfig } from './infrastructure/config/database.config';
-import { IBhxhAuthService } from './infrastructure/interfaces/bhxh-auth.service.interface';
+import { IBhxhAuthService } from './domain/interfaces/bhxh-auth.service.interface';
 import { ITheBhytValidator } from './domain/interfaces/the-bhyt-validator.interface';
 import { ValidationExceptionFilter } from './presentation/filters/validation-exception.filter';
+import { ITheBhytRepository } from './domain/interfaces/the-bhyt.repository.interface';
+import { TheBhytService } from './infrastructure/external/bhxh/the-bhyt.service';
+import { CheckHeinCardDomainValidator } from './domain/services/check-hein-card-validator.service';
+import { CheckHeinCardController } from './presentation/controllers/check-hein-card.controller';
+import { CheckHeinCardQueryService } from './application/services/check-hein-card-query.service';
 
 @Module({
   imports: [
     HttpModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot(databaseConfig),
-    TypeOrmModule.forFeature([CheckHeinCard]),
+    TypeOrmModule.forFeature([CheckHeinCardModel]),
   ],
-  controllers: [TheBhytController],
+  controllers: [TheBhytController, CheckHeinCardController],
   providers: [
     {
       provide: 'ITheBhytUseCase',
@@ -43,7 +47,7 @@ import { ValidationExceptionFilter } from './presentation/filters/validation-exc
     BhxhApiService,
     {
       provide: 'ITheBhytRepository',
-      useClass: TheBhytRepository,
+      useClass: TheBhytService,
     },
     {
       provide: 'ICheckHeinCardRepository',
@@ -53,6 +57,11 @@ import { ValidationExceptionFilter } from './presentation/filters/validation-exc
       provide: 'ICheckHeinCardService',
       useClass: CheckHeinCardService,
     },
+    {
+      provide: 'ICheckHeinCardDomainValidator',
+      useClass: CheckHeinCardDomainValidator,
+    },
+    CheckHeinCardQueryService,
   ],
 })
 export class AppModule {} 

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
-import { EnvConfig } from '../config/env.config';
+import { EnvConfig } from '../../../infrastructure/config/env.config';
 @Injectable()
 export class BhxhApiService {
   private readonly logger = new Logger(BhxhApiService.name);

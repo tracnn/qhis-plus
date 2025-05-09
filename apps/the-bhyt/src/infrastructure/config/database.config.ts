@@ -1,6 +1,7 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { CheckHeinCard } from '../../domain/entities/check-hein-card.entity';
+import { CheckHeinCardModel } from '../database/models/check-hein-card.model';
 import { EnvConfig } from './env.config';
+
 export const databaseConfig: TypeOrmModuleOptions = {
   type: 'mysql',
   host: EnvConfig.DB_MYSQL_HOST,
@@ -8,6 +9,6 @@ export const databaseConfig: TypeOrmModuleOptions = {
   username: EnvConfig.DB_MYSQL_USERNAME,
   password: EnvConfig.DB_MYSQL_PASSWORD,
   database: EnvConfig.DB_MYSQL_NAME,
-  entities: [CheckHeinCard],
+  entities: [CheckHeinCardModel],
   synchronize: false,
 }; 

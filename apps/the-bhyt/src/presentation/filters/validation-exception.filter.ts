@@ -9,6 +9,7 @@ export class ValidationExceptionFilter implements ExceptionFilter {
     const status = exception.getStatus();
     const exceptionResponse = exception.getResponse() as any;
 
+    console.log(exceptionResponse);
     // If the exception response already has our custom format, return it directly
     if (exceptionResponse && exceptionResponse.error === 'ValidationError') {
       return response.status(status).json(exceptionResponse);

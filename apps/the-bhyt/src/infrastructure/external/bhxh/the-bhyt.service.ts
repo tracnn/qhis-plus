@@ -1,11 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { ITheBhytRepository } from '../../domain/interfaces/the-bhyt.repository.interface';
-import { CheckTheBhytDto } from '../../application/dtos/check-the-bhyt.dto';
-import { BhxhApiService } from '../external/bhxh-api.service';
+import { ITheBhytRepository } from '../../../domain/interfaces/the-bhyt.repository.interface';
+import { CheckTheBhytDto } from '../../../application/dtos/check-the-bhyt.dto';
+import { BhxhApiService } from './bhxh-api.service';
 
 @Injectable()
-export class TheBhytRepository implements ITheBhytRepository {
-  private readonly logger = new Logger(TheBhytRepository.name);
+export class TheBhytService implements ITheBhytRepository {
+  private readonly logger = new Logger(TheBhytService.name);
 
   constructor(private readonly bhxhApiService: BhxhApiService) {}
 
@@ -22,4 +22,4 @@ export class TheBhytRepository implements ITheBhytRepository {
       idToken: params.idToken
     });
   }
-}
+} 

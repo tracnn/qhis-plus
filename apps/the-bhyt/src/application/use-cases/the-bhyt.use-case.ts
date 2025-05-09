@@ -5,8 +5,8 @@ import { CheckTheBhytDto } from '../dtos/check-the-bhyt.dto';
 import { ITheBhytValidator } from '../../domain/interfaces/the-bhyt-validator.interface';
 import { CheckHeinCard } from '../../domain/entities/check-hein-card.entity';
 import { CheckHeinCardService } from '../../domain/services/check-hein-card.service';
-import { CheckHeinCardValidatorService } from '../../domain/services/check-hein-card-validator.service';
-import { IBhxhAuthService } from '../../infrastructure/interfaces/bhxh-auth.service.interface';
+import { CheckHeinCardValidatorService } from '../services/check-hein-card-validator.service';
+import { IBhxhAuthService } from '../../domain/interfaces/bhxh-auth.service.interface';
 
 @Injectable()
 export class TheBhytUseCase {
@@ -21,12 +21,12 @@ export class TheBhytUseCase {
 
   async checkTheBhyt(params: CheckTheBhytDto) {
     // Kiểm tra điều kiện trước khi check thẻ
-    const shouldCheck = await this.checkHeinCardValidatorService.shouldCheckTheBhyt(params.ma_lk);
-       
-    if (shouldCheck && params.ma_lk) {
+    const shouldCheck = await this.checkHeinCardValidatorService.shouldCheckTheBhyt(params.maLk);
+    
+    if (shouldCheck && params.maLk) {
       // Nếu không cần check thì lấy kết quả từ database
-      const existingCard = await this.checkHeinCardRepo.findByMaLk(params.ma_lk);
-      
+      const existingCard = await this.checkHeinCardRepo.findByMaLk(params.maLk);
+
       if (existingCard) {
         return existingCard;
       }
@@ -47,10 +47,10 @@ export class TheBhytUseCase {
       checkResult
     );
 
-    // Lưu kết quả kiểm tra nếu có ma_lk
-    if (params.ma_lk) {
+    // Lưu kết quả kiểm tra nếu có maLk
+    if (params.maLk) {
       await this.checkHeinCardService.saveCheckResult({
-        ma_lk: params.ma_lk,
+        maLk: params.maLk,
         maTracuu: checkResult.maKetQua,
         maKiemtra,
         maKetqua: checkResult.maKetQua,

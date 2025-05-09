@@ -2,8 +2,8 @@ import { Injectable, Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { firstValueFrom } from 'rxjs';
-import { EnvConfig } from '../config/env.config';
-import { IBhxhAuthService } from '../interfaces/bhxh-auth.service.interface';
+import { EnvConfig } from '../../config/env.config';
+import { IBhxhAuthService } from '../../../domain/interfaces/bhxh-auth.service.interface';
 
 @Injectable()
 export class BhxhAuthService implements IBhxhAuthService {

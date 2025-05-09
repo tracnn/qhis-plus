@@ -15,6 +15,7 @@ mkdir -p $SRC_DIR/application/dtos
 mkdir -p $SRC_DIR/application/services
 
 mkdir -p $SRC_DIR/domain/entities
+mkdir -p $SRC_DIR/domain/constants
 mkdir -p $SRC_DIR/domain/value-objects
 mkdir -p $SRC_DIR/domain/validators
 mkdir -p $SRC_DIR/domain/services
@@ -24,6 +25,7 @@ mkdir -p $SRC_DIR/infrastructure/database
 mkdir -p $SRC_DIR/infrastructure/interfaces
 mkdir -p $SRC_DIR/infrastructure/external/example/custom-operators
 mkdir -p $SRC_DIR/infrastructure/config
+mkdir -p $SRC_DIR/infrastructure/constants
 
 mkdir -p $SRC_DIR/presentation/controllers
 mkdir -p $SRC_DIR/presentation/middlewares

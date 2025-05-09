@@ -28,7 +28,7 @@ export class CheckTheBhytDto {
 
   @ApiProperty({ description: 'Mã liên kết' })
   @IsString({ message: 'Mã lượt khám phải là chuỗi ký tự' })
-  ma_lk: string;
+  maLk: string;
 
   @ApiProperty({ description: 'Mã cơ sở KCB' })
   @IsString({ message: 'Mã cơ sở KCB phải là chuỗi ký tự' })
