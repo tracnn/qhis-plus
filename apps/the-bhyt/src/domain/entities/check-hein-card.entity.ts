@@ -1,8 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-
+import { Exclude } from 'class-transformer';
 @Entity('check_hein_cards')
 export class CheckHeinCard {
   @PrimaryGeneratedColumn()
+  @Exclude()
   id: number;
 
   @Column({ length: 100, unique: true })
@@ -13,6 +14,9 @@ export class CheckHeinCard {
 
   @Column({ length: 10 })
   ma_kiemtra: string;
+
+  @Column({ length: 10 })
+  ma_ketqua: string;
 
   @Column({ type: 'text', nullable: true })
   ghi_chu: string;

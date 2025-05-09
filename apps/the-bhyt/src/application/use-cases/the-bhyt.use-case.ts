@@ -1,4 +1,4 @@
-import { Injectable, Inject, BadRequestException } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { ITheBhytRepository } from '../../domain/interfaces/the-bhyt.repository.interface';
 import { ICheckHeinCardRepository } from '../../domain/interfaces/check-hein-card.repository.interface';
 import { CheckTheBhytDto } from '../dtos/check-the-bhyt.dto';
@@ -53,6 +53,7 @@ export class TheBhytUseCase {
         ma_lk: params.ma_lk,
         maTracuu: checkResult.maKetQua,
         maKiemtra,
+        maKetqua: checkResult.maKetQua,
         maThe: checkResult.maThe,
         ghiChu: checkResult.ghiChu,
         hoTen: params.hoTen,

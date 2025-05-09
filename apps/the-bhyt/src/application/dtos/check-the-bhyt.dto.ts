@@ -32,6 +32,9 @@ export class CheckTheBhytDto {
 
   @ApiProperty({ description: 'Mã cơ sở KCB' })
   @IsString({ message: 'Mã cơ sở KCB phải là chuỗi ký tự' })
+  @Matches(/^$|^\d{5}$/, {
+    message: 'Mã cơ sở KCB phải là chuỗi rỗng hoặc 5 ký tự dạng số',
+  })
   maCSKCB: string;
 
   @ApiProperty({ description: 'Giới tính' })

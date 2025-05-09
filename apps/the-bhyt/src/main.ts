@@ -1,12 +1,13 @@
-import { NestFactory } from '@nestjs/core';
+import { NestFactory, Reflector} from '@nestjs/core';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './presentation/filters/http-exception.filter';
 import { ValidationExceptionFilter } from './presentation/filters/validation-exception.filter';
 import { EnvConfig } from '../../shared/config/env.config';
-import { ValidationPipe, BadRequestException } from '@nestjs/common';
+import { ValidationPipe, BadRequestException, ClassSerializerInterceptor } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.useGlobalInterceptors(new ClassSerializerInterceptor(app.get(Reflector)));
   app.enableCors();
   
   // Global validation pipe

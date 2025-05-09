@@ -12,7 +12,8 @@ export class CheckHeinCardService {
   async saveCheckResult(params: {
     ma_lk: string;
     maKiemtra: string;
-    maTracuu: any;
+    maTracuu: string;
+    maKetqua: string;
     maThe: string;
     ghiChu: string;
     hoTen: string;
@@ -42,6 +43,7 @@ export class CheckHeinCardService {
       // Nếu đã tồn tại thì update
       existingCard.ma_tracuu = params.maTracuu; // Giá trị cố định
       existingCard.ma_kiemtra = params.maKiemtra;
+      existingCard.ma_ketqua = params.maKetqua;
       existingCard.ghi_chu = params.ghiChu;
       existingCard.ma_the = params.maThe;
       existingCard.ho_ten = params.hoTen;
@@ -70,6 +72,7 @@ export class CheckHeinCardService {
       checkHeinCard.ma_lk = params.ma_lk;
       checkHeinCard.ma_tracuu = params.maTracuu;
       checkHeinCard.ma_kiemtra = params.maKiemtra;
+      checkHeinCard.ma_ketqua = params.maKetqua;
       checkHeinCard.ghi_chu = params.ghiChu;
       checkHeinCard.ma_the = params.maThe;
       checkHeinCard.ho_ten = params.hoTen;
