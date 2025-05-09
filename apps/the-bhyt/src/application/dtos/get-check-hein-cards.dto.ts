@@ -3,29 +3,17 @@ import { Transform, Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class GetCheckHeinCardsDto {
-  @ApiProperty({ required: false, description: 'Ngày bắt đầu (YYYY-MM-DD)' })
-  @IsOptional()
+  @ApiProperty({ required: false, description: 'Ngày bắt đầu (YYYY-MM-DD HH:mm:ss)' })
   @IsString()
-  @Transform(({ value }) => {
-    if (!value) return undefined;
-    const date = new Date(value);
-    return isNaN(date.getTime()) ? undefined : value;
-  })
   startDate?: string;
 
-  @ApiProperty({ required: false, description: 'Ngày kết thúc (YYYY-MM-DD)' })
-  @IsOptional()
+  @ApiProperty({ required: false, description: 'Ngày kết thúc (YYYY-MM-DD HH:mm:ss)' })
   @IsString()
-  @Transform(({ value }) => {
-    if (!value) return undefined;
-    const date = new Date(value);
-    return isNaN(date.getTime()) ? undefined : value;
-  })
   endDate?: string;
 
   @ApiProperty({ required: false, description: 'Danh sách mã kết quả (phân cách bằng dấu phẩy)', example: '01,02,03' })
   @IsOptional()
-  @IsString()
+  //@IsString()
   @Transform(({ value }) => {
     if (!value) return undefined;
     return value.split(',').map(item => item.trim()).filter(Boolean);

@@ -49,9 +49,17 @@ export class CheckHeinCardRepository implements ICheckHeinCardRepository {
 
     // Add filters
     if (startDate && endDate) {
+      // Set endDate to end of day
+      const endOfDay = new Date(endDate);
+      endOfDay.setHours(23, 59, 59, 999);
+
+      // Set startDate to start of day
+      const startOfDay = new Date(startDate);
+      startOfDay.setHours(0, 0, 0, 0);
+
       queryBuilder.andWhere('check_hein_cards.updated_at BETWEEN :startDate AND :endDate', {
-        startDate,
-        endDate,
+        startDate: startDate,
+        endDate: startDate,
       });
     }
 
@@ -60,7 +68,7 @@ export class CheckHeinCardRepository implements ICheckHeinCardRepository {
         maKetQua,
       });
     }
-
+    console.log(queryBuilder.getQueryAndParameters());
     // Add pagination
     const skip = (page - 1) * limit;
     queryBuilder.skip(skip).take(limit);

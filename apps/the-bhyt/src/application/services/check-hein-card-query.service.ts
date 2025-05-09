@@ -9,15 +9,15 @@ export class CheckHeinCardQueryService {
     private readonly checkHeinCardRepository: ICheckHeinCardRepository,
   ) {}
 
-  async getCheckHeinCards(query: GetCheckHeinCardsDto) {
-    const { startDate, endDate, maKetQua, page, limit } = query;
-    
+  async getCheckHeinCards(params: GetCheckHeinCardsDto) {
+    const { startDate, endDate, maKetQua, page, limit } = params;
+    console.log(startDate, endDate, maKetQua, page, limit);
     return this.checkHeinCardRepository.findWithFilters({
-      startDate: startDate ? new Date(startDate) : undefined,
-      endDate: endDate ? new Date(endDate) : undefined,
-      maKetQua,
-      page,
-      limit,
+        startDate: startDate ? new Date(startDate) : undefined,
+        endDate: endDate ? new Date(endDate) : undefined,
+        maKetQua,
+        page,
+        limit,
     });
   }
 } 
