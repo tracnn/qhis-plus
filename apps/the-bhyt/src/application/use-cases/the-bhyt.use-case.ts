@@ -20,31 +20,6 @@ export class TheBhytUseCase {
   ) {}
 
   async checkTheBhyt(params: CheckTheBhytDto) {
-    // Validate all fields
-    const validationResults = [
-      this.validatorService.validateMaThe(params.maThe),
-      this.validatorService.validateHoTen(params.hoTen),
-      this.validatorService.validateNgaySinh(params.ngaySinh),
-      this.validatorService.validateGioiTinh(params.gioiTinh)
-    ];
-
-    // Collect all validation errors
-    const validationErrors = validationResults
-      .filter(result => !result.isValid)
-      .map(result => ({
-        field: result.fieldName,
-        message: result.errorMessage
-      }));
-
-    // If there are any errors, throw them all at once
-    if (validationErrors.length > 0) {
-      throw new BadRequestException({
-        statusCode: 400,
-        message: 'Validation failed',
-        validationErrors
-      });
-    }
-
     // Kiểm tra điều kiện trước khi check thẻ
     const shouldCheck = await this.checkHeinCardValidatorService.shouldCheckTheBhyt(params.ma_lk);
        
@@ -53,7 +28,7 @@ export class TheBhytUseCase {
       const existingCard = await this.checkHeinCardRepo.findByMaLk(params.ma_lk);
       
       if (existingCard) {
-        return existingCard
+        return existingCard;
       }
     }
 
