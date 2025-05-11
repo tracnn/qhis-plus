@@ -1,22 +1,21 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { CheckHeinCard } from '../../../domain/entities/check-hein-card.entity';
+import { BaseModel } from './base.model';
 
 @Entity('check_hein_cards')
-export class CheckHeinCardModel {
-  @PrimaryGeneratedColumn()
-  id: number;
+export class CheckHeinCardModel extends BaseModel {
 
   @Column({ length: 100, unique: true })
   ma_lk: string;
 
   @Column({ length: 10 })
-  ma_tracuu: string;
+  ma_tra_cuu: string;
 
   @Column({ length: 10 })
-  ma_kiemtra: string;
+  ma_kiem_tra: string;
 
   @Column({ length: 10 })
-  ma_ketqua: string;
+  ma_ket_qua: string;
 
   @Column({ type: 'text', nullable: true })
   ghi_chu: string;
@@ -75,20 +74,14 @@ export class CheckHeinCardModel {
   @Column({ length: 255, nullable: true })
   ten_dkbd_moi: string;
 
-  @CreateDateColumn({ name: 'created_at' })
-  created_at: Date;
-
-  @UpdateDateColumn({ name: 'updated_at' })
-  updated_at: Date;
-
   // Mapper methods
   toEntity(): CheckHeinCard {
     return new CheckHeinCard({
       id: this.id,
       maLk: this.ma_lk,
-      maTraCuu: this.ma_tracuu,
-      maKiemTra: this.ma_kiemtra,
-      maKetQua: this.ma_ketqua,
+      maTraCuu: this.ma_tra_cuu,
+      maKiemTra: this.ma_kiem_tra,
+      maKetQua: this.ma_ket_qua,
       ghiChu: this.ghi_chu,
       maThe: this.ma_the,
       hoTen: this.ho_ten,
@@ -110,6 +103,10 @@ export class CheckHeinCardModel {
       tenDkbdMoi: this.ten_dkbd_moi,
       createdAt: this.created_at,
       updatedAt: this.updated_at,
+      deletedAt: this.deleted_at,
+      createdBy: this.created_by,
+      updatedBy: this.updated_by,
+      version: this.version,
     });
   }
 
@@ -120,9 +117,9 @@ export class CheckHeinCardModel {
       model.id = id;
     }
     model.ma_lk = entity.getMaLk();
-    model.ma_tracuu = entity.getMaTraCuu();
-    model.ma_kiemtra = entity.getMaKiemTra();
-    model.ma_ketqua = entity.getMaKetQua();
+    model.ma_tra_cuu = entity.getMaTraCuu();
+    model.ma_kiem_tra = entity.getMaKiemTra();
+    model.ma_ket_qua = entity.getMaKetQua();
     model.ghi_chu = entity.getGhiChu() || '';
     model.ma_the = entity.getMaThe() || '';
     model.ho_ten = entity.getHoTen() || '';
@@ -142,14 +139,12 @@ export class CheckHeinCardModel {
     model.gt_the_denmoi = entity.getGtTheDenMoi() || '';
     model.ma_dkbd_moi = entity.getMaDkbdMoi() || '';
     model.ten_dkbd_moi = entity.getTenDkbdMoi() || '';
-    const createdAt = entity.getCreatedAt();
-    if (createdAt) {
-      model.created_at = createdAt;
-    }
-    const updatedAt = entity.getUpdatedAt();
-    if (updatedAt) {
-      model.updated_at = updatedAt;
-    }
+    model.created_at = entity.getCreatedAt();
+    model.updated_at = entity.getUpdatedAt();
+    model.deleted_at = entity.getDeletedAt();
+    model.created_by = entity.getCreatedBy();
+    model.updated_by = entity.getUpdatedBy();
+    model.version = entity.getVersion();
     return model;
   }
 } 

@@ -1,33 +1,38 @@
-export class CheckHeinCard {
-  private readonly id?: number;
-  private readonly maLk: string;
-  private readonly maTraCuu: string;
-  private readonly maKiemTra: string;
-  private readonly maKetQua: string;
-  private readonly ghiChu?: string;
-  private readonly maThe?: string;
-  private readonly hoTen?: string;
-  private readonly ngaySinh?: string;
-  private readonly diaChi?: string;
-  private readonly maTheCu?: string;
-  private readonly maTheMoi?: string;
-  private readonly maDkbd?: string;
-  private readonly cqBhxh?: string;
-  private readonly gioiTinh?: string;
-  private readonly gtTheTu?: string;
-  private readonly gtTheDen?: string;
-  private readonly maKv?: string;
-  private readonly ngayDu5Nam?: string;
-  private readonly maSoBhxh?: string;
-  private readonly gtTheTuMoi?: string;
-  private readonly gtTheDenMoi?: string;
-  private readonly maDkbdMoi?: string;
-  private readonly tenDkbdMoi?: string;
-  private readonly createdAt: Date;
-  private readonly updatedAt: Date;
+import { BaseEntity } from "./base.entity";
+
+export class CheckHeinCard extends BaseEntity {
+  private maLk: string;
+  private maTraCuu: string;
+  private maKiemTra: string;
+  private maKetQua: string;
+  private ghiChu?: string;
+  private maThe?: string;
+  private hoTen?: string;
+  private ngaySinh?: string;
+  private diaChi?: string;
+  private maTheCu?: string;
+  private maTheMoi?: string;
+  private maDkbd?: string;
+  private cqBhxh?: string;
+  private gioiTinh?: string;
+  private gtTheTu?: string;
+  private gtTheDen?: string;
+  private maKv?: string;
+  private ngayDu5Nam?: string;
+  private maSoBhxh?: string;
+  private gtTheTuMoi?: string;
+  private gtTheDenMoi?: string;
+  private maDkbdMoi?: string;
+  private tenDkbdMoi?: string;
 
   constructor(params: {
     id?: number;
+    version?: number;
+    createdAt?: Date;
+    updatedAt?: Date;
+    deletedAt?: Date | null;
+    createdBy?: string | null;
+    updatedBy?: string | null;
     maLk: string;
     maTraCuu: string;
     maKiemTra: string;
@@ -51,10 +56,8 @@ export class CheckHeinCard {
     gtTheDenMoi?: string;
     maDkbdMoi?: string;
     tenDkbdMoi?: string;
-    createdAt: Date;
-    updatedAt: Date;
   }) {
-    this.id = params.id;
+    super(params);
     this.maLk = params.maLk;
     this.maTraCuu = params.maTraCuu;
     this.maKiemTra = params.maKiemTra;
@@ -78,8 +81,6 @@ export class CheckHeinCard {
     this.gtTheDenMoi = params.gtTheDenMoi;
     this.maDkbdMoi = params.maDkbdMoi;
     this.tenDkbdMoi = params.tenDkbdMoi;
-    this.createdAt = params.createdAt;
-    this.updatedAt = params.updatedAt;
   }
 
   // Business methods
@@ -87,11 +88,12 @@ export class CheckHeinCard {
     return Boolean(this.maLk && this.maTraCuu && this.maKiemTra && this.maKetQua);
   }
 
-  // Getters
-  public getId(): number | undefined {
-    return this.id;
+  // Method to update fields
+  public updateFields(data: Partial<CheckHeinCard>, updatedBy: string | null): void {
+    Object.assign(this, data);
+    this.markUpdated(updatedBy);
   }
-
+  
   public getMaLk(): string {
     return this.maLk;
   }
@@ -182,13 +184,5 @@ export class CheckHeinCard {
 
   public getTenDkbdMoi(): string | undefined {
     return this.tenDkbdMoi;
-  }
-
-  public getCreatedAt(): Date {
-    return this.createdAt;
-  }
-
-  public getUpdatedAt(): Date {
-    return this.updatedAt;
   }
 } 

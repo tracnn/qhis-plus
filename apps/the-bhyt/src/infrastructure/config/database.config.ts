@@ -10,5 +10,5 @@ export const databaseConfig: TypeOrmModuleOptions = {
   password: EnvConfig.DB_MYSQL_PASSWORD,
   database: EnvConfig.DB_MYSQL_NAME,
   entities: [CheckHeinCardModel],
-  synchronize: false,
+  synchronize: true,
 }; 
