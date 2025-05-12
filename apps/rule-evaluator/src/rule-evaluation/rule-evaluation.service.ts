@@ -26,9 +26,9 @@ export class RuleEvaluationService {
         // Add rules to engine
         for (const rule of rules) {
             try {
-                const condition = JSON.parse(rule.condition);
+                const conditions = JSON.parse(rule.conditions);
                 engine.addRule({
-                    conditions: condition,
+                    conditions: conditions,
                     event: {
                         type: rule.event_type,
                         params: {
@@ -39,7 +39,7 @@ export class RuleEvaluationService {
                     }
                 });
             } catch (error) {
-                console.error(`Error parsing rule condition for rule ${rule.rule_code}:`, error);
+                console.error(`Error parsing rule conditions for rule ${rule.rule_code}:`, error);
             }
         }
 
