@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { RuleRepository } from '../rule/rule.repository';
 import { Engine } from 'json-rules-engine';
 import { EvaluateRuleDto } from './dtos/evaluate-rule.dto';
+import { medicalCustomOperators } from './medical-custom-operators';
 
 @Injectable()
 export class RuleEvaluationService {
@@ -17,6 +18,11 @@ export class RuleEvaluationService {
     }> {
         const { facts, options } = evaluateDto;
         const engine = new Engine();
+
+        // Đăng ký tất cả các toán tử tùy chỉnh
+        Object.entries(medicalCustomOperators).forEach(([operatorName, evaluator]) => {
+            engine.addOperator(operatorName, evaluator);
+        });
 
         // Get all rules or filter by rule group
         const rules = await this.ruleRepository.find({
