@@ -7,7 +7,6 @@ import {
   BaseEntity as TypeOrmBaseEntity,
   VersionColumn
 } from "typeorm";
-import { Exclude } from "class-transformer";
 
 export abstract class BaseEntity extends TypeOrmBaseEntity {
   @PrimaryGeneratedColumn()
