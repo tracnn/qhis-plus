@@ -1,5 +1,5 @@
-import { IsString, IsBoolean, IsNotEmpty, IsOptional, IsIn, Validate, IsJSON } from "class-validator";
-import { EVENT_TYPES } from "../constant/rule.constants"
+import { IsString, IsBoolean, IsNotEmpty, IsOptional, IsIn, Validate, IsJSON, IsObject } from "class-validator";
+import { EVENT_TYPES, RULE_GROUP_TYPE, RULE_GROUP_TYPES } from "../constant/rule.constants"
 
 export class RuleDto {
     @IsString()
@@ -12,11 +12,12 @@ export class RuleDto {
 
     @IsString()
     @IsNotEmpty()
-    rule_group: string;
+    @IsIn(RULE_GROUP_TYPES)
+    rule_group: RULE_GROUP_TYPE;
 
-    @IsString()
+    @IsObject()
     @IsNotEmpty()
-    condition: string;
+    conditions: any;
 
     @IsString()
     @IsString()

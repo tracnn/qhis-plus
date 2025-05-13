@@ -1,12 +1,13 @@
-import { IsObject, IsOptional } from 'class-validator';
+import { IsObject, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
 
 export class EvaluateRuleDto {
-    @IsObject()
-    facts: Record<string, any>;
+  @IsObject()
+  @ValidateNested()
+  @Type(() => Object)
+  facts: Record<string, any>;
 
-    @IsOptional()
-    @IsObject()
-    options?: {
-        ruleGroup?: string;
-    };
-} 
+  @IsOptional()
+  @IsString()
+  ruleGroup?: string;
+}
