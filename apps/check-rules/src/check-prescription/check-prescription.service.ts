@@ -3,12 +3,13 @@ import { CheckPrescriptionDto, DrugItemDto } from './dtos/check-prescription.dto
 
 @Injectable()
 export class CheckPrescriptionService {
-    async checkPrescription(checkPrescriptionDto: CheckPrescriptionDto): Promise<any> {
-        const facts = this.transformDtoToFacts(checkPrescriptionDto);
-        return facts;
-    }
+  async checkPrescription(checkPrescriptionDto: CheckPrescriptionDto): Promise<any> {
+    // const facts = this.transformDtoToFacts(checkPrescriptionDto);
+    // return facts;
+    return checkPrescriptionDto;
+  }
 
-      // Phương thức chuyển DTO thành facts cho json-rules-engine
+  // Phương thức chuyển DTO thành facts cho json-rules-engine
   private transformDtoToFacts(dto: CheckPrescriptionDto): Record<string, any> {
     const facts: Record<string, any> = {
       ma_lk: dto.ma_lk,

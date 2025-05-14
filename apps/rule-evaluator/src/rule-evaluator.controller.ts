@@ -22,6 +22,7 @@ export class RuleEvaluatorController {
   createRule(@Body() ruleData: RuleDto): Promise<Rule> {
     return this.ruleService.create(ruleData);
   }
+  
   @Patch(':id')
   updateRule(@Param('id') id: number, @Body() ruleData: RuleDto): Promise<Rule> {
     return this.ruleService.update(id, ruleData);
