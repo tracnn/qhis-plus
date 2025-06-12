@@ -29,7 +29,7 @@ const Calendar: React.FC = () => {
   const [eventLevel, setEventLevel] = useState("");
   const [events, setEvents] = useState<CalendarEvent[]>([]);
   const calendarRef = useRef<FullCalendar>(null);
-  const { isOpen, openModal, closeModal } = useModal();
+  const { isOpen, open, close } = useModal();
 
   const calendarsEvents = {
     Danger: "danger",
@@ -67,7 +67,7 @@ const Calendar: React.FC = () => {
     resetModalFields();
     setEventStartDate(selectInfo.startStr);
     setEventEndDate(selectInfo.endStr || selectInfo.startStr);
-    openModal();
+    open();
   };
 
   const handleEventClick = (clickInfo: EventClickArg) => {
@@ -77,7 +77,7 @@ const Calendar: React.FC = () => {
     setEventStartDate(event.start?.toISOString().split("T")[0] || "");
     setEventEndDate(event.end?.toISOString().split("T")[0] || "");
     setEventLevel(event.extendedProps.calendar);
-    openModal();
+    open();
   };
 
   const handleAddOrUpdateEvent = () => {
@@ -108,7 +108,7 @@ const Calendar: React.FC = () => {
       };
       setEvents((prevEvents) => [...prevEvents, newEvent]);
     }
-    closeModal();
+    close();
     resetModalFields();
   };
 
@@ -140,14 +140,14 @@ const Calendar: React.FC = () => {
           customButtons={{
             addEventButton: {
               text: "Add Event +",
-              click: openModal,
+              click: open,
             },
           }}
         />
       </div>
       <Modal
         isOpen={isOpen}
-        onClose={closeModal}
+        onClose={close}
         className="max-w-[700px] p-6 lg:p-10"
       >
         <div className="flex flex-col px-2 overflow-y-auto custom-scrollbar">
@@ -247,7 +247,7 @@ const Calendar: React.FC = () => {
           </div>
           <div className="flex items-center gap-3 mt-6 modal-footer sm:justify-end">
             <button
-              onClick={closeModal}
+              onClick={close}
               type="button"
               className="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto"
             >

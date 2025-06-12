@@ -12,6 +12,11 @@ export const BASE_SCHEMA = {
     LIS_RS: 'LIS_RS',
 }
 
+export const USER_TYPE = {
+    STAFF: 'STAFF',
+    USER: 'USER',
+}
+
 export const SERVICE_REQ_TYPE_IDS_CLINICAL_LAB = [6, 7, 11, 14, 15, 16, 17];
 
 export enum SERVICE_REQ_STATUS_ID {

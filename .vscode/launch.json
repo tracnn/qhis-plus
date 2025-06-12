@@ -1,0 +1,61 @@
+{
+  "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "Debug Fullstack",
+      "configurations": ["Debug NestJS Backend", "Debug NextJS Frontend"]
+    }
+  ],
+  "configurations": [
+    {
+      "name": "Attach",
+      "port": 7111,
+      "request": "attach",
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "type": "node"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug NestJS Backend",
+      "program": "${workspaceFolder}/backend/src/main.ts",
+      "cwd": "${workspaceFolder}/backend",
+      "autoAttachChildProcesses": true,
+      "runtimeArgs": [
+        "-r",
+        "ts-node/register"
+      ],
+      "envFile": "${workspaceFolder}/backend/.env",
+      "sourceMaps": true,
+      "outFiles": [
+        "${workspaceFolder}/backend/dist/**/*.js"
+      ],
+      "preLaunchTask": "npm: build"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Debug NextJS Frontend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "dev"
+      ],
+      "cwd": "${workspaceFolder}/frontend",
+      "port": 3001,
+      "envFile": "${workspaceFolder}/frontend/.env"
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Debug NextJS Frontend (Chrome)",
+      "url": "http://localhost:3001",
+      "webRoot": "${workspaceFolder}/frontend",
+      "sourceMapPathOverrides": {
+        "webpack://_N_E/*": "${webRoot}/*"
+      }
+    }
+  ]
+}

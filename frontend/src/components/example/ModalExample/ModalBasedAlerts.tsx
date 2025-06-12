@@ -14,25 +14,25 @@ export default function ModalBasedAlerts() {
     <ComponentCard title="Modal Based Alerts">
       <div className="flex flex-wrap items-center gap-3">
         <button
-          onClick={successModal.openModal}
+          onClick={successModal.open}
           className="px-4 py-3 text-sm font-medium text-white rounded-lg bg-success-500 shadow-theme-xs hover:bg-success-600"
         >
           Success Alert
         </button>
         <button
-          onClick={infoModal.openModal}
+          onClick={infoModal.open}
           className="px-4 py-3 text-sm font-medium text-white rounded-lg bg-blue-light-500 shadow-theme-xs hover:bg-blue-light-600"
         >
           Info Alert
         </button>
         <button
-          onClick={warningModal.openModal}
+          onClick={warningModal.open}
           className="px-4 py-3 text-sm font-medium text-white rounded-lg bg-warning-500 shadow-theme-xs hover:bg-warning-600"
         >
           Warning Alert
         </button>
         <button
-          onClick={errorModal.openModal}
+          onClick={errorModal.open}
           className="px-4 py-3 text-sm font-medium text-white rounded-lg bg-error-500 shadow-theme-xs hover:bg-error-600"
         >
           Danger Alert
@@ -41,7 +41,7 @@ export default function ModalBasedAlerts() {
       {/* Success Modal */}
       <Modal
         isOpen={successModal.isOpen}
-        onClose={successModal.closeModal}
+        onClose={successModal.close}
         className="max-w-[600px] p-5 lg:p-10"
       >
         <div className="text-center">
@@ -100,7 +100,7 @@ export default function ModalBasedAlerts() {
       {/* Info Modal */}
       <Modal
         isOpen={infoModal.isOpen}
-        onClose={infoModal.closeModal}
+        onClose={infoModal.close}
         className="max-w-[600px] p-5 lg:p-10"
       >
         <div className="text-center">
@@ -132,7 +132,7 @@ export default function ModalBasedAlerts() {
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
-                  d="M5.85547 18.9998C5.85547 11.7396 11.7411 5.854 19.0013 5.854C26.2615 5.854 32.1471 11.7396 32.1471 18.9998C32.1471 26.2601 26.2615 32.1457 19.0013 32.1457C11.7411 32.1457 5.85547 26.2601 5.85547 18.9998ZM19.0013 2.854C10.0842 2.854 2.85547 10.0827 2.85547 18.9998C2.85547 27.9169 10.0842 35.1457 19.0013 35.1457C27.9184 35.1457 35.1471 27.9169 35.1471 18.9998C35.1471 10.0827 27.9184 2.854 19.0013 2.854ZM16.9999 11.9145C16.9999 13.0191 17.8953 13.9145 18.9999 13.9145H19.0015C20.106 13.9145 21.0015 13.0191 21.0015 11.9145C21.0015 10.81 20.106 9.91454 19.0015 9.91454H18.9999C17.8953 9.91454 16.9999 10.81 16.9999 11.9145ZM19.0014 27.8171C18.173 27.8171 17.5014 27.1455 17.5014 26.3171V17.3293C17.5014 16.5008 18.173 15.8293 19.0014 15.8293C19.8299 15.8293 20.5014 16.5008 20.5014 17.3293L20.5014 26.3171C20.5014 27.1455 19.8299 27.8171 19.0014 27.8171Z"
+                  d="M5.85547 18.9998C5.85547 11.7396 11.7411 5.854 19.0013 5.854C26.2615 5.854 32.1471 11.7396 32.1471 18.9998C32.1471 26.2601 26.2615 32.1457 19.0013 32.1457C11.7411 32.1457 5.85547 26.2601 5.85547 18.9998ZM19.0013 2.854C10.0842 2.854 2.85547 10.0827 2.85547 18.9998C2.85547 27.8723 10.0842 35.0643 19.0013 35.0643C27.8733 35.0643 35.0653 27.8723 35.0653 18.9998C35.0653 10.0827 27.8733 2.854 19.0013 2.854ZM24.7855 17.0575C25.3713 16.4717 25.3713 15.522 24.7855 14.9362C24.1997 14.3504 23.25 14.3504 22.6642 14.9362L17.7177 19.8827L15.3387 17.5037C14.7529 16.9179 13.8031 16.9179 13.2173 17.5037C12.6316 18.0894 12.6316 19.0392 13.2173 19.625L16.657 23.0647C16.9383 23.346 17.3199 23.504 17.7177 23.504C18.1155 23.504 18.4971 23.346 18.7784 23.0647L24.7855 17.0575Z"
                   fill=""
                 />
               </svg>
@@ -160,7 +160,7 @@ export default function ModalBasedAlerts() {
       {/* Warning Modal */}
       <Modal
         isOpen={warningModal.isOpen}
-        onClose={warningModal.closeModal}
+        onClose={warningModal.close}
         className="max-w-[600px] p-5 lg:p-10"
       >
         <div className="text-center">
@@ -220,7 +220,7 @@ export default function ModalBasedAlerts() {
       {/* Error Modal */}
       <Modal
         isOpen={errorModal.isOpen}
-        onClose={errorModal.closeModal}
+        onClose={errorModal.close}
         className="max-w-[600px] p-5 lg:p-10"
       >
         <div className="text-center">

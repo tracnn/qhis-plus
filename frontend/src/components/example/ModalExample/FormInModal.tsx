@@ -8,20 +8,20 @@ import Input from "../../form/input/InputField";
 import { useModal } from "@/hooks/useModal";
 
 export default function FormInModal() {
-  const { isOpen, openModal, closeModal } = useModal();
+  const { isOpen, open, close } = useModal();
   const handleSave = () => {
     // Handle save logic here
     console.log("Saving changes...");
-    closeModal();
+    close();
   };
   return (
     <ComponentCard title="Form In Modal">
-      <Button size="sm" onClick={openModal}>
+      <Button size="sm" onClick={open}>
         Open Modal
       </Button>
       <Modal
         isOpen={isOpen}
-        onClose={closeModal}
+        onClose={close}
         className="max-w-[584px] p-5 lg:p-10"
       >
         <form className="">
@@ -57,7 +57,7 @@ export default function FormInModal() {
           </div>
 
           <div className="flex items-center justify-end w-full gap-3 mt-6">
-            <Button size="sm" variant="outline" onClick={closeModal}>
+            <Button size="sm" variant="outline" onClick={close}>
               Close
             </Button>
             <Button size="sm" onClick={handleSave}>

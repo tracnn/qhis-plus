@@ -5,9 +5,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BASE_SCHEMA } from '../../constant/common.constant';
 import { CqrsModule } from '@nestjs/cqrs';
 import { ValidateCredentialsHandler } from './queries/validate-credentials.handler';
+import { GetUserByIdHandler } from './queries/get-user-by-id.handler';
 
 const queryHandlers = [
-  ValidateCredentialsHandler
+  ValidateCredentialsHandler,
+  GetUserByIdHandler
 ];
 
 

@@ -1,22 +1,39 @@
-import Sidebar from "@/components/Sidebar";
-import Header from "@/components/Header";
+"use client";
 
-export default function DashboardLayout({
+import { useSidebar } from "@/context/SidebarContext";
+import AppHeader from "@/layout/AppHeader";
+import AppSidebar from "@/layout/AppSidebar";
+import Backdrop from "@/layout/Backdrop";
+import React from "react";
+
+export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { isExpanded, isHovered, isMobileOpen } = useSidebar();
+
+  // Dynamic class for main content margin based on sidebar state
+  const mainContentMargin = isMobileOpen
+    ? "ml-0"
+    : isExpanded || isHovered
+    ? "lg:ml-[290px]"
+    : "lg:ml-[90px]";
+
   return (
-    <div className="flex h-screen overflow-hidden">
-      <Sidebar />
-      <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-        <Header />
-        <main>
-          <div className="mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10">
-            {children}
-          </div>
-        </main>
+    <div className="min-h-screen xl:flex">
+      {/* Sidebar and Backdrop */}
+      <AppSidebar />
+      <Backdrop />
+      {/* Main Content Area */}
+      <div
+        className={`flex-1 transition-all  duration-300 ease-in-out ${mainContentMargin}`}
+      >
+        {/* Header */}
+        <AppHeader />
+        {/* Page Content */}
+        <div className="p-4 mx-auto max-w-(--breakpoint-2xl) md:p-6">{children}</div>
       </div>
     </div>
   );
-} 
+}

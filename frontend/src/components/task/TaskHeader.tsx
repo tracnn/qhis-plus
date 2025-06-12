@@ -10,7 +10,7 @@ import Image from "next/image";
 
 export default function TaskHeader() {
   const [selectedTaskGroup, setSelectedTaskGroup] = useState<string>("All");
-  const { isOpen, openModal, closeModal } = useModal();
+  const { isOpen, open, close } = useModal();
   const [message, setMessage] = useState("");
 
   const taskGroups = [
@@ -69,7 +69,7 @@ export default function TaskHeader() {
               </svg>
               Filter & Short
             </Button>
-            <Button size="sm" onClick={openModal}>
+            <Button size="sm" onClick={open}>
               Add New Task
               <svg
                 className="fill-current"
@@ -92,7 +92,7 @@ export default function TaskHeader() {
       </div>
       <Modal
         isOpen={isOpen}
-        onClose={closeModal}
+        onClose={close}
         className="max-w-[700px] p-5 lg:p-10 m-4"
       >
         <div className="px-2">
@@ -438,14 +438,14 @@ export default function TaskHeader() {
 
             <div className="flex items-center w-full gap-3 sm:w-auto">
               <button
-                onClick={closeModal}
+                onClick={close}
                 type="button"
                 className="flex w-full justify-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] sm:w-auto"
               >
                 Cancel
               </button>
               <button
-                onClick={closeModal}
+                onClick={close}
                 type="button"
                 className="flex w-full justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 sm:w-auto"
               >

@@ -7,11 +7,11 @@ import Input from "../form/input/InputField";
 import Label from "../form/Label";
 
 export default function UserAddressCard() {
-  const { isOpen, openModal, closeModal } = useModal();
+  const { isOpen, open, close } = useModal();
   const handleSave = () => {
     // Handle save logic here
     console.log("Saving changes...");
-    closeModal();
+    close();
   };
   return (
     <>
@@ -62,7 +62,7 @@ export default function UserAddressCard() {
           </div>
 
           <button
-            onClick={openModal}
+            onClick={open}
             className="flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200 lg:inline-flex lg:w-auto"
           >
             <svg
@@ -84,7 +84,7 @@ export default function UserAddressCard() {
           </button>
         </div>
       </div>
-      <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[700px] m-4">
+      <Modal isOpen={isOpen} onClose={close} className="max-w-[700px] m-4">
         <div className="relative w-full p-4 overflow-y-auto bg-white no-scrollbar rounded-3xl dark:bg-gray-900 lg:p-11">
           <div className="px-2 pr-14">
             <h4 className="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
@@ -119,7 +119,7 @@ export default function UserAddressCard() {
               </div>
             </div>
             <div className="flex items-center gap-3 px-2 mt-6 lg:justify-end">
-              <Button size="sm" variant="outline" onClick={closeModal}>
+              <Button size="sm" variant="outline" onClick={close}>
                 Close
               </Button>
               <Button size="sm" onClick={handleSave}>

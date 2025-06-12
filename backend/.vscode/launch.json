@@ -10,13 +10,13 @@
         "request": "launch",
         "name": "Debug NestJS",
         "skipFiles": ["<node_internals>/**"],
-        "program": "${workspaceFolder}/src/main.ts",
+        "program": "${workspaceFolder}/backend/src/main.ts",
         "runtimeArgs": [
           "-r",
           "ts-node/register"
         ],
         "env": {
-          "TS_NODE_PROJECT": "${workspaceFolder}/tsconfig.json"
+          "TS_NODE_PROJECT": "${workspaceFolder}/backend/tsconfig.json"
         }
       }
     ]

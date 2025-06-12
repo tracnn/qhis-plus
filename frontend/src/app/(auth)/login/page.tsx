@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Inter } from "next/font/google";
-import { fetchWithAuth } from "@/utils/fetchWithAuth";
+import Cookies from "js-cookie";
+import LoadingSpinner from "@/components/ui/loading/LoadingSpinner";
 
 const inter = Inter({ subsets: ["latin", "vietnamese"], weight: ["400", "700"] });
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL;
@@ -15,18 +16,28 @@ export default function LoginPage() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Kiểm tra trạng thái đăng nhập khi component mount
+  useEffect(() => {
+    const accessToken = Cookies.get("accessToken");
+    if (accessToken) {
+      router.push("/dashboard");
+    }
+  }, [router]);
+
   // Khi load trang, kiểm tra localStorage
   useEffect(() => {
     const savedUsername = localStorage.getItem("rememberedUsername");
+    const savedPassword = localStorage.getItem("rememberedPassword");
     const savedRemember = localStorage.getItem("rememberMe") === "true";
     if (savedUsername && savedRemember) {
       setFormData((prev) => ({ ...prev, username: savedUsername }));
       setRemember(true);
+      setFormData((prev) => ({ ...prev, password: savedPassword || "" }));
     }
   }, []);
 
   async function login(username: string, password: string) {
-    const res = await fetch(`${backendUrl}/api/auth/login`, {
+    const res = await fetch(`${backendUrl}/admin/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ username, password }),
@@ -35,7 +46,8 @@ export default function LoginPage() {
       const data = await res.json().catch(() => ({}));
       throw new Error(data.message || "Sai tài khoản hoặc mật khẩu");
     }
-    return res.json(); // { accessToken, refreshToken }
+    const result = await res.json();
+    return result.data; // trả về { accessToken, refreshToken }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -44,28 +56,30 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const { accessToken, refreshToken } = await login(formData.username, formData.password);
-      localStorage.setItem("accessToken", accessToken);
-      localStorage.setItem("refreshToken", refreshToken);
+      Cookies.set("accessToken", accessToken);
+      Cookies.set("refreshToken", refreshToken);
 
       // Xử lý ghi nhớ
       if (remember) {
         localStorage.setItem("rememberedUsername", formData.username);
+        localStorage.setItem("rememberedPassword", formData.password);
         localStorage.setItem("rememberMe", "true");
       } else {
         localStorage.removeItem("rememberedUsername");
+        localStorage.removeItem("rememberedPassword");
         localStorage.removeItem("rememberMe");
       }
 
       router.push("/dashboard");
-    } catch (err: any) {
-      setError(err.message || "Có lỗi xảy ra, vui lòng thử lại");
+    } catch (err: Error | unknown) {
+      setError(err instanceof Error ? err.message : "Có lỗi xảy ra, vui lòng thử lại");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className={`w-full max-w-md p-8 space-y-8 bg-white rounded-2xl shadow-xl ${inter.className}`}>
+    <div className={`w-full max-w-md p-8 space-y-8 bg-white rounded-2xl shadow-xl mx-auto px-4 ${inter.className}`}>
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900">Chào mừng bạn quay trở lại</h1>
         <p className="mt-2 text-sm text-gray-600">Đăng nhập để tiếp tục</p>
@@ -125,7 +139,12 @@ export default function LoginPage() {
           disabled={loading}
           className="w-full px-4 py-3 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
         >
-          {loading ? "Đang đăng nhập..." : "Đăng nhập"}
+          {loading ? (
+            <span className="flex items-center justify-center">
+              <LoadingSpinner size="sm" color="white" className="mr-2" />
+              Đăng nhập...
+            </span>
+          ) : "Đăng nhập"}
         </button>
       </form>
     </div>

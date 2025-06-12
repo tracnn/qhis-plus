@@ -11,6 +11,7 @@ import { RefreshTokenDto } from './dto/refresh-token.dto';
 import { AuthResponseDto } from './dto/auth-response.dto';
 import { UpdatePasswordWithOtpCommand } from '../user/commands/update-password-with-otp.command';
 import { UpdatePasswordWithOtpDto } from '../user/dto/update-password-with-otp-dto';
+import { USER_TYPE } from 'src/constant/common.constant';
 
 @ApiTags('Authentication')
 @Controller('auth')
@@ -41,6 +42,7 @@ export class AuthController {
         // Tạo accessToken và refreshToken
         const payload = { 
             sub: user.id, 
+            type: USER_TYPE.USER,
             username: user.username, 
             userAgent,
             identityNumber: user.identityNumber,

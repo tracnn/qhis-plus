@@ -7,21 +7,21 @@ import Button from "../../ui/button/Button";
 import { useModal } from "@/hooks/useModal";
 
 export default function DefaultModal() {
-  const { isOpen, openModal, closeModal } = useModal();
+  const { isOpen, open, close } = useModal();
   const handleSave = () => {
     // Handle save logic here
     console.log("Saving changes...");
-    closeModal();
+    close();
   };
   return (
     <div>
       <ComponentCard title="Default Modal">
-        <Button size="sm" onClick={openModal}>
+        <Button size="sm" onClick={open}>
           Open Modal
         </Button>
         <Modal
           isOpen={isOpen}
-          onClose={closeModal}
+          onClose={close}
           className="max-w-[600px] p-5 lg:p-10"
         >
           <h4 className="font-semibold text-gray-800 mb-7 text-title-sm dark:text-white/90">
@@ -39,7 +39,7 @@ export default function DefaultModal() {
             ac odio.
           </p>
           <div className="flex items-center justify-end w-full gap-3 mt-8">
-            <Button size="sm" variant="outline" onClick={closeModal}>
+            <Button size="sm" variant="outline" onClick={close}>
               Close
             </Button>
             <Button size="sm" onClick={handleSave}>

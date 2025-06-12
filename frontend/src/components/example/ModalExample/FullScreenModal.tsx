@@ -8,8 +8,8 @@ import { Modal } from "../../ui/modal";
 export default function FullScreenModal() {
   const {
     isOpen: isFullscreenModalOpen,
-    openModal: openFullscreenModal,
-    closeModal: closeFullscreenModal,
+    open: openFullscreenModal,
+    close: closeFullscreenModal,
   } = useModal();
   const handleSave = () => {
     // Handle save logic here

@@ -16,17 +16,26 @@ export class ValidateCredentialsHandler implements IQueryHandler<ValidateCredent
 
         const queryBuilder = `
             SELECT 
-                COUNT(*) AS "total"
+                ID AS "userId",
+                LOGINNAME AS "username",
+                USERNAME AS "fullname",
+                EMAIL AS "email"
             FROM ACS_USER
             WHERE LOGINNAME = :P1 AND PASSWORD = :P2
         `;
 
-        const queryData = await this.dataSource.query(queryBuilder, [username, password]);
+        const result = await this.dataSource.query(queryBuilder, [username, password]);
 
-        if (queryData[0].total === 0) {
-            return false;
+        if (!result || result.length === 0) {
+            return null;
         }
 
-        return true;
+        const user = result[0];
+        return {
+            userId: user.userId,
+            username: user.username,
+            fullname: user.fullname,
+            email: user.email
+        };
     }
 }  

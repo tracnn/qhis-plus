@@ -49,9 +49,9 @@ const Sidebar = () => {
       }`}
     >
       {/* SIDEBAR HEADER */}
-      <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
+      <div className="flex items-center justify-between bg-blue-100 gap-2 px-6 py-4 lg:py-5">
         <Link href="/">
-          <h1 className="text-xl font-bold text-white">Your Logo</h1>
+          <h1 className="text-xl font-bold text-gray-800">Your Logo</h1>
         </Link>
       </div>
       {/* SIDEBAR HEADER */}
@@ -61,10 +61,6 @@ const Sidebar = () => {
         <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
           {/* Menu Group */}
           <div>
-            <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
-              MENU
-            </h3>
-
             <ul className="mb-6 flex flex-col gap-1.5">
               {menuItems.map((item) => (
                 <li key={item.path}>
