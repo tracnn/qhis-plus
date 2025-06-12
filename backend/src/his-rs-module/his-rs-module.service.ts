@@ -10,6 +10,8 @@ import { GetMedicalExpensesByTreatmentIdQuery } from './queries/get-medical-expe
 import { GetMedicalExpensesByTreatmentIdDto } from './dto/get-medical-expenses-by-treatment-id.dto';
 import { GetPacsLinkByTreatmentIdQuery } from './queries/get-pacs-link-by-treatment-id.query';
 import { GetPacsLinkByTreatmentIdDto } from './dto/get-pacs-link-by-treatment-id.dto';
+import { GetPatientTypesDto } from './dto/get-patient-types.dto';
+import { GetPatientTypesQuery } from './queries/get-patient-types.query';
 
 @Injectable()
 export class HisRsModuleService {
@@ -39,5 +41,10 @@ export class HisRsModuleService {
     async getPacsLinkByTreatmentId(body: GetPacsLinkByTreatmentIdDto) {
         return this.queryBus.execute(
             new GetPacsLinkByTreatmentIdQuery(body));
+    }
+
+    async getPatientTypes(body: GetPatientTypesDto) {
+        return this.queryBus.execute(
+            new GetPatientTypesQuery(body));
     }
 }

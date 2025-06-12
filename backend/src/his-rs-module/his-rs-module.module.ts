@@ -16,6 +16,7 @@ import { CheckTreatmentFinishedByTreatmentCodeHandler } from './queries/check-tr
 import { GetPatientByTreatmentCodeHandler } from './queries/get-patient-by-treatment-code.handler';
 import { OrganizationConfigService } from '../common/organization-config.service';
 import { CheckTreatmentFinishedByTreatmentIdHandler } from './queries/check-treatment-finished-by-treatment-id.handler';
+import { GetPatientTypesHandler } from './queries/get-patient-types.handler';
 
 const handlers = [
   GetHistoryByIdentityHandler,
@@ -28,7 +29,8 @@ const handlers = [
   CheckTreatmentFinishedByTreatmentCodeHandler,
   GetPatientByTreatmentCodeHandler,
   OrganizationConfigService,
-  CheckTreatmentFinishedByTreatmentIdHandler
+  CheckTreatmentFinishedByTreatmentIdHandler,
+  GetPatientTypesHandler
 ]
 
 @Module({

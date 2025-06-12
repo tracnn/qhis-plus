@@ -9,6 +9,7 @@ import { GetMedicalExpensesByTreatmentIdDto } from './dto/get-medical-expenses-b
 import { TreatmentAccessGuard } from '../common/guards/treatment-access.guard';
 import { GetPacsLinkByTreatmentIdDto } from './dto/get-pacs-link-by-treatment-id.dto';
 import { IdentityAccessGuard } from '../common/guards/identity-access.guard';
+import { GetPatientTypesDto } from './dto/get-patient-types.dto';
 
 @ApiTags('HIS RS Module')
 @ApiBearerAuth('access-token')
@@ -50,6 +51,12 @@ export class HisRsModuleController {
   @Post('get-pacs-link-by-treatment-id')
   async getPacsLinkByTreatmentId(@Body() body: GetPacsLinkByTreatmentIdDto) {
     return this.hisRsModuleService.getPacsLinkByTreatmentId(body);
+  }
+
+  @ApiOperation({ summary: 'Get patient types' })
+  @Post('get-patient-types')
+  async getPatientTypes(@Body() body: GetPatientTypesDto) {
+    return this.hisRsModuleService.getPatientTypes(body);
   }
 } 
   
