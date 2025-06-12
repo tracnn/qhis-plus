@@ -1,0 +1,17 @@
+{
+    "organizationCode": "01929",
+    "contact": {
+        "phone": "028 3822 2222",
+        "email": "info@bvbm.com",
+        "website": "https://www.bvbm.com"
+    },
+    "address": "123 Main St, Anytown, USA",
+    "logo": "https://www.bvbm.com/logo.png",
+    "settings": {
+        "showTreatmentEndTypeName": false,
+        "showTreatmentResultName": false,
+        "showResultWhenTreatmentFinished": true,
+        "showIcdSubCode": false,
+        "showIcdText": false
+    }
+}

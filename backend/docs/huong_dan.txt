@@ -1,0 +1,9 @@
+1. Copy file ".env___" ra thư mục gốc, đổi tên file thành ".env"
+2. Copy các file *.config_.ts vào thư mục src/config và sửa lại thành *.config.ts và các giá trị theo yêu cầu
+
+
+* Chú ý * 
+Nếu npm run start:dev bị lỗi thì chạy các lệnh sau:
+rm -rf dist
+npx tsc --noEmit
+npm run build

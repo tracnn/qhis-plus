@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  bm_patient_hub:
+    image: thaovh/bm_patient_hub:latest
+    container_name: bm_patient_hub
+    working_dir: /app
+    volumes:
+      - /d/code/patient-hub/dist:/app/dist
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+      - ./.env:/app/.env
+      - ./zalo_api_token.json:/app/zalo_api_token.json
+      - ./organization-config.json:/app/organization-config.json
+    ports:
+      - "3808:3000"
+    environment:
+      - NODE_ENV=Deverlopment
+      - APP_PORT=3000 
