@@ -33,6 +33,7 @@ import { SatisfactionSurveyModule } from './satisfaction-survey/satisfaction-sur
 import { HealthMetricsModule } from './health-metrics/health-metrics.module';
 import { AcsModuleModule } from './catalog-module/acs-module/acs-module.module';
 import { AdminAuthModule } from './admin-auth/admin-auth.module';
+import { AppointmentModule } from './appointment/appointment.module';
 
 @Module({
   imports: [
@@ -88,6 +89,7 @@ import { AdminAuthModule } from './admin-auth/admin-auth.module';
     HealthMetricsModule,
     AcsModuleModule,
     AdminAuthModule,
+    AppointmentModule,
   ],
   controllers: [AppController],
   providers: [AppService, ZaloService, OrganizationConfigService],
