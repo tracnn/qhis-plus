@@ -1,7 +1,6 @@
 "use client";
 import { ThemeToggleButton } from "@/components/common/ThemeToggleButton";
 import NotificationDropdown from "@/components/header/NotificationDropdown";
-import LoadingSpinner from "@/components/ui/loading/LoadingSpinner";
 import { useSidebar } from "@/context/SidebarContext";
 import axiosInstance from "@/utils/axiosInstance";
 import Image from "next/image";
@@ -9,7 +8,7 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
-
+import UserProfileDropdown from "@/components/header/UserProfileDropdown";
 
 interface AdminProfile {
   id: string;
@@ -18,6 +17,7 @@ interface AdminProfile {
   fullname: string;
   role: string;
   avatar?: string;
+  mobile?: string;
 }
 
 interface Pagination {
@@ -39,26 +39,37 @@ const AppHeader: React.FC = () => {
   const [isApplicationMenuOpen, setApplicationMenuOpen] = useState(false);
   const [profile, setProfile] = useState<AdminProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
+        // Reset profile state before fetching new data
+        setProfile(null);
+        setIsLoading(true);
+        
         const response = await axiosInstance.get<ApiResponse>("/admin/auth/me");
         if (response.data.data && response.data.data.length > 0) {
           setProfile(response.data.data[0]);
         }
       } catch (err) {
         console.error('Error fetching profile:', err);
+        // Clear profile on error
+        setProfile(null);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchProfile();
+    // Check if we have an access token before fetching profile
+    const accessToken = Cookies.get("accessToken");
+    if (accessToken) {
+      fetchProfile();
+    } else {
+      setProfile(null);
+      setIsLoading(false);
+    }
   }, []);
 
   const handleToggle = () => {
@@ -90,15 +101,6 @@ const AppHeader: React.FC = () => {
     };
   }, []);
 
-  const getInitials = (name: string) => {
-    return name
-      .split(' ')
-      .map(word => word[0])
-      .join('')
-      .toUpperCase()
-      .slice(0, 2);
-  };
-
   const handleLogout = async () => {
     try {
       Cookies.remove("accessToken");
@@ -107,19 +109,6 @@ const AppHeader: React.FC = () => {
       console.error("Logout failed:", error);
     }
   };
-
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
 
   return (
     <header className="sticky top-0 flex w-full bg-white border-gray-200 z-99999 dark:border-gray-800 dark:bg-gray-900 lg:border-b">
@@ -161,7 +150,6 @@ const AppHeader: React.FC = () => {
                 />
               </svg>
             )}
-            {/* Cross Icon */}
           </button>
 
           <Link href="/" className="lg:hidden">
@@ -251,73 +239,11 @@ const AppHeader: React.FC = () => {
             {/* <!-- User Profile --> */}
             <div className="flex items-center gap-3 pl-3 border-l border-gray-200 dark:border-gray-800">
               <div className="flex items-center gap-3">
-                <div className="relative" ref={dropdownRef}>
-                  <button
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    className="flex items-center gap-2 rounded-lg px-3 py-2 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
-                  >
-                    {isLoading ? (
-                      <div className="h-8 w-8 rounded-full bg-gray-100 flex items-center justify-center">
-                        <LoadingSpinner size="sm" color="brand" />
-                      </div>
-                    ) : profile?.avatar ? (
-                      <Image
-                        src={profile.avatar}
-                        alt={profile.fullname}
-                        width={32}
-                        height={32}
-                        className="rounded-full"
-                      />
-                    ) : (
-                      <div className="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-medium">
-                        {profile ? getInitials(profile.fullname) : '?'}
-                      </div>
-                    )}
-                    <div className="hidden text-left lg:block">
-                      <span className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-                        {isLoading ? (
-                          <LoadingSpinner size="sm" color="brand" />
-                        ) : (
-                          profile?.fullname || 'Unknown User'
-                        )}
-                      </span>
-                      <span className="block text-xs text-gray-500 dark:text-gray-400">
-                        {profile?.username || 'No Username'}
-                      </span>
-                    </div>
-                    <svg
-                      className={`h-4 w-4 text-gray-500 dark:text-gray-400 transition-transform ${
-                        isDropdownOpen ? "rotate-180" : ""
-                      }`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2"
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </button>
-
-                  {/* Dropdown Menu */}
-                  {isDropdownOpen && (
-                    <div className="absolute right-0 mt-2 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-gray-800">
-                      <div className="px-4 py-2 border-b border-gray-200 dark:border-gray-700">
-                        <p className="text-sm font-medium text-gray-900 dark:text-white">{profile?.fullname}</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400">{profile?.email}</p>
-                      </div>
-                      <button
-                        onClick={handleLogout}
-                        className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-700"
-                      >
-                        Đăng xuất
-                      </button>
-                    </div>
-                  )}
-                </div>
+                <UserProfileDropdown 
+                  profile={profile}
+                  isLoading={isLoading}
+                  onLogout={handleLogout}
+                />
               </div>
             </div>
           </div>

@@ -64,3 +64,15 @@ export const PRESCRIPTION_SOURCE_TYPE = {
     INTERNAL: 'Đơn cấp phát',
     EXTERNAL: 'Đơn tự túc',
 };
+
+export const ROOM_TYPE_IDS = {
+    EXAM_PARACLINIC: 1,
+    STOCK: 2,
+    RECEPTION: 3,
+    BED_ROOM: 4,
+    MEDICAL_CABINET: 5,
+    CASHIER: 6,
+    SAMPLE_ROOM: 7,
+    MEDICAL_STATION: 8,
+    DINNER_ROOM: 9
+};

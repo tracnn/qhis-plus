@@ -62,6 +62,7 @@ export class User extends BaseEntity {
     @Column({ name: 'IDENTITY_NUMBER', length: 12, nullable: true })
     identityNumber: string;
 
+    @Index('IDX_USERS_PHONE_NUMBER', { unique: true })
     @Column({ name: 'PHONE_NUMBER', length: 10, nullable: true })
     phoneNumber: string;
 

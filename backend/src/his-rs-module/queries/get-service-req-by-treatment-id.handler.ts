@@ -39,7 +39,7 @@ export class GetServiceReqByTreatmentIdHandler implements IQueryHandler<GetServi
     
     const countQuery = `
       SELECT 
-        COUNT(*) AS TOTAL
+        COUNT(*) AS "total"
       FROM 
         HIS_SERVICE_REQ HSR
       JOIN 
@@ -147,7 +147,7 @@ export class GetServiceReqByTreatmentIdHandler implements IQueryHandler<GetServi
       this.dataSource.query(countQuery, [treatmentId])
     ]);
 
-    const total = Number(countResult?.[0]?.TOTAL || 0);
+    const total = Number(countResult?.[0]?.total || 0);
 
     if (!data || data.length === 0) {
       throw new NotFoundException(ERROR_404.NOT_FOUND_SERVICE_REQ);

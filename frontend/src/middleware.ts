@@ -20,5 +20,5 @@ export function middleware(request: NextRequest) {
 
 // Cấu hình các routes cần áp dụng middleware
 export const config = {
-  matcher: ["/", "/login", "/dashboard/:path*"],
+  matcher: "/:path*",
 };

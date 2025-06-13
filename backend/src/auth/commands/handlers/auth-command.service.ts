@@ -26,7 +26,8 @@ export class LoginHandler implements ICommandHandler<LoginCommand> {
                 where: [
                     { username: command.identifier },
                     { identityNumber: command.identifier },
-                    { insuranceNumber: command.identifier }
+                    { insuranceNumber: command.identifier },
+                    { phoneNumber: command.identifier }
                 ]
             });
 

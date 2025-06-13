@@ -17,6 +17,9 @@ import { GetPatientByTreatmentCodeHandler } from './queries/get-patient-by-treat
 import { OrganizationConfigService } from '../common/organization-config.service';
 import { CheckTreatmentFinishedByTreatmentIdHandler } from './queries/check-treatment-finished-by-treatment-id.handler';
 import { GetPatientTypesHandler } from './queries/get-patient-types.handler';
+import { GetBranchQueryHandler } from './queries/get-branch.handler';
+import { GetDoctorsQueryHandler } from './queries/get-doctors.handler';
+import { GetExamRoomsHandler } from './queries/get-exam-rooms.handler';
 
 const handlers = [
   GetHistoryByIdentityHandler,
@@ -30,7 +33,10 @@ const handlers = [
   GetPatientByTreatmentCodeHandler,
   OrganizationConfigService,
   CheckTreatmentFinishedByTreatmentIdHandler,
-  GetPatientTypesHandler
+  GetPatientTypesHandler,
+  GetBranchQueryHandler,
+  GetDoctorsQueryHandler,
+  GetExamRoomsHandler
 ]
 
 @Module({

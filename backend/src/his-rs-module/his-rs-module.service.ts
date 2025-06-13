@@ -12,6 +12,12 @@ import { GetPacsLinkByTreatmentIdQuery } from './queries/get-pacs-link-by-treatm
 import { GetPacsLinkByTreatmentIdDto } from './dto/get-pacs-link-by-treatment-id.dto';
 import { GetPatientTypesDto } from './dto/get-patient-types.dto';
 import { GetPatientTypesQuery } from './queries/get-patient-types.query';
+import { GetBranchDto } from './dto/get-branch.dto';
+import { GetBranchQuery } from './queries/get-branch.query';
+import { GetDoctorsDto } from './dto/get-doctors.dto';
+import { GetDoctorsQuery } from './queries/get-doctors.query';
+import { GetExamRoomsDto } from './dto/get-exam-rooms.dto';
+import { GetExamRoomsQuery } from './queries/get-exam-rooms.query';
 
 @Injectable()
 export class HisRsModuleService {
@@ -46,5 +52,20 @@ export class HisRsModuleService {
     async getPatientTypes(body: GetPatientTypesDto) {
         return this.queryBus.execute(
             new GetPatientTypesQuery(body));
+    }
+
+    async getBranch(body: GetBranchDto) {
+        return this.queryBus.execute(
+            new GetBranchQuery(body));
+    }
+
+    async getDoctors(body: GetDoctorsDto) {
+        return this.queryBus.execute(
+            new GetDoctorsQuery(body));
+    }
+
+    async getExamRooms(body: GetExamRoomsDto) {
+        return this.queryBus.execute(
+            new GetExamRoomsQuery(body));
     }
 }
