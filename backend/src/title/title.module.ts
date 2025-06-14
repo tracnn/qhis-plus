@@ -8,6 +8,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { GetTitlesHandler } from './queries/get-titles.handler';
 import { GetTitleHandler } from './queries/get-title.handler';
 import { CreateTitleHandler } from './commands/create-title.handler';
+import { GetTitleByIdsHandler } from './queries/get-title-by-ids.handler';
 
 const QueryHandlers = [
   GetTitlesHandler,
@@ -16,6 +17,7 @@ const QueryHandlers = [
 
 const CommandHandlers = [
   CreateTitleHandler,
+  GetTitleByIdsHandler,
 ];
 
 @Module({

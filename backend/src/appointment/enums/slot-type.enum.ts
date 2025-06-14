@@ -1,0 +1,5 @@
+export enum SLOT_TYPE {
+    MORNING = "MORNING",
+    AFTERNOON = "AFTERNOON",
+    EVENING = "EVENING",
+}

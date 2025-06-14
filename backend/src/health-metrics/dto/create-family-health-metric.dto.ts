@@ -62,7 +62,7 @@ export class CreateFamilyHealthMetricDto {
 
     @ApiProperty({
         description: 'The metric date',
-        example: '2021-01-01',
+        example: '2021-01-01 00:00:00',
     })
     @IsNotEmpty()
     @Type(() => Date) 

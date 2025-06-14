@@ -21,7 +21,6 @@ export class AdminAuthController {
   @Get('me')
   @ApiOperation({ summary: 'Get admin me' })
   async adminMe(@Req() req: any) {
-    console.log(req.user.userId);
     return this.adminAuthService.adminMe(req.user.userId);
   }
 }

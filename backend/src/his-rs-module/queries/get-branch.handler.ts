@@ -37,7 +37,7 @@ export class GetBranchQueryHandler implements IQueryHandler<GetBranchQuery> {
 
     return {
         data: queryBuilder,
-        pagination: buildPagination(queryBuilder.length, page, limit),
+        pagination: buildPagination(page, limit, queryBuilder.length),
     }
   }
 }

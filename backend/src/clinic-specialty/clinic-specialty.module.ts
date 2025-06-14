@@ -7,6 +7,7 @@ import { BASE_SCHEMA } from '../constant/common.constant';
 import { CreateClinicSpecialtyHandler } from './commands/create-clinic-specialty.handler';
 import { CqrsModule } from '@nestjs/cqrs';
 import { GetClinicSpecialtyHandler } from './queries/get-clinic-specialty.handler';
+import { GetClinicSpecialtyByIdHandler } from './queries/get-clinic-specialty-by-id.handler';
 
 const commandHandlers = [
   CreateClinicSpecialtyHandler,
@@ -14,6 +15,7 @@ const commandHandlers = [
 
 const queryHandlers = [
   GetClinicSpecialtyHandler,
+  GetClinicSpecialtyByIdHandler,
 ];
 
 @Module({

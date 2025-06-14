@@ -21,9 +21,10 @@ export class ClinicSpecialtyController {
     return this.clinicSpecialtyService.findAll(dto);
   }
 
+  @ApiOperation({ summary: 'Get clinic specialty by id' })
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.clinicSpecialtyService.findOne(+id);
+    return this.clinicSpecialtyService.findOne(id);
   }
 
   @Patch(':id')

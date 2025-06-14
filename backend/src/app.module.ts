@@ -37,6 +37,7 @@ import { AppointmentModule } from './appointment/appointment.module';
 import { SpecialtyModule } from './specialty/specialty.module';
 import { TitleModule } from './title/title.module';
 import { ClinicSpecialtyModule } from './clinic-specialty/clinic-specialty.module';
+import { DoctorTitleModule } from './doctor-title/doctor-title.module';
 
 @Module({
   imports: [
@@ -96,6 +97,7 @@ import { ClinicSpecialtyModule } from './clinic-specialty/clinic-specialty.modul
     SpecialtyModule,
     TitleModule,
     ClinicSpecialtyModule,
+    DoctorTitleModule,
   ],
   controllers: [AppController],
   providers: [AppService, ZaloService, OrganizationConfigService],

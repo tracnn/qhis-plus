@@ -18,4 +18,6 @@ export const ERROR_404 = {
     NOT_FOUND_SPECIALTY: { message: 'Không tìm thấy chuyên khoa' },
     NOT_FOUND_CLINIC: { message: 'Không tìm thấy phòng khám' },
     NOT_FOUND_DOCTOR: { message: 'Không tìm thấy bác sĩ' },
+    NOT_FOUND_CLINIC_SPECIALTY: { message: 'Không tìm thấy chuyên khoa của phòng khám' },
+    NOT_FOUND_DOCTOR_TITLE: { message: 'Không tìm thấy chức vụ của bác sĩ' },
 }

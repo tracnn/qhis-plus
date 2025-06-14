@@ -9,6 +9,8 @@ export const ERROR_400 = {
     NEW_PASSWORD_NOT_MATCH: { message: 'Mật khẩu mới và xác nhận mật khẩu không khớp' },
     INVALID_TARGET_USER_AND_FAMILY_MEMBER: { message: 'Không được cùng lúc có cả chủ tài khoản và thành viên' },
     SPECIALTY_ALREADY_EXISTS: { message: 'Chuyên khoa đã tồn tại' },
-    TITLE_ALREADY_EXISTS: { message: 'Học hàm, học vị đã tồn tại' },
+    TITLE_ALREADY_EXISTS: { message: 'Chức danh đã tồn tại' },
     CLINIC_SPECIALTY_ALREADY_EXISTS: { message: 'Chuyên khoa/phòng khám đã tồn tại' },
+    DOCTOR_TITLE_ALREADY_EXISTS: { message: 'Chức danh/Bác sĩ đã tồn tại' },
+    SLOT_EXISTS: { message: 'Slot đã tồn tại' },
 }

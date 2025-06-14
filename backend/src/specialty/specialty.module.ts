@@ -8,6 +8,7 @@ import { BASE_SCHEMA } from '../constant/common.constant';
 import { GetSpecialtiesHandler } from './queries/get-specialties.handler';
 import { GetSpecialtyHandler } from './queries/get-specialty.handler';
 import { CreateSpecialtyHandler } from './commands/create-specialty.handler';
+import { GetSpecialtiesByIdsHandler } from './queries/get-specialties-by-ids.handler';
 
 const QueryHandlers = [
   GetSpecialtiesHandler,
@@ -16,6 +17,7 @@ const QueryHandlers = [
 
 const CommandHandlers = [
   CreateSpecialtyHandler,
+  GetSpecialtiesByIdsHandler,
 ];
 
 @Module({

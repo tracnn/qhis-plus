@@ -23,6 +23,7 @@ import { GetClinicsHandler } from './queries/get-clinics.handler';
 import { GetClinicHandler } from './queries/get-clinic.handler';
 import { GetDoctorQueryHandler } from './queries/get-doctor.handler';
 import { GetClinicsByIdsHandler } from './queries/get-clinics-by-ids.handler';
+import { GetDoctorsByIdsHandler } from './queries/get-doctors-by-ids.handler';
 
 const handlers = [
   GetHistoryByIdentityHandler,
@@ -42,7 +43,8 @@ const handlers = [
   GetClinicsHandler,
   GetClinicHandler,
   GetDoctorQueryHandler,
-  GetClinicsByIdsHandler
+  GetClinicsByIdsHandler,
+  GetDoctorsByIdsHandler,
 ]
 
 @Module({

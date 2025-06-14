@@ -30,7 +30,7 @@ export class GetTitlesHandler implements IQueryHandler<GetTitlesQuery> {
 
     return {
       data,
-      pagination: buildPagination(total, page, limit),
+      pagination: buildPagination(page, limit, total),
     };
   }
 }

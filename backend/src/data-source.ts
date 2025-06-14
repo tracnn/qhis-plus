@@ -7,7 +7,7 @@ import { User } from "./user/entities/user.entity";
 import { Otp } from "./otp/entities/otp.entity";
 import { AppointmentSlot } from "./appointment/entities/appointment-slot.entity";
 import { ClinicSpecialty } from "./clinic-specialty/entities/clinic-specialty.entity";
-import { DoctorTitle } from "./appointment/entities/doctor-title.entity";
+import { DoctorTitle } from "./doctor-title/entities/doctor-title.entity";
 import { Appointment } from "./appointment/entities/appointment.entity";
 import { Specialty } from "./specialty/entities/specialty.entity";
 import { Title } from "./title/entities/title.entity";
