@@ -6,10 +6,10 @@ import { BASE_SCHEMA } from 'src/constant/common.constant';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SatisfactionSurvey } from './entities/satisfaction-survey.entity';
 import { CreateSatisfactionSurveyHandler } from './commands/create-satisfaction-survey.handler';
-import { UpdateSatisfactionSurveyTreatmentHandler } from './commands/update-satisfaction-survey-treatment.handler';
+import { UpdateSatisfactionSurveyTreatmentHandler } from './commands/update-satisfaction-survey.handler';
 import { GetSatisfactionSurveyTreatmentHandler } from './queries/get-satisfaction-survey-treatment.handler';
 import { GetSatisfactionSurveyTreatmentByIdHandler } from './queries/get-satisfaction-survey-treatment-by-id.handler';
-import { DeleteSatisfactionSurveyTreatmentHandler } from './commands/delete-satisfaction-survey-treatment.handler';
+import { DeleteSatisfactionSurveyTreatmentHandler } from './commands/delete-satisfaction-survey.handler';
 import { GetSatisfactionSurveyTreatmentByTreatmentCodeHandler } from './queries/get-satisfaction-survey-treatment-by-treatment-code.handler';
 
 const CommandHandlers = [
