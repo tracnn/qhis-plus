@@ -14,5 +14,8 @@ export const ERROR_404 = {
     NOT_FOUND_SUPPORT_REQUEST: { message: 'Không tìm thấy thông tin yêu cầu hỗ trợ' },
     NOT_FOUND_SURVEY: { message: 'Không tìm thấy thông tin đánh giá' },
     NOT_FOUND_HEALTH_METRIC: { message: 'Không tìm thấy thông tin phiếu sức khỏe' },
-    
+    NOT_FOUND_TITLE: { message: 'Không tìm thấy chức vụ' },
+    NOT_FOUND_SPECIALTY: { message: 'Không tìm thấy chuyên khoa' },
+    NOT_FOUND_CLINIC: { message: 'Không tìm thấy phòng khám' },
+    NOT_FOUND_DOCTOR: { message: 'Không tìm thấy bác sĩ' },
 }

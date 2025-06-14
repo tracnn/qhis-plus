@@ -32,8 +32,8 @@ export class SatisfactionSurveyService {
       satisfactionSurveyId, userId, updateSatisfactionSurveyDto));
   }
 
-  deleteTreatmentSurvey(satisfactionSurveyId: string, userId: string) {
-    return this.commandBus.execute(new DeleteSatisfactionSurveyTreatmentCommand(satisfactionSurveyId, userId));
+  deleteTreatmentSurvey(userId: string, satisfactionSurveyId: string) {
+    return this.commandBus.execute(new DeleteSatisfactionSurveyTreatmentCommand(userId, satisfactionSurveyId));
   }
 
   findOneTreatmentSurveyByTreatmentCode(userId: string, getSatisfactionSurveyTreatmentByTreatmentCodeDto: GetSatisfactionSurveyTreatmentByTreatmentCodeDto) {

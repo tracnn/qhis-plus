@@ -16,7 +16,7 @@ export class DeleteSatisfactionSurveyTreatmentHandler implements ICommandHandler
     ) {}
 
     async execute(command: DeleteSatisfactionSurveyTreatmentCommand): Promise<any> {
-        const { satisfactionSurveyId, userId } = command;
+        const { userId, satisfactionSurveyId } = command;
 
         const currentSatisfactionSurvey = await this.satisfactionSurveyRepository.findOne({
             where: { id: satisfactionSurveyId, userId },

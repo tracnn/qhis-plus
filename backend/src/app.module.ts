@@ -34,6 +34,9 @@ import { HealthMetricsModule } from './health-metrics/health-metrics.module';
 import { AcsModuleModule } from './catalog-module/acs-module/acs-module.module';
 import { AdminAuthModule } from './admin-auth/admin-auth.module';
 import { AppointmentModule } from './appointment/appointment.module';
+import { SpecialtyModule } from './specialty/specialty.module';
+import { TitleModule } from './title/title.module';
+import { ClinicSpecialtyModule } from './clinic-specialty/clinic-specialty.module';
 
 @Module({
   imports: [
@@ -90,6 +93,9 @@ import { AppointmentModule } from './appointment/appointment.module';
     AcsModuleModule,
     AdminAuthModule,
     AppointmentModule,
+    SpecialtyModule,
+    TitleModule,
+    ClinicSpecialtyModule,
   ],
   controllers: [AppController],
   providers: [AppService, ZaloService, OrganizationConfigService],

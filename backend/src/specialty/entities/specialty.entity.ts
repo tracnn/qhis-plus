@@ -1,10 +1,10 @@
 import { Column, Entity, Index } from "typeorm";
-import { BaseEntity } from "src/common/base.entity";
+import { BaseEntity } from "../../common/base.entity";
 
 @Entity('SPECIALTIES')
-export class Specialties extends BaseEntity {
+export class Specialty extends BaseEntity {
   @Column({ name: 'SPECIALTY_CODE' })
-  @Index('SPECIALTY_CODE_INDEX', { unique: true })
+  @Index( { unique: true })
   specialtyCode: string;
 
   @Column({ name: 'SPECIALTY_NAME' })

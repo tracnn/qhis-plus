@@ -29,8 +29,11 @@ export class GetDoctorsQueryHandler implements IQueryHandler<GetDoctorsQuery> {
     const queryData = `
     SELECT 
         ID AS "id",
-        TDL_USERNAME AS "username",
-        TITLE AS "title"
+        LOGINNAME AS "doctorCode",
+        TDL_USERNAME AS "doctorName",
+        TITLE AS "title",
+        TDL_MOBILE AS "phoneNumber",
+        TDL_EMAIL AS "email"
     FROM 
         HIS_EMPLOYEE 
     WHERE 

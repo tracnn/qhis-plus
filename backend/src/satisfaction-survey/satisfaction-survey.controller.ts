@@ -18,7 +18,7 @@ export class SatisfactionSurveyController {
   @ApiOperation({ summary: 'Create a new satisfaction survey' })
   @ApiResponse({ status: 201, description: 'The satisfaction survey has been successfully created.' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
-  @Post()
+  @Post('treatment/create-survey')
   createTreatmentSurvey(@Req() req: any, @Body() createSatisfactionSurveyDto: CreateSatisfactionSurveyDto) {
     return this.satisfactionSurveyService.createTreatmentSurvey(req.user.userId, createSatisfactionSurveyDto);
   }
@@ -26,7 +26,7 @@ export class SatisfactionSurveyController {
   @ApiOperation({ summary: 'Get all satisfaction surveys' })
   @ApiResponse({ status: 200, description: 'The satisfaction surveys have been successfully retrieved.' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
-  @Get()
+  @Get('treatment/get-surveys')
   findAllTreatmentSurveys(@Req() req: any, @Query() getSatisfactionSurveyTreatmentDto: GetSatisfactionSurveyTreatmentDto) {
     return this.satisfactionSurveyService.findAllTreatmentSurveys(req.user.userId, getSatisfactionSurveyTreatmentDto);
   }
@@ -34,7 +34,7 @@ export class SatisfactionSurveyController {
   @ApiOperation({ summary: 'Get a satisfaction survey by id' })
   @ApiResponse({ status: 200, description: 'The satisfaction survey has been successfully retrieved.' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
-  @Get(':id')
+  @Get('treatment/get-survey/:id')
   findOneTreatmentSurvey(@Req() req: any, @Param('id') satisfactionSurveyId: string) {
     return this.satisfactionSurveyService.findOneTreatmentSurvey(satisfactionSurveyId, req.user.userId);
   }
@@ -42,7 +42,7 @@ export class SatisfactionSurveyController {
   @ApiOperation({ summary: 'Update a satisfaction survey' })
   @ApiResponse({ status: 200, description: 'The satisfaction survey has been successfully updated.' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
-  @Patch(':id')
+  @Patch('treatment/update-survey/:id')
   updateTreatmentSurvey(@Req() req: any, @Param('id') satisfactionSurveyId: string, 
     @Body() updateSatisfactionSurveyDto: UpdateSatisfactionSurveyDto) 
   {
@@ -52,15 +52,15 @@ export class SatisfactionSurveyController {
   @ApiOperation({ summary: 'Delete a satisfaction survey' })
   @ApiResponse({ status: 200, description: 'The satisfaction survey has been successfully deleted.' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
-  @Delete(':id')
+  @Delete('treatment/delete-survey/:id')
   deleteTreatmentSurvey(@Req() req: any, @Param('id') satisfactionSurveyId: string) {
-    return this.satisfactionSurveyService.deleteTreatmentSurvey(satisfactionSurveyId, req.user.userId);
+    return this.satisfactionSurveyService.deleteTreatmentSurvey(req.user.userId, satisfactionSurveyId);
   }
 
   @ApiOperation({ summary: 'Get a satisfaction survey by treatment code' })
   @ApiResponse({ status: 200, description: 'The satisfaction survey has been successfully retrieved.' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
-  @Get('get-survey')
+  @Get('treatment/get-survey-by-treatment-code')
   findOneTreatmentSurveyByTreatmentCode(@Req() req: any, 
   @Query() getSatisfactionSurveyTreatmentByTreatmentCodeDto: GetSatisfactionSurveyTreatmentByTreatmentCodeDto) {
     return this.satisfactionSurveyService.findOneTreatmentSurveyByTreatmentCode(req.user.userId, 

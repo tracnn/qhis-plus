@@ -19,7 +19,10 @@ import { CheckTreatmentFinishedByTreatmentIdHandler } from './queries/check-trea
 import { GetPatientTypesHandler } from './queries/get-patient-types.handler';
 import { GetBranchQueryHandler } from './queries/get-branch.handler';
 import { GetDoctorsQueryHandler } from './queries/get-doctors.handler';
-import { GetExamRoomsHandler } from './queries/get-exam-rooms.handler';
+import { GetClinicsHandler } from './queries/get-clinics.handler';
+import { GetClinicHandler } from './queries/get-clinic.handler';
+import { GetDoctorQueryHandler } from './queries/get-doctor.handler';
+import { GetClinicsByIdsHandler } from './queries/get-clinics-by-ids.handler';
 
 const handlers = [
   GetHistoryByIdentityHandler,
@@ -36,7 +39,10 @@ const handlers = [
   GetPatientTypesHandler,
   GetBranchQueryHandler,
   GetDoctorsQueryHandler,
-  GetExamRoomsHandler
+  GetClinicsHandler,
+  GetClinicHandler,
+  GetDoctorQueryHandler,
+  GetClinicsByIdsHandler
 ]
 
 @Module({

@@ -16,8 +16,10 @@ import { GetBranchDto } from './dto/get-branch.dto';
 import { GetBranchQuery } from './queries/get-branch.query';
 import { GetDoctorsDto } from './dto/get-doctors.dto';
 import { GetDoctorsQuery } from './queries/get-doctors.query';
-import { GetExamRoomsDto } from './dto/get-exam-rooms.dto';
-import { GetExamRoomsQuery } from './queries/get-exam-rooms.query';
+import { GetClinicsDto } from './dto/get-clinics.dto';
+import { GetClinicsQuery } from './queries/get-clinics.query';
+import { GetClinicQuery } from './queries/get-clinic.query';
+import { GetDoctorQuery } from './queries/get-doctor.query';
 
 @Injectable()
 export class HisRsModuleService {
@@ -64,8 +66,18 @@ export class HisRsModuleService {
             new GetDoctorsQuery(body));
     }
 
-    async getExamRooms(body: GetExamRoomsDto) {
+    async getDoctor(id: number) {
         return this.queryBus.execute(
-            new GetExamRoomsQuery(body));
+            new GetDoctorQuery(id));
+    }
+
+    async getClinics(body: GetClinicsDto) {
+        return this.queryBus.execute(
+            new GetClinicsQuery(body));
+    }
+
+    async getClinic(id: number) {
+        return this.queryBus.execute(
+            new GetClinicQuery(id));
     }
 }

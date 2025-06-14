@@ -1,6 +1,5 @@
 import { IQueryHandler } from "@nestjs/cqrs";
-import { GetExamRoomsDto } from "../dto/get-exam-rooms.dto";
-import { GetExamRoomsQuery } from "./get-exam-rooms.query";
+import { GetClinicsQuery } from "./get-clinics.query";
 import { QueryHandler } from "@nestjs/cqrs";
 import { BASE_SCHEMA, LIMIT_DEFAULT, PAGE_DEFAULT, ROOM_TYPE_IDS } from "../../constant/common.constant";
 import { InjectDataSource } from "@nestjs/typeorm";
@@ -8,11 +7,11 @@ import { DataSource } from "typeorm";
 import { buildPagination } from "@common/pagination.util";
 
 
-@QueryHandler(GetExamRoomsQuery)
-export class GetExamRoomsHandler implements IQueryHandler<GetExamRoomsQuery> {
+@QueryHandler(GetClinicsQuery)
+export class GetClinicsHandler implements IQueryHandler<GetClinicsQuery> {
   constructor(@InjectDataSource(BASE_SCHEMA.HIS_RS) private readonly dataSource: DataSource) {}
 
-  async execute(query: GetExamRoomsQuery): Promise<any> {
+  async execute(query: GetClinicsQuery): Promise<any> {
     const {  page = PAGE_DEFAULT, limit = LIMIT_DEFAULT } = query.dto;
 
     const offset = (page - 1) * limit || 0;
@@ -32,8 +31,8 @@ export class GetExamRoomsHandler implements IQueryHandler<GetExamRoomsQuery> {
     const queryData = `
     SELECT 
         VHR.ID AS "id",
-        VHR.ROOM_CODE AS "roomCode",
-        VHR.ROOM_NAME AS "roomName",
+        VHR.ROOM_CODE AS "clinicCode",
+        VHR.ROOM_NAME AS "clinicName",
         HA.AREA_CODE AS "areaCode",
         HA.AREA_NAME AS "areaName",
         HD.DEPARTMENT_CODE AS "departmentCode",

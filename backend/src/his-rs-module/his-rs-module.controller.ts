@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, UseGuards, Req, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Req, Query, Param } from '@nestjs/common';
 import { HisRsModuleService } from './his-rs-module.service';
 import { GetHistoryByIdentityDto } from './dto/get-history-by-identity.dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
@@ -12,7 +12,7 @@ import { IdentityAccessGuard } from '../common/guards/identity-access.guard';
 import { GetPatientTypesDto } from './dto/get-patient-types.dto';
 import { GetBranchDto } from './dto/get-branch.dto';
 import { GetDoctorsDto } from './dto/get-doctors.dto';
-import { GetExamRoomsDto } from './dto/get-exam-rooms.dto';
+import { GetClinicsDto } from './dto/get-clinics.dto';
 
 @ApiTags('HIS RS Module')
 @ApiBearerAuth('access-token')
@@ -69,15 +69,27 @@ export class HisRsModuleController {
   }
 
   @ApiOperation({ summary: 'Get doctors' })
-  @Get('get-doctors')
+  @Get('get-doctor')
   async getDoctors(@Query() query: GetDoctorsDto) {
     return this.hisRsModuleService.getDoctors(query);
   }
 
-  @ApiOperation({ summary: 'Get exam rooms' })
-  @Get('get-exam-rooms')
-  async getExamRooms(@Query() query: GetExamRoomsDto) {
-    return this.hisRsModuleService.getExamRooms(query);
+  @ApiOperation({ summary: 'Get doctor by id' })
+  @Get('get-doctor/:id')
+  async getDoctor(@Param('id') id: number) {
+    return this.hisRsModuleService.getDoctor(+id);
+  }
+
+  @ApiOperation({ summary: 'Get clinics' })
+  @Get('get-clinic')
+  async getClinics(@Query() query: GetClinicsDto) {
+    return this.hisRsModuleService.getClinics(query);
+  }
+
+  @ApiOperation({ summary: 'Get clinic by id' })
+  @Get('get-clinic/:id')
+  async getClinic(@Param('id') id: number) {
+    return this.hisRsModuleService.getClinic(+id);
   }
 } 
   
