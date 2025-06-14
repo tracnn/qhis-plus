@@ -1,28 +1,22 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSatisfactionSurveyDto } from './dto/create-satisfaction-survey.dto';
 import { UpdateSatisfactionSurveyDto } from './dto/update-satisfaction-survey.dto';
-import { CreateSatisfactionSurveyTreatmentCommand } from './commands/create-satisfaction-survey-treatment.command';
+import { CreateSatisfactionSurveyCommand } from './commands/create-satisfaction-survey.command';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
-import { UpdateSatisfactionSurveyTreatmentCommand } from './commands/update-satisfaction-survey-treatment.command';
+import { UpdateSatisfactionSurveyTreatmentCommand } from './commands/update-satisfaction-survey.command';
 import { GetSatisfactionSurveyTreatmentQuery } from './queries/get-satisfaction-survey-treatment.query';
 import { GetSatisfactionSurveyTreatmentByIdQuery } from './queries/get-satisfaction-survey-treatment-by-id.query';
-import { DeleteSatisfactionSurveyTreatmentCommand } from './commands/delete-satisfaction-survey-treatment.command';
-import { CreateSatisfactionSurveyServiceDto } from './dto/create-satisfaction-survey-service.dto';
-import { CreateSatisfactionSurveyServiceCommand } from './commands/create-satisfaction-survey-service.command';
-import { GetSatisfactionSurveyServiceQuery } from './queries/get-satisfaction-survey-service.query';
-import { GetSatisfactionSurveyServiceByIdQuery } from './queries/get-satisfaction-survey-service-by-id.query';
-import { UpdateSatisfactionSurveyServiceDto } from './dto/update-satisfaction-survey-service.dto';
-import { UpdateSatisfactionSurveyServiceCommand } from './commands/update-satisfaction-survey-service.command';
-import { DeleteSatisfactionSurveyServiceCommand } from './commands/delete-satisfaction-survey-service.command';
-import { GetSatisfactionSurveyTreatmentDto } from './dto/get-satisfaction-survey-treatment.dto';
-import { GetSatisfactionSurveyServiceDto } from './dto/get-satisfaction-survey-service.dto';
+import { DeleteSatisfactionSurveyTreatmentCommand } from './commands/delete-satisfaction-survey.command';
+import { GetSatisfactionSurveyTreatmentDto } from './dto/get-satisfaction-survey.dto';
+import { GetSatisfactionSurveyTreatmentByTreatmentCodeQuery } from './queries/get-satisfaction-survey-treatment-by-treatment-code.query';
+import { GetSatisfactionSurveyTreatmentByTreatmentCodeDto } from './dto/get-satisfaction-survey-by-treatment.dto';
 
 @Injectable()
 export class SatisfactionSurveyService {
   constructor(private readonly commandBus: CommandBus, private readonly queryBus: QueryBus) {}
 
   createTreatmentSurvey(userId: string, createSatisfactionSurveyDto: CreateSatisfactionSurveyDto) {
-    return this.commandBus.execute(new CreateSatisfactionSurveyTreatmentCommand(userId, createSatisfactionSurveyDto));
+    return this.commandBus.execute(new CreateSatisfactionSurveyCommand(userId, createSatisfactionSurveyDto));
   }
 
   findAllTreatmentSurveys(userId: string, getSatisfactionSurveyTreatmentDto: GetSatisfactionSurveyTreatmentDto) {
@@ -42,23 +36,9 @@ export class SatisfactionSurveyService {
     return this.commandBus.execute(new DeleteSatisfactionSurveyTreatmentCommand(satisfactionSurveyId, userId));
   }
 
-  createServiceSurvey(userId: string, createSatisfactionSurveyDto: CreateSatisfactionSurveyServiceDto) {
-    return this.commandBus.execute(new CreateSatisfactionSurveyServiceCommand(userId, createSatisfactionSurveyDto));
+  findOneTreatmentSurveyByTreatmentCode(userId: string, getSatisfactionSurveyTreatmentByTreatmentCodeDto: GetSatisfactionSurveyTreatmentByTreatmentCodeDto) {
+    return this.queryBus.execute(new GetSatisfactionSurveyTreatmentByTreatmentCodeQuery(userId, 
+      getSatisfactionSurveyTreatmentByTreatmentCodeDto));
   }
 
-  findAllServiceSurveys(userId: string, getSatisfactionSurveyServiceDto: GetSatisfactionSurveyServiceDto) {
-    return this.queryBus.execute(new GetSatisfactionSurveyServiceQuery(userId, getSatisfactionSurveyServiceDto));
-  }
-
-  findOneServiceSurvey(satisfactionSurveyId: string, userId: string) {
-    return this.queryBus.execute(new GetSatisfactionSurveyServiceByIdQuery(satisfactionSurveyId, userId));
-  }
-
-  updateServiceSurvey(userId: string, satisfactionSurveyId: string, updateSatisfactionSurveyDto: UpdateSatisfactionSurveyServiceDto) {
-    return this.commandBus.execute(new UpdateSatisfactionSurveyServiceCommand(userId, satisfactionSurveyId, updateSatisfactionSurveyDto));
-  }
-
-  deleteServiceSurvey(satisfactionSurveyId: string, userId: string) {
-    return this.commandBus.execute(new DeleteSatisfactionSurveyServiceCommand(satisfactionSurveyId, userId));
-  }
 }

@@ -1,33 +1,33 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
-import { DeleteSatisfactionSurveyServiceCommand } from "./delete-satisfaction-survey-service.command";
-
+import { DeleteSatisfactionSurveyTreatmentCommand } from "./delete-satisfaction-survey.command";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { SatisfactionSurvey } from "../entities/satisfaction-survey.entity";
-import { SatisfactionSurveyStatus, SatisfactionSurveyType } from "../enums/satisfaction-survey.enum";
-import { ConflictException, NotFoundException } from "@nestjs/common";
+import { BadRequestException, NotFoundException } from "@nestjs/common";
 import { ERROR_404 } from "@common/error-messages/error-404";
-import { ERROR_409 } from "@common/error-messages/error-409";
+import { MESSAGE_COMMON } from "@common/message.common";
+import { SatisfactionSurveyStatus } from "../enums/satisfaction-survey.enum";
 
-@CommandHandler(DeleteSatisfactionSurveyServiceCommand)
-export class DeleteSatisfactionSurveyServiceHandler implements ICommandHandler<DeleteSatisfactionSurveyServiceCommand> {
+@CommandHandler(DeleteSatisfactionSurveyTreatmentCommand)
+export class DeleteSatisfactionSurveyTreatmentHandler implements ICommandHandler<DeleteSatisfactionSurveyTreatmentCommand> {
     constructor(
         @InjectRepository(SatisfactionSurvey)
         private readonly satisfactionSurveyRepository: Repository<SatisfactionSurvey>,
     ) {}
 
-    async execute(command: DeleteSatisfactionSurveyServiceCommand): Promise<any> {
-        const { userId, satisfactionSurveyId } = command;
+    async execute(command: DeleteSatisfactionSurveyTreatmentCommand): Promise<any> {
+        const { satisfactionSurveyId, userId } = command;
 
         const currentSatisfactionSurvey = await this.satisfactionSurveyRepository.findOne({
-            where: { id: satisfactionSurveyId, userId, surveyType: SatisfactionSurveyType.SERVICE },
+            where: { id: satisfactionSurveyId, userId },
         });
 
         if (!currentSatisfactionSurvey) {
             throw new NotFoundException(ERROR_404.NOT_FOUND_SURVEY);
         }
+
         if (currentSatisfactionSurvey.surveyStatus === SatisfactionSurveyStatus.COMPLETED) {
-            throw new ConflictException(ERROR_409.SERVICE_ALREADY_COMPLETED_NOT_ALLOWED_UPDATE);
+            throw new BadRequestException(MESSAGE_COMMON.SURVEY_ALREADY_COMPLETED);
         }
 
         return await this.satisfactionSurveyRepository.delete(satisfactionSurveyId);

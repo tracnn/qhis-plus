@@ -8,11 +8,11 @@ import { Otp } from "./otp/entities/otp.entity";
 
 export default new DataSource({
     type: "oracle",
-    host: "192.168.7.248",
+    host: "localhost",
     port: 1521,
     username: "HXT_RS",
     password: "HXT_RS",
-    serviceName: "orclstb",
+    serviceName: "FREEPDB1",
     entities: [
         HealthMetric, 
         User, 

@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
-import { UpdateSatisfactionSurveyTreatmentCommand } from "./update-satisfaction-survey-treatment.command";
+import { UpdateSatisfactionSurveyTreatmentCommand } from "./update-satisfaction-survey.command";
 import { SatisfactionSurvey } from "../entities/satisfaction-survey.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";

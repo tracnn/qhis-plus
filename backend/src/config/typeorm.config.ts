@@ -47,8 +47,8 @@ export const createEmRsTypeOrmConfig = (configService: ConfigService): TypeOrmMo
   port: +(configService.get<string>('ERS_DB_PORT') || 1521),
   username: configService.get<string>('ERS_DB_USERNAME'),
   password: configService.get<string>('ERS_DB_PASSWORD'),
-  //serviceName: configService.get<string>('ERS_DB_SERVICE_NAME'),
-  sid: configService.get<string>('ERS_DB_SID'),
+  serviceName: configService.get<string>('ERS_DB_SERVICE_NAME'),
+  //sid: configService.get<string>('ERS_DB_SID'),
   autoLoadEntities: true,
   synchronize: false,
 });
