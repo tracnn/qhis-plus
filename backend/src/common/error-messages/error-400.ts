@@ -13,4 +13,5 @@ export const ERROR_400 = {
     CLINIC_SPECIALTY_ALREADY_EXISTS: { message: 'Chuyên khoa/phòng khám đã tồn tại' },
     DOCTOR_TITLE_ALREADY_EXISTS: { message: 'Chức danh/Bác sĩ đã tồn tại' },
     SLOT_EXISTS: { message: 'Slot đã tồn tại' },
+    USERNAME_NOT_VALID: { message: 'Tên tài khoản không hợp lệ, không được chứa ký tự đặc biệt hay dấu cách' },
 }

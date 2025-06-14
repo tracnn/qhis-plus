@@ -2,6 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNotEmpty, IsEmail, IsOptional, Matches, Length, IsDateString, IsNumber, IsIn } from 'class-validator';
 import { BaseDto } from '../../common/base.dto';
 import { Transform } from 'class-transformer';
+import { ERROR_400 } from '@common/error-messages/error-400';
 
 export class CreateUserDto extends BaseDto {
     @ApiProperty({
@@ -10,6 +11,7 @@ export class CreateUserDto extends BaseDto {
     })
     @IsString({ message: 'Username không hợp lệ' })
     @IsNotEmpty({ message: 'Username không được để trống' })
+    @Matches(/^[a-zA-Z0-9_.]+$/, ERROR_400.USERNAME_NOT_VALID)
     username: string;
 
     @ApiProperty({
