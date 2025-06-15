@@ -9,6 +9,7 @@ import { AppointmentSlot } from './entities/appointment-slot.entity';
 import { CreateAppointmentSlotCommandHandler } from './commands/create-appointment-slot.handler';
 import { GetAppointmentSlotQueryHandler } from './queries/get-appointment-slot.handler';
 import { GetAppointmentSlotByIdQueryHandler } from './queries/get-appointment-slot-by-id.handler';
+import { GetAppointmentSlotBySpecialtyQueryHandler } from './queries/get-appointment-slot-by-specialty.handler';
 
 const CommandHandlers = [
   CreateAppointmentSlotCommandHandler,
@@ -17,6 +18,7 @@ const CommandHandlers = [
 const QueryHandlers = [
   GetAppointmentSlotQueryHandler,
   GetAppointmentSlotByIdQueryHandler,
+  GetAppointmentSlotBySpecialtyQueryHandler,
 ];
 
 @Module({

@@ -8,6 +8,7 @@ import { CreateClinicSpecialtyHandler } from './commands/create-clinic-specialty
 import { CqrsModule } from '@nestjs/cqrs';
 import { GetClinicSpecialtyHandler } from './queries/get-clinic-specialty.handler';
 import { GetClinicSpecialtyByIdHandler } from './queries/get-clinic-specialty-by-id.handler';
+import { GetClinicSpecialtyBySpecialtyIdHandler } from './queries/get-clinic-specialty-by-specialty-id.handler';
 
 const commandHandlers = [
   CreateClinicSpecialtyHandler,
@@ -16,6 +17,7 @@ const commandHandlers = [
 const queryHandlers = [
   GetClinicSpecialtyHandler,
   GetClinicSpecialtyByIdHandler,
+  GetClinicSpecialtyBySpecialtyIdHandler,
 ];
 
 @Module({

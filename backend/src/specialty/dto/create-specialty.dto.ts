@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsOptional, IsString, Matches } from "class-validator";
 
 export class CreateSpecialtyDto {
     @ApiProperty({
@@ -8,6 +8,7 @@ export class CreateSpecialtyDto {
     })
     @IsNotEmpty()
     @IsString()
+    @Matches(/^[a-zA-Z0-9_.]+$/)
     specialtyCode: string;
 
     @ApiProperty({
@@ -30,6 +31,7 @@ export class CreateSpecialtyDto {
         description: 'Thứ tự chuyên khoa',
         example: 1,
     })
+    @IsOptional()
     @IsNotEmpty()
     @IsNumber()
     order: number;

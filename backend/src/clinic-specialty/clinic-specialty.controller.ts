@@ -4,6 +4,7 @@ import { CreateClinicSpecialtyDto } from './dto/create-clinic-specialty.dto';
 import { UpdateClinicSpecialtyDto } from './dto/update-clinic-specialty.dto';
 import { ApiOperation } from '@nestjs/swagger';
 import { GetClinicSpecialtyDto } from './dto/get-clinic-specialty.dto';
+import { GetClinicSpecialtyBySpecialtyIdDto } from './dto/get-clinic-specialty-by-specialty-id.dto';
 
 @Controller('clinic-specialty')
 export class ClinicSpecialtyController {
@@ -25,6 +26,12 @@ export class ClinicSpecialtyController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.clinicSpecialtyService.findOne(id);
+  }
+
+  @ApiOperation({ summary: 'Get clinic specialty by specialty id' })
+  @Get('specialty/:specialtyId')
+  getBySpecialtyId(@Param('specialtyId') specialtyId: string, @Query() dto: GetClinicSpecialtyBySpecialtyIdDto) {
+    return this.clinicSpecialtyService.getBySpecialtyId(specialtyId, dto);
   }
 
   @Patch(':id')

@@ -14,11 +14,11 @@ import { Title } from "./title/entities/title.entity";
 
 export default new DataSource({
     type: "oracle",
-    host: "localhost",
-    port: 1521,
-    username: "HXT_RS",
-    password: "HXT_RS",
-    serviceName: "FREEPDB1",
+    host: process.env.DB_HOST || "localhost",
+    port: Number(process.env.DB_PORT) || 1521,
+    username: process.env.DB_USERNAME || "HXT_RS",
+    password: process.env.DB_PASSWORD || "HXT_RS",
+    serviceName: process.env.DB_SERVICE_NAME || "FREEPDB1",
     entities: [
         HealthMetric, 
         User, 

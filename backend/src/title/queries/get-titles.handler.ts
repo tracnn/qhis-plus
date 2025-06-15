@@ -26,6 +26,9 @@ export class GetTitlesHandler implements IQueryHandler<GetTitlesQuery> {
       where: { isActive: true },
       skip: offset,
       take: limit,
+      order: {
+        order: 'ASC',
+      },
     });
 
     return {

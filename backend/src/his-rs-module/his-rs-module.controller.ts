@@ -80,6 +80,12 @@ export class HisRsModuleController {
     return this.hisRsModuleService.getDoctor(+id);
   }
 
+  @ApiOperation({ summary: 'Get doctors by ids' })
+  @Get('get-doctors-by-ids/:ids')
+  async getDoctorsByIds(@Param('ids') ids: string) {
+    return this.hisRsModuleService.getDoctorsByIds(ids);
+  }
+
   @ApiOperation({ summary: 'Get clinics' })
   @Get('get-clinic')
   async getClinics(@Query() query: GetClinicsDto) {

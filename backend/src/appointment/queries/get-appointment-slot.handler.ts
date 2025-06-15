@@ -61,8 +61,8 @@ export class GetAppointmentSlotQueryHandler implements IQueryHandler<GetAppointm
 
     const data = appointmentSlots.map(slot => ({
       ...slot,
-      ...(clinicMap.get(Number(slot.clinicId)) || null),
-      ...(doctorMap.get(Number(slot.doctorId)) || null),
+      clinic: clinicMap.get(Number(slot.clinicId)) || null,
+      doctor: doctorMap.get(Number(slot.doctorId)) || null,
     }));
 
     return {

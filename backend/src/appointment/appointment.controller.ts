@@ -5,6 +5,7 @@ import { UpdateAppointmentDto } from './dto/update-appointment.dto';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CreateAppointmentSlotDto } from './dto/create-appointment-slot.dto';
 import { GetAppointmentSlotDto } from './dto/get-appointment-slot.dto';
+import { GetAppointmentSlotBySpecialtyDto } from './dto/get-appointment-slot-by-specialty.dto';
 
 @Controller('appointment')
 export class AppointmentController {
@@ -48,6 +49,14 @@ export class AppointmentController {
   @Get('slot/:id')
   findOneSlot(@Param('id') id: string) {
     return this.appointmentService.findOneSlot(id);
+  }
+
+  @ApiOperation({ summary: 'Get appointment slot by specialty' })
+  @ApiResponse({ status: 200, description: 'The appointment slot has been successfully retrieved.' })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @Get('slot/specialty/:specialtyId')
+  findSlotBySpecialty(@Param('specialtyId') specialtyId: string, @Query() dto: GetAppointmentSlotBySpecialtyDto) {
+    return this.appointmentService.findSlotBySpecialty(specialtyId, dto);
   }
 
   @Patch(':id')

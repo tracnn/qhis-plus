@@ -7,6 +7,45 @@
     },
     "address": "123 Main St, Anytown, USA",
     "logo": "https://www.bvbm.com/logo.png",
+    "API_BHXH": {
+        "BH_API_URL": "http://192.168.7.200:1111/api/egw/KQNhanLichSuKCB2024",
+        "BH_AUTH_URL": "http://192.168.7.200:1111/api/token/take",
+        "BH_USERNAME": "01929_BV",
+        "BH_PASSWORD": "3ffc23b6964c1724f34dd2fd9e3d871e",
+        "BH_HO_TEN_CB": "Lê Thành Đạo",
+        "BH_CCCD_CB": "001083023215"
+    },
+    "FTP_CLIENT_EMR": {
+        "FTP_HOST": "192.168.7.216",
+        "FTP_PORT": 21,
+        "FTP_USERNAME": "emruser",
+        "FTP_PASSWORD": "ec5509674951b76d5dec601224f923ea",
+        "SECURE": true,
+        "SERCURE_OPTION": { "rejectUnauthorized": false }
+    },
+    "SMS_CONFIG": {
+        "SMS_TOKEN": "eyJhbGciOiJIUzI1NiIsImtpZCI6ImJtYXBpIiwidHlwIjoiSldUIn0.eyJ1c2VyaWQiOiJhNmYzZmM1Mi05YTEzLTRkOTQtOGNkYy01OGJjMGE1ZWFiNTQiLCJuYW1lIjoiYm9va2luZyIsImVtYWlsIjoiYm9va2luZ0BnbWFpbC5jb20iLCJyb2xlIjpbIjMwMDEiLCIzMDA0Il0sIm5iZiI6MTc0NDA5NTAyMywiZXhwIjoxNzY0ODMxMDIzLCJpYXQiOjE3NDQwOTUwMjMsImlzcyI6Imh0dHBzOi8vcG1idi5iYWNobWFpLmdvdi52biIsImF1ZCI6ImFwaTovL2ludGVyLXJlZ2lzdGVyIn0.1oZ3t0gTuRNuwOlZKZw-YTk_883OEK_fwVHN8_M2CVQ",
+        "SMS_URL": "http://192.168.200.166:40635/api/intergration-v2/sendSms",
+        "SMS_CSBN_URL": "http://123.31.36.151:8888/smsbn/api"
+    },
+    "PACS_VIEWER_CONFIG": {
+        "INTERNAL_URL": "http://192.168.200.110/ris/his/viewer?serviceID=",
+        "EXTERNAL_URL": "https://pmbv.bachmai.gov.vn:7198"
+    },
+    "ZALO_CONFIG": {
+        "ZALO_APP_ID": "3810862980080599037",
+        "ZALO_SECRET_KEY": "5LiRZ5YKdRUM8tCYFjlw",
+        "ZALO_TOKEN_FILE": "../zalo/zalo_api_token.json",
+        "ZALO_OAUTH_URL": "https://oauth.zaloapp.com/v4/oa/access_token",
+        "ZALO_BUSINESS_URL": "https://business.openapi.zalo.me",
+        "ZALO_TEMPLATE_ID_APPOINTMENT": "353985",
+        "ZALO_TEMPLATE_ID_OTP": "436868",
+        "ZALO_MAX_ATTEMPTS": 5,
+        "ZALO_EXPIRATION_TIME": 5,
+        "ZALO_MAX_OTP_PER_DAY": 50,
+        "ZALO_RESEND_COOLDOWN": 5,
+        "ZALO_MAX_WRONG_OTP_PER_DAY": 50
+    },
     "settings": {
         "showTreatmentEndTypeName": false,
         "showTreatmentResultName": false,

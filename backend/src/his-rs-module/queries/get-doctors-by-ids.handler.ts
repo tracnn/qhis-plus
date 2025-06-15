@@ -26,6 +26,7 @@ export class GetDoctorsByIdsHandler implements IQueryHandler<GetDoctorsByIdsQuer
 
     for (const ids of chunkArray(doctorIds, chunkSize)) {
       if (!ids.length) continue;
+      //const inStr = ids.map(() => '?').join(",");
       const inStr = ids.map((_, i) => `:P${i}`).join(",");
       const sql = `
         SELECT 

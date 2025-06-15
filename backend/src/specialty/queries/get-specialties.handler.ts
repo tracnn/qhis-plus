@@ -26,6 +26,9 @@ export class GetSpecialtiesHandler implements IQueryHandler<GetSpecialtiesQuery>
       where: { isActive: true },
       skip: offset,
       take: limit,
+      order: {
+        order: 'ASC',
+      },
     });
 
     return {

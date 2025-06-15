@@ -6,6 +6,8 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GetClinicSpecialtyDto } from './dto/get-clinic-specialty.dto';
 import { GetClinicSpecialtyQuery } from './queries/get-clinic-specialty.query';
 import { GetClinicSpecialtyByIdQuery } from './queries/get-clinic-specialty-by-id.query';
+import { GetClinicSpecialtyBySpecialtyIdDto } from './dto/get-clinic-specialty-by-specialty-id.dto';
+import { GetClinicSpecialtyBySpecialtyIdQuery } from './queries/get-clinic-specialty-by-specialty-id.query';
 
 @Injectable()
 export class ClinicSpecialtyService {
@@ -24,6 +26,10 @@ export class ClinicSpecialtyService {
 
   findOne(id: string) {
     return this.queryBus.execute(new GetClinicSpecialtyByIdQuery(id));
+  }
+
+  getBySpecialtyId(specialtyId: string, dto: GetClinicSpecialtyBySpecialtyIdDto) {
+    return this.queryBus.execute(new GetClinicSpecialtyBySpecialtyIdQuery(specialtyId, dto));
   }
 
   update(id: number, updateClinicSpecialtyDto: UpdateClinicSpecialtyDto) {

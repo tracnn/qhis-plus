@@ -20,6 +20,7 @@ import { GetClinicsDto } from './dto/get-clinics.dto';
 import { GetClinicsQuery } from './queries/get-clinics.query';
 import { GetClinicQuery } from './queries/get-clinic.query';
 import { GetDoctorQuery } from './queries/get-doctor.query';
+import { GetDoctorsByIdsQuery } from './queries/get-doctors-by-ids.query';
 
 @Injectable()
 export class HisRsModuleService {
@@ -69,6 +70,12 @@ export class HisRsModuleService {
     async getDoctor(id: number) {
         return this.queryBus.execute(
             new GetDoctorQuery(id));
+    }
+
+    async getDoctorsByIds(ids: string) {
+        const doctorIds = ids.split(',').map(Number);
+        return this.queryBus.execute(
+            new GetDoctorsByIdsQuery(doctorIds));
     }
 
     async getClinics(body: GetClinicsDto) {

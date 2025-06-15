@@ -13,7 +13,7 @@ export class Specialty extends BaseEntity {
   @Column({ name: 'ORDER', nullable: true })
   order: number;
 
-  @Column({ name: 'SPECIALTY_DESCRIPTION' })
+  @Column({ name: 'SPECIALTY_DESCRIPTION', length: 2000 })
   specialtyDescription: string;
 
   @Column({ name: 'IS_ACTIVE', default: true })

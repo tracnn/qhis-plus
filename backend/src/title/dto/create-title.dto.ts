@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsNumber, IsString, Matches } from "class-validator";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateTitleDto {
@@ -8,6 +8,7 @@ export class CreateTitleDto {
     })
     @IsNotEmpty()
     @IsString()
+    @Matches(/^[a-zA-Z0-9_.]+$/)
     titleCode: string;
 
     @ApiProperty({
