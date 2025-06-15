@@ -2,7 +2,7 @@ import { IQueryHandler } from "@nestjs/cqrs";
 import { GetSatisfactionSurveyTreatmentByTreatmentCodeQuery } from "./get-satisfaction-survey-treatment-by-treatment-code.query";
 import { QueryHandler } from "@nestjs/cqrs";
 import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { IsNull, Repository } from "typeorm";
 import { SatisfactionSurvey } from "../entities/satisfaction-survey.entity";
 
 @QueryHandler(GetSatisfactionSurveyTreatmentByTreatmentCodeQuery)
@@ -21,21 +21,20 @@ export class GetSatisfactionSurveyTreatmentByTreatmentCodeHandler implements IQu
             userId,
             treatmentCode,
         };
-    
-        if (serviceReqCode) {
-            whereCondition.serviceReqCode = serviceReqCode;
+        
+        // Xử lý serviceReqCode rõ ràng hơn
+        if (typeof serviceReqCode === 'string' && serviceReqCode.trim() !== "") {
+            whereCondition.serviceReqCode = serviceReqCode.trim();
         } else {
-            whereCondition.serviceReqCode = null;
+            whereCondition.serviceReqCode = IsNull();
         }
-    
-        const satisfactionSurvey = await this.satisfactionSurveyRepository.findOne({
+        
+        console.log('WHERE CONDITION:', whereCondition);
+        
+        const result = await this.satisfactionSurveyRepository.findOne({
             where: whereCondition,
         });
-
-        if (!satisfactionSurvey) {
-            return [];
-        }
-
-        return satisfactionSurvey;
+        
+        return result ? [result] : [];
     }
 }
