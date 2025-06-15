@@ -1,12 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, Req } from '@nestjs/common';
 import { AppointmentService } from './appointment.service';
 import { CreateAppointmentDto } from './dto/create-appointment.dto';
 import { UpdateAppointmentDto } from './dto/update-appointment.dto';
-import { ApiOperation, ApiResponse } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateAppointmentSlotDto } from './dto/create-appointment-slot.dto';
 import { GetAppointmentSlotDto } from './dto/get-appointment-slot.dto';
 import { GetAppointmentSlotBySpecialtyDto } from './dto/get-appointment-slot-by-specialty.dto';
+import { JwtAuthGuard } from '@auth/jwt-auth.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { UseGuards } from '@nestjs/common';
+import { GetAppointmentDto } from './dto/get-appointment.dto';
 
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard)
+@ApiTags('Appointment')
 @Controller('appointment')
 export class AppointmentController {
   constructor(private readonly appointmentService: AppointmentService) {}
@@ -57,6 +64,22 @@ export class AppointmentController {
   @Get('slot/specialty/:specialtyId')
   findSlotBySpecialty(@Param('specialtyId') specialtyId: string, @Query() dto: GetAppointmentSlotBySpecialtyDto) {
     return this.appointmentService.findSlotBySpecialty(specialtyId, dto);
+  }
+
+  @ApiOperation({ summary: 'Create appointment' })
+  @ApiResponse({ status: 200, description: 'The appointment has been successfully created.' })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @Post('create')
+  createAppointment(@Body() createAppointmentDto: CreateAppointmentDto, @Req() req: any) {
+    return this.appointmentService.createAppointment(req.user.userId, createAppointmentDto);
+  }
+
+  @ApiOperation({ summary: 'Get all appointment' })
+  @ApiResponse({ status: 200, description: 'The appointment has been successfully retrieved.' })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @Get('get-all')
+  findAllAppointment(@Query() dto: GetAppointmentDto, @Req() req: any) {
+    return this.appointmentService.findAllAppointment(req.user.userId, dto);
   }
 
   @Patch(':id')

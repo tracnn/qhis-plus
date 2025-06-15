@@ -1,3 +1,5 @@
+import * as dotenv from 'dotenv';
+dotenv.config({ path: '.env' });
 import { DataSource } from "typeorm";
 import { HealthMetric } from "./health-metrics/entities/health-metric.entity";
 import { FamilyMember } from "./family-members/entities/family-member.entity";

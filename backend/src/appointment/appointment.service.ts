@@ -11,6 +11,9 @@ import { GetAppointmentSlotByIdQuery } from './queries/get-appointment-slot-by-i
 import { SLOT_TYPE } from './enums/slot-type.enum';
 import { GetAppointmentSlotBySpecialtyQuery } from './queries/get-appointment-slot-by-specialty.query';
 import { GetAppointmentSlotBySpecialtyDto } from './dto/get-appointment-slot-by-specialty.dto';
+import { CreateAppointmentCommand } from './commands/create-appointment.command';
+import { GetAppointmentDto } from './dto/get-appointment.dto';
+import { GetAppointmentQuery } from './queries/get-appointment.query';
 
 @Injectable()
 export class AppointmentService {
@@ -33,6 +36,14 @@ export class AppointmentService {
 
   async findSlotBySpecialty(specialtyId: string, dto: GetAppointmentSlotBySpecialtyDto) {
     return await this.queryBus.execute(new GetAppointmentSlotBySpecialtyQuery(specialtyId,  dto));
+  }
+
+  async createAppointment(userId: string, appointment: CreateAppointmentDto) {
+    return await this.commandBus.execute(new CreateAppointmentCommand(userId, appointment));
+  }
+
+  async findAllAppointment(userId: string, dto: GetAppointmentDto) {
+    return await this.queryBus.execute(new GetAppointmentQuery(userId, dto));
   }
 
   update(id: number, updateAppointmentDto: UpdateAppointmentDto) {

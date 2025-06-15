@@ -1,11 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { DoctorTitleService } from './doctor-title.service';
 import { CreateDoctorTitleDto } from './dto/create-doctor-title.dto';
 import { UpdateDoctorTitleDto } from './dto/update-doctor-title.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiOperation } from '@nestjs/swagger';
 import { GetDoctorTitleDto } from './dto/get-doctor-title.dto';
+import { JwtAuthGuard } from '@auth/jwt-auth.guard';
 
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard)
+@ApiTags('Doctor Title')
 @Controller('doctor-title')
 export class DoctorTitleController {
   constructor(private readonly doctorTitleService: DoctorTitleService) {}

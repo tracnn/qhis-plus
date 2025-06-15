@@ -10,15 +10,19 @@ import { CreateAppointmentSlotCommandHandler } from './commands/create-appointme
 import { GetAppointmentSlotQueryHandler } from './queries/get-appointment-slot.handler';
 import { GetAppointmentSlotByIdQueryHandler } from './queries/get-appointment-slot-by-id.handler';
 import { GetAppointmentSlotBySpecialtyQueryHandler } from './queries/get-appointment-slot-by-specialty.handler';
+import { CreateAppointmentHandler } from './commands/create-appointment.handler';
+import { GetAppointmentHandler } from './queries/get-appointment.handler';
 
 const CommandHandlers = [
   CreateAppointmentSlotCommandHandler,
+  CreateAppointmentHandler,
 ];
 
 const QueryHandlers = [
   GetAppointmentSlotQueryHandler,
   GetAppointmentSlotByIdQueryHandler,
   GetAppointmentSlotBySpecialtyQueryHandler,
+  GetAppointmentHandler,
 ];
 
 @Module({

@@ -9,6 +9,7 @@ import { GetClinicsByIdsQuery } from "src/his-rs-module/queries/get-clinics-by-i
 import { GetAppointmentSlotBySpecialtyQuery } from "./get-appointment-slot-by-specialty.query";
 import { GetClinicSpecialtyBySpecialtyIdQuery } from "../../clinic-specialty/queries/get-clinic-specialty-by-specialty-id.query";
 import { GetClinicSpecialtyBySpecialtyIdDto } from "src/clinic-specialty/dto/get-clinic-specialty-by-specialty-id.dto";
+import { APPOINTMENT_STATUS } from "../enums/appointment-status.enum";
 
 @QueryHandler(GetAppointmentSlotBySpecialtyQuery)
 export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<GetAppointmentSlotBySpecialtyQuery> {
@@ -21,9 +22,16 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
   async execute(query: GetAppointmentSlotBySpecialtyQuery): Promise<any> {
     const { specialtyId, dto } = query;
 
+    const activeStatuses = [
+      APPOINTMENT_STATUS.PENDING,
+      APPOINTMENT_STATUS.CONFIRMED,
+      APPOINTMENT_STATUS.CHECKED_IN,
+      APPOINTMENT_STATUS.COMPLETED,
+    ];
+
     const { page = PAGE_DEFAULT, limit = LIMIT_DEFAULT, clinicId, doctorId } = dto;
     const skip = (page - 1) * limit;
-    console.log(clinicId, doctorId);
+
     const clinicSpecialty = await this.queryBus.execute(
         new GetClinicSpecialtyBySpecialtyIdQuery(specialtyId, new GetClinicSpecialtyBySpecialtyIdDto()));
     const clinicIds = clinicSpecialty.data.map((c: any) => c.clinicId);
@@ -48,12 +56,24 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
     .orderBy("slot.slotDate", "ASC")
     .addOrderBy("slot.slotTime", "ASC");
 
+    // filter by clinicId
     if (clinicId) {
         qb.andWhere("slot.clinicId = :clinicId", { clinicId: clinicId });
     }
+    // filter by doctorId
     if (doctorId) {
         qb.andWhere("slot.doctorId = :doctorId", { doctorId: doctorId });
     }
+
+    // check if slot is already booked
+    qb.andWhere(`
+      NOT EXISTS (
+        SELECT 1 FROM APPOINTMENTS a
+        WHERE a.APPOINTMENT_SLOT_ID = "slot"."ID"
+          AND a.APPOINTMENT_STATUS IN (:...activeStatuses)
+          AND a.IS_ACTIVE = 1
+      )
+    `, { activeStatuses });
 
     const [slots, total] = await qb.getManyAndCount();
 
@@ -70,8 +90,8 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
 
     // Query dữ liệu liên quan qua CQRS
     const [clinics, doctors] = await Promise.all([
-    this.queryBus.execute(new GetClinicsByIdsQuery(clinicIdsUsed)),
-    this.queryBus.execute(new GetDoctorsByIdsQuery(doctorIdsUsed)),
+      this.queryBus.execute(new GetClinicsByIdsQuery(clinicIdsUsed)),
+      this.queryBus.execute(new GetDoctorsByIdsQuery(doctorIdsUsed)),
     ]);    
 
     // Tạo map tra cứu nhanh
@@ -80,14 +100,14 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
 
     // Map vào từng slot (dạng nested object: slot.clinic, slot.doctor)
     const result = slots.map(slot => ({
-    ...slot,
-    clinic: clinicMap.get(Number(slot.clinicId)) || null,
-    doctor: doctorMap.get(Number(slot.doctorId)) || null,
+      ...slot,
+      clinic: clinicMap.get(Number(slot.clinicId)) || null,
+      doctor: doctorMap.get(Number(slot.doctorId)) || null,
     }));
 
     return {
-    data: result,
-    pagination: buildPagination(page, limit, total),
+      data: result,
+      pagination: buildPagination(page, limit, total),
     };
   }
 }

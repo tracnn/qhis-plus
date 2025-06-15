@@ -1,11 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { SpecialtyService } from './specialty.service';
 import { CreateSpecialtyDto } from './dto/create-specialty.dto';
 import { UpdateSpecialtyDto } from './dto/update-specialty.dto';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiOperation } from '@nestjs/swagger';
 import { GetSpecialtiesDto } from './dto/get-specialties.dto';
+import { JwtAuthGuard } from '@auth/jwt-auth.guard';
 
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard)
+@ApiTags('Specialty')
 @Controller('specialty')
 export class SpecialtyController {
   constructor(private readonly specialtyService: SpecialtyService) {}

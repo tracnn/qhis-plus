@@ -2,10 +2,16 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestj
 import { ClinicSpecialtyService } from './clinic-specialty.service';
 import { CreateClinicSpecialtyDto } from './dto/create-clinic-specialty.dto';
 import { UpdateClinicSpecialtyDto } from './dto/update-clinic-specialty.dto';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { GetClinicSpecialtyDto } from './dto/get-clinic-specialty.dto';
 import { GetClinicSpecialtyBySpecialtyIdDto } from './dto/get-clinic-specialty-by-specialty-id.dto';
+import { JwtAuthGuard } from '@auth/jwt-auth.guard';
+import { ApiBearerAuth } from '@nestjs/swagger';
+import { UseGuards } from '@nestjs/common';
 
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard)
+@ApiTags('Clinic Specialty')
 @Controller('clinic-specialty')
 export class ClinicSpecialtyController {
   constructor(private readonly clinicSpecialtyService: ClinicSpecialtyService) {}

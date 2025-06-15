@@ -6,7 +6,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '@auth/jwt-auth.guard';
 import { GetSatisfactionSurveyTreatmentDto } from './dto/get-satisfaction-survey.dto';
-import { GetSatisfactionSurveyTreatmentByTreatmentCodeDto } from './dto/get-satisfaction-survey-by-treatment.dto';
+import { GetSatisfactionSurveyTreatmentByTreatmentCodeDto } from './dto/get-satisfaction-survey-treatment-by-treatment-code.dto';
 
 @ApiTags('Satisfaction Survey')
 @Controller('satisfaction-survey')

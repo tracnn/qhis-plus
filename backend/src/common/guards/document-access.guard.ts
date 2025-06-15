@@ -31,8 +31,8 @@ export class DocumentAccessGuard implements CanActivate {
     if (!patient) throw new ForbiddenException(ERROR_403.TREATMENT_NOT_FOUND);
 
     if (
-      patient.identityNumber === identityNumber ||
-      patient.insuranceNumber === insuranceNumber
+      patient?.[0]?.identityNumber === identityNumber ||
+      patient?.[0]?.insuranceNumber === insuranceNumber
     ) {
       return true;
     }

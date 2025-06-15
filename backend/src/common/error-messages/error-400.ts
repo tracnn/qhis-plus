@@ -14,4 +14,6 @@ export const ERROR_400 = {
     DOCTOR_TITLE_ALREADY_EXISTS: { message: 'Chức danh/Bác sĩ đã tồn tại' },
     SLOT_EXISTS: { message: 'Slot đã tồn tại' },
     USERNAME_NOT_VALID: { message: 'Tên tài khoản không hợp lệ, không được chứa ký tự đặc biệt hay dấu cách' },
+    APPOINTMENT_SLOT_NOT_FOUND: { message: 'Slot không tồn tại' },
+    SLOT_ALREADY_BOOKED: { message: 'Slot đã có người đặt, vui lòng chọn slot khác' },
 }

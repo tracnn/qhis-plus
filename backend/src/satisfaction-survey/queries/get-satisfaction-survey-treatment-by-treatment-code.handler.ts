@@ -15,8 +15,27 @@ export class GetSatisfactionSurveyTreatmentByTreatmentCodeHandler implements IQu
     async execute(query: GetSatisfactionSurveyTreatmentByTreatmentCodeQuery): Promise<any> {
         const { userId, dto } = query;
 
-        return await this.satisfactionSurveyRepository.findOne({
-            where: { userId, treatmentCode: dto.treatmentCode },
+        const { treatmentCode, serviceReqCode } = dto;
+
+        const whereCondition: any = {
+            userId,
+            treatmentCode,
+        };
+    
+        if (serviceReqCode) {
+            whereCondition.serviceReqCode = serviceReqCode;
+        } else {
+            whereCondition.serviceReqCode = null;
+        }
+    
+        const satisfactionSurvey = await this.satisfactionSurveyRepository.findOne({
+            where: whereCondition,
         });
+
+        if (!satisfactionSurvey) {
+            return [];
+        }
+
+        return satisfactionSurvey;
     }
 }

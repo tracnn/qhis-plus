@@ -9,7 +9,7 @@ import { GetSatisfactionSurveyTreatmentByIdQuery } from './queries/get-satisfact
 import { DeleteSatisfactionSurveyTreatmentCommand } from './commands/delete-satisfaction-survey.command';
 import { GetSatisfactionSurveyTreatmentDto } from './dto/get-satisfaction-survey.dto';
 import { GetSatisfactionSurveyTreatmentByTreatmentCodeQuery } from './queries/get-satisfaction-survey-treatment-by-treatment-code.query';
-import { GetSatisfactionSurveyTreatmentByTreatmentCodeDto } from './dto/get-satisfaction-survey-by-treatment.dto';
+import { GetSatisfactionSurveyTreatmentByTreatmentCodeDto } from './dto/get-satisfaction-survey-treatment-by-treatment-code.dto';
 
 @Injectable()
 export class SatisfactionSurveyService {
