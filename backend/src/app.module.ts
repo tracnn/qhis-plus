@@ -21,7 +21,6 @@ import { ZaloService } from './otp/services/zalo.service';
 import { HttpModule } from '@nestjs/axios';
 import { BASE_SCHEMA } from './constant/common.constant';
 import { ZaloModule } from './zalo/zalo.module';
-import { SmsModule } from './sms/sms.module';
 import { FamilyMembersModule } from './family-members/family-members.module';
 import { HisRsModuleModule } from './his-rs-module/his-rs-module.module';
 import { EmrRsModuleModule } from './emr-rs-module/emr-rs-module.module';
@@ -38,6 +37,7 @@ import { SpecialtyModule } from './specialty/specialty.module';
 import { TitleModule } from './title/title.module';
 import { ClinicSpecialtyModule } from './clinic-specialty/clinic-specialty.module';
 import { DoctorTitleModule } from './doctor-title/doctor-title.module';
+import { SmsModule } from './sms/sms.module';
 
 @Module({
   imports: [
