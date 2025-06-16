@@ -21,6 +21,10 @@ import { GetClinicsQuery } from './queries/get-clinics.query';
 import { GetClinicQuery } from './queries/get-clinic.query';
 import { GetDoctorQuery } from './queries/get-doctor.query';
 import { GetDoctorsByIdsQuery } from './queries/get-doctors-by-ids.query';
+import { GetInvoiceByTreatmentDto } from './dto/get-invoice-by-treatment.dto';
+import { GetInvoiceByTreatmentQuery } from './queries/get-invoice-by-treatment.query';
+import { GetInvoiceByTransactionDto } from './dto/get-invoice-by-transaction.dto';
+import { GetInvoiceByTransactionQuery } from './queries/get-invoice-by-transaction.query';
 
 @Injectable()
 export class HisRsModuleService {
@@ -86,5 +90,10 @@ export class HisRsModuleService {
     async getClinic(id: number) {
         return this.queryBus.execute(
             new GetClinicQuery(id));
+    }
+
+    async getInvoiceByTransaction(userId: string, body: GetInvoiceByTransactionDto) {
+        return this.queryBus.execute(
+            new GetInvoiceByTransactionQuery(userId, body));
     }
 }

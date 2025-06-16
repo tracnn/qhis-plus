@@ -13,6 +13,7 @@ import { GetPatientTypesDto } from './dto/get-patient-types.dto';
 import { GetBranchDto } from './dto/get-branch.dto';
 import { GetDoctorsDto } from './dto/get-doctors.dto';
 import { GetClinicsDto } from './dto/get-clinics.dto';
+import { GetInvoiceByTransactionDto } from './dto/get-invoice-by-transaction.dto';
 
 @ApiTags('HIS RS Module')
 @ApiBearerAuth('access-token')
@@ -96,6 +97,12 @@ export class HisRsModuleController {
   @Get('get-clinic/:id')
   async getClinic(@Param('id') id: number) {
     return this.hisRsModuleService.getClinic(+id);
+  }
+
+  @ApiOperation({ summary: 'Get invoice by transaction' })
+  @Get('get-invoice-by-transaction')
+  async getInvoiceByTransaction(@Req() req: any, @Query() query: GetInvoiceByTransactionDto) {
+    return this.hisRsModuleService.getInvoiceByTransaction(req.user.userId, query);
   }
 } 
   

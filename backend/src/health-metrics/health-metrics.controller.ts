@@ -3,9 +3,8 @@ import { HealthMetricsService } from './health-metrics.service';
 import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { UseGuards } from '@nestjs/common';
-import { CreatePersonalHeathMetricDto } from './dto/create-personal-heath-metric.dto';
+import { CreatelHeathMetricDto } from './dto/create-health-metric.dto';
 import { GetlHealthMetricsDto } from './dto/get-health-metrics.dto';
-import { CreateFamilyHealthMetricDto } from './dto/create-family-health-metric.dto';
 import { UpdateHealthMetricDto } from './dto/update-health-metric.dto';
 
 @ApiTags('Health Metrics')
@@ -18,17 +17,9 @@ export class HealthMetricsController {
   @ApiOperation({ summary: 'Create a new personal health metric' })
   @ApiResponse({ status: 201, description: 'The health metric has been successfully created.' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
-  @Post('personal')
-  createPersonalHealthMetric(@Req() req: any, @Body() createPersonalHealthMetricDto: CreatePersonalHeathMetricDto) {
-    return this.healthMetricsService.createPersonalHealthMetric(req.user.userId, createPersonalHealthMetricDto);
-  }
-
-  @ApiOperation({ summary: 'Create a new family health metric' })
-  @ApiResponse({ status: 201, description: 'The health metric has been successfully created.' })
-  @ApiResponse({ status: 400, description: 'Bad Request' })
-  @Post('family')
-  createFamilyHealthMetric(@Req() req: any, @Body() createFamilyHealthMetricDto: CreateFamilyHealthMetricDto) {
-    return this.healthMetricsService.createFamilyHealthMetric(req.user.userId, createFamilyHealthMetricDto);
+  @Post()
+  createHealthMetric(@Req() req: any, @Body() createHealthMetricDto: CreatelHeathMetricDto) {
+    return this.healthMetricsService.createHealthMetric(req.user.userId, createHealthMetricDto);
   }
 
   @ApiOperation({ summary: 'Get all health metrics' })

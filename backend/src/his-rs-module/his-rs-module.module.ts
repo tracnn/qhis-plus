@@ -24,6 +24,9 @@ import { GetClinicHandler } from './queries/get-clinic.handler';
 import { GetDoctorQueryHandler } from './queries/get-doctor.handler';
 import { GetClinicsByIdsHandler } from './queries/get-clinics-by-ids.handler';
 import { GetDoctorsByIdsHandler } from './queries/get-doctors-by-ids.handler';
+import { GetInvoiceByTreatmentHandler } from './queries/get-invoice-by-treatment.handler';
+import { CyberBillBachMaiService } from './services/cyber-bill-bach-mai.service';
+import { GetInvoiceByTransactionHandler } from './queries/get-invoice-by-transaction.handler';
 
 const handlers = [
   GetHistoryByIdentityHandler,
@@ -45,6 +48,8 @@ const handlers = [
   GetDoctorQueryHandler,
   GetClinicsByIdsHandler,
   GetDoctorsByIdsHandler,
+  GetInvoiceByTreatmentHandler,
+  GetInvoiceByTransactionHandler
 ]
 
 @Module({
@@ -54,7 +59,8 @@ const handlers = [
     HttpModule
   ],
   controllers: [HisRsModuleController],
-  providers: [HisRsModuleService, 
+  providers: [HisRsModuleService,
+    CyberBillBachMaiService,
     ...handlers],
   exports: [CqrsModule],
 })

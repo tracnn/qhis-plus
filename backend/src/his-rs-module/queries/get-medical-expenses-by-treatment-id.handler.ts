@@ -3,12 +3,14 @@ import { GetMedicalExpensesByTreatmentIdQuery } from "./get-medical-expenses-by-
 import { InjectDataSource } from "@nestjs/typeorm";
 import { DataSource } from "typeorm";
 import { BASE_SCHEMA, TRANSACTION_TYPE_IDS } from "../../constant/common.constant";
-import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
+import { IQueryHandler, QueryBus, QueryHandler } from "@nestjs/cqrs";
+import { GetInvoiceByTreatmentQuery } from "./get-invoice-by-treatment.query";
 
 @QueryHandler(GetMedicalExpensesByTreatmentIdQuery)
 export class GetMedicalExpensesByTreatmentIdHandler implements IQueryHandler<GetMedicalExpensesByTreatmentIdQuery> {
     constructor(
-        @InjectDataSource(BASE_SCHEMA.HIS_RS) private dataSource: DataSource
+        @InjectDataSource(BASE_SCHEMA.HIS_RS) private dataSource: DataSource,
+        private readonly queryBus: QueryBus
     ) {}
 
     async execute(query: GetMedicalExpensesByTreatmentIdQuery): Promise<any> {
@@ -65,10 +67,15 @@ export class GetMedicalExpensesByTreatmentIdHandler implements IQueryHandler<Get
             AND IS_DELETE = 0
         `;
 
-        const [medicalExpensesResult, totalExpenseByPatientTypeResult, totalTransacntionResult] = await Promise.all([
+        const [medicalExpensesResult, 
+            totalExpenseByPatientTypeResult, 
+            totalTransacntionResult,
+            transactionIds
+        ] = await Promise.all([
             this.dataSource.query(medicalExpensesQuery, [treatmentId]),
             this.dataSource.query(totalExpenseByPatientTypeQuery, [treatmentId]),
-            this.dataSource.query(totalTransacntionQuery, [treatmentId])
+            this.dataSource.query(totalTransacntionQuery, [treatmentId]),
+            this.queryBus.execute(new GetInvoiceByTreatmentQuery({ treatmentId }))
         ]);
 
         const needToPay = Math.floor(totalExpenseByPatientTypeResult[0].totalPatientPrice - 
@@ -82,7 +89,8 @@ export class GetMedicalExpensesByTreatmentIdHandler implements IQueryHandler<Get
 
         return {
             medicalExpensesResult: medicalExpensesResult,
-            totalAccountantByPatient: totalAccountantByPatient
+            totalAccountantByPatient: totalAccountantByPatient,
+            transactionIds: transactionIds
         };
     }
 }

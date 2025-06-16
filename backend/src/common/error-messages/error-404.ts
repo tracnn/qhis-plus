@@ -20,4 +20,6 @@ export const ERROR_404 = {
     NOT_FOUND_DOCTOR: { message: 'Không tìm thấy bác sĩ' },
     NOT_FOUND_CLINIC_SPECIALTY: { message: 'Không tìm thấy chuyên khoa của phòng khám' },
     NOT_FOUND_DOCTOR_TITLE: { message: 'Không tìm thấy chức vụ của bác sĩ' },
+    NOT_FOUND_INVOICE_TYPE: { message: 'Có lỗi trong quá trình lấy dữ liệu hóa đơn điện tử' },
+    NOT_FOUND_TRANSACTION: { message: 'Không tìm thấy giao dịch hóa đơn điện tử' },
 }

@@ -1,24 +1,24 @@
 import { ICommandHandler } from "@nestjs/cqrs";
+import { CreateHealthMetricCommand } from "./create-health-metric.command";
 import { CommandHandler } from "@nestjs/cqrs";
-import { CreateFamilyHealthMetricCommand } from "./create-family-health-metric.command";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { HealthMetric } from "../entities/health-metric.entity";
 import { calculateBloodPressureStatus, calculateBMI, calculateBMIStatus } from "../utils/health-metrics.ultil";
 
-@CommandHandler(CreateFamilyHealthMetricCommand)
-export class CreateFamilyHealthMetricHandler implements ICommandHandler<CreateFamilyHealthMetricCommand> {
+@CommandHandler(CreateHealthMetricCommand)
+export class CreateHealthMetricHandler implements ICommandHandler<CreateHealthMetricCommand> {
     constructor(
         @InjectRepository(HealthMetric)
         private readonly healthMetricRepository: Repository<HealthMetric>,
     ) {}
 
-    async execute(command: CreateFamilyHealthMetricCommand): Promise<any> {
-        const { userId, createFamilyHealthMetricDto } = command;
+    async execute(command: CreateHealthMetricCommand): Promise<any> {
+        const { userId, createPersonalHeathMetricDto } = command;
 
         const healthMetric = this.healthMetricRepository.create({
             userId,
-            ...createFamilyHealthMetricDto,
+            ...createPersonalHeathMetricDto,
         });
 
         //pre-calculate bmi

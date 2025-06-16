@@ -5,16 +5,14 @@ import { HealthMetric } from './entities/health-metric.entity';
 import { BASE_SCHEMA } from '../constant/common.constant';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CqrsModule } from '@nestjs/cqrs';
-import { CreatePersonalHealthMetricHandler } from './commands/create-personal-health-metric.handler';
-import { CreateFamilyHealthMetricHandler } from './commands/create-family-health-metric.handler';
+import { CreateHealthMetricHandler } from './commands/create-health-metric.handler';
 import { GetlHealthMetricsHandler } from './queries/get-health-metrics.handler';
 import { UpdateHealthMetricCommandHandler } from './commands/update-health-metric.handler';
 import { DeleteHealthMetricCommandHandler } from './commands/delete-health-metric.handler';
 import { GetHealthMetricByIdQueryHandler } from './queries/get-health-metric-by-id.handler';
 
 const CommandHandlers = [
-  CreatePersonalHealthMetricHandler,
-  CreateFamilyHealthMetricHandler,
+  CreateHealthMetricHandler,
   UpdateHealthMetricCommandHandler,
   DeleteHealthMetricCommandHandler,
 ];

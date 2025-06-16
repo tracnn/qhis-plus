@@ -47,4 +47,7 @@ export class OrganizationConfigService {
   get showIcdText(): boolean {
     return this.settings.showIcdText ?? false;
   }
+  get invoiceType(): string {
+    return this.config.invoiceType;
+  }
 }
