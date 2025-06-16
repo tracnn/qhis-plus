@@ -72,6 +72,11 @@ export class UserService {
 
         const addressLocation = await this.addressLocationResolverService.resolve(address);
 
+        //If birthDate only 4 digits YYYY, convert to 01/01/YYYY
+        if (healthInsurance.birthDate.length === 4) {
+            healthInsurance.birthDate = `01/01/${healthInsurance.birthDate}`;
+        }
+        
         return {
             ...healthInsurance,
             ...addressLocation,
