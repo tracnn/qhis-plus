@@ -20,7 +20,6 @@ export class EmrRsModuleService {
     private readonly queryBus: QueryBus,
     private readonly ftpService: FtpService,
     private readonly minioService: MinioService,
-    private readonly configService: ConfigService
   ) {}
 
   async getRelationList(query: GetRelationListDto) {

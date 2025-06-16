@@ -27,6 +27,7 @@ import { GetDoctorsByIdsHandler } from './queries/get-doctors-by-ids.handler';
 import { GetInvoiceByTreatmentHandler } from './queries/get-invoice-by-treatment.handler';
 import { CyberBillBachMaiService } from './services/cyber-bill-bach-mai.service';
 import { GetInvoiceByTransactionHandler } from './queries/get-invoice-by-transaction.handler';
+import { MinioModule } from '../minio/minio.module';
 
 const handlers = [
   GetHistoryByIdentityHandler,
@@ -56,7 +57,8 @@ const handlers = [
   imports: [
     CqrsModule, 
     TypeOrmModule.forFeature([], BASE_SCHEMA.HIS_RS),
-    HttpModule
+    HttpModule,
+    MinioModule
   ],
   controllers: [HisRsModuleController],
   providers: [HisRsModuleService,

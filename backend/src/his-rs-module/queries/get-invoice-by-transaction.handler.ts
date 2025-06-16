@@ -1,18 +1,20 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { GetInvoiceByTransactionQuery } from "./get-invoice-by-transaction.query";
 import { InjectDataSource } from "@nestjs/typeorm";
-import { BASE_SCHEMA } from "../../constant/common.constant";
+import { BASE_SCHEMA, EMR_DOCUMENT_CONTENT_TYPE } from "../../constant/common.constant";
 import { DataSource } from "typeorm";
 import { InvoiceTypeBySystem } from "../enums/invoice-type.enum";
 import { CyberBillBachMaiService } from "../services/cyber-bill-bach-mai.service";
 import { ERROR_404 } from "@common/error-messages/error-404";
 import { NotFoundException } from "@nestjs/common";
+import { MinioService } from "../../minio/minio.service";
 
 @QueryHandler(GetInvoiceByTransactionQuery)
 export class GetInvoiceByTransactionHandler implements IQueryHandler<GetInvoiceByTransactionQuery> {
     constructor(
         @InjectDataSource(BASE_SCHEMA.HIS_RS) private readonly dataSource: DataSource,
-        private readonly cyberBillBachMaiService: CyberBillBachMaiService
+        private readonly cyberBillBachMaiService: CyberBillBachMaiService,
+        private readonly minioService: MinioService
     ) {}
     async execute(query: GetInvoiceByTransactionQuery) {
         const { getInvoiceByTransactionDto } = query;
@@ -22,7 +24,9 @@ export class GetInvoiceByTransactionHandler implements IQueryHandler<GetInvoiceB
                 ID AS "transactionId",
                 TRANSACTION_CODE AS "transactionCode",
                 INVOICE_LOOKUP_CODE AS "invoiceLookupCode",
-                INVOICE_SYS AS "invoiceSys"
+                INVOICE_SYS AS "invoiceSys",
+                TDL_PATIENT_CODE AS "patientCode",
+                TDL_TREATMENT_CODE AS "treatmentCode"
             FROM
                 HIS_TRANSACTION
             WHERE
@@ -37,17 +41,52 @@ export class GetInvoiceByTransactionHandler implements IQueryHandler<GetInvoiceB
             throw new NotFoundException(ERROR_404.NOT_FOUND_TRANSACTION);
         }
 
-        let invoice = null;
-        switch (result[0].invoiceSys) {
-            case InvoiceTypeBySystem.CYBERBILL:
-                invoice = await this.cyberBillBachMaiService.getInvoicePdf(
-                    result[0].invoiceLookupCode, result[0].transactionCode);
-                break;
-            default:
-                throw new NotFoundException(ERROR_404.NOT_FOUND_INVOICE_TYPE);
+        const doc = result[0];
+
+        const patientCode = doc.patientCode;
+        const treatmentCode = doc.treatmentCode;
+        const originalFileName = `${doc.transactionCode}_${doc.invoiceLookupCode}.pdf`;
+        
+        const minioFileName = `${patientCode}/${treatmentCode}/${originalFileName}`;
+        
+        const fileType = 'pdf' as keyof typeof EMR_DOCUMENT_CONTENT_TYPE;
+        const contentType = EMR_DOCUMENT_CONTENT_TYPE[fileType];
+        const documentTypeName = 'Hóa đơn điện tử';
+        
+        const metaData = {
+            'document-id': encodeURIComponent(doc.transactionId),
+            'transaction-code': encodeURIComponent(doc.transactionCode),
+            'invoice-lookup-code': encodeURIComponent(doc.invoiceLookupCode),
+            'invoice-sys': encodeURIComponent(doc.invoiceSys),
+            'patient-code': encodeURIComponent(doc.patientCode),
+            'treatment-code': encodeURIComponent(doc.treatmentCode),
+            'document-type-name': encodeURIComponent(documentTypeName)
         }
+        
+        const exists = await this.minioService.exists(minioFileName);
+        
+        let buffer: Buffer;
+        let invoiceBase64: string | null = null;
+        
+        if (exists) {
+            buffer = await this.minioService.getFile(minioFileName);
+            invoiceBase64 = buffer.toString('base64');
+        } else {
+            switch (doc.invoiceSys) {
+                case InvoiceTypeBySystem.CYBERBILL:
+                    invoiceBase64 = await this.cyberBillBachMaiService.getInvoicePdf(
+                        doc.invoiceLookupCode, doc.transactionCode);
+                        await this.minioService.uploadContent(invoiceBase64, minioFileName, contentType, metaData);
+                    break;
+                default:
+                    throw new NotFoundException(ERROR_404.NOT_FOUND_INVOICE_TYPE);
+            }
+        }
+
         return {
-            base64: invoice
+            contentType: contentType,
+            metaData: metaData,
+            base64: invoiceBase64
         };
     }
 }
