@@ -64,6 +64,11 @@ export class MinioService {
     });
   }
 
+  async getFileBase64(fileName: string): Promise<string> {
+    const buffer = await this.getFile(fileName);
+    return buffer.toString('base64');
+  }
+
   async deleteFile(fileName: string): Promise<void> {
     const bucket = this.configService.get<string>('MINIO_BUCKET');
     if (!bucket) {

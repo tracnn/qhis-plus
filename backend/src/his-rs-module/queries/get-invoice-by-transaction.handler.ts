@@ -65,18 +65,16 @@ export class GetInvoiceByTransactionHandler implements IQueryHandler<GetInvoiceB
         
         const exists = await this.minioService.exists(minioFileName);
         
-        let buffer: Buffer;
-        let invoiceBase64: string | null = null;
+        let base64: string | null = null;
         
         if (exists) {
-            buffer = await this.minioService.getFile(minioFileName);
-            invoiceBase64 = buffer.toString('base64');
+            base64 = await this.minioService.getFileBase64(minioFileName);
         } else {
             switch (doc.invoiceSys) {
                 case InvoiceTypeBySystem.CYBERBILL:
-                    invoiceBase64 = await this.cyberBillBachMaiService.getInvoicePdf(
+                    base64 = await this.cyberBillBachMaiService.getInvoicePdf(
                         doc.invoiceLookupCode, doc.transactionCode);
-                        await this.minioService.uploadContent(invoiceBase64, minioFileName, contentType, metaData);
+                        await this.minioService.uploadContent(base64, minioFileName, contentType, metaData);
                     break;
                 default:
                     throw new NotFoundException(ERROR_404.NOT_FOUND_INVOICE_TYPE);
@@ -86,7 +84,7 @@ export class GetInvoiceByTransactionHandler implements IQueryHandler<GetInvoiceB
         return {
             contentType: contentType,
             metaData: metaData,
-            base64: invoiceBase64
+            base64: base64
         };
     }
 }
