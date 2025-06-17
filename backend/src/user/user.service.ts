@@ -134,7 +134,7 @@ export class UserService {
         const check_key_register = `register:${createUserDto.phoneNumber}`;
         const existed = await redisClient.get(check_key_register);
         if (existed) {
-            throw new BadRequestException({ ...ERROR_400.INVALID_REQUEST});
+            throw new BadRequestException({ ...ERROR_400.ACCOUNT_WAITING_FOR_ACTIVATION});
         }
 
         // 4. Tạo user (Bỏ qua bước tạo user ở đây để đẩy user tạm vào redis)
