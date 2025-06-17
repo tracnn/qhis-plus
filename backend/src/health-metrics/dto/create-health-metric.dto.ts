@@ -74,7 +74,7 @@ export class CreatelHeathMetricDto {
         description: 'The note',
         example: 'Note',
     })
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     note: string;
 
