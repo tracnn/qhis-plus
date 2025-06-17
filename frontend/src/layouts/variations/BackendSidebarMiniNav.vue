@@ -42,7 +42,7 @@ onBeforeRouteLeave(() => {
       <!-- Sidebar Mini Nav -->
       <div class="sidebar-mini-nav">
         <!-- Logo -->
-        <RouterLink :to="{ name: 'landing' }" class="mini-nav-item h-header">
+        <RouterLink :to="{ name: 'backend-dashboard' }" class="mini-nav-item h-header">
           <i class="fa fa-circle-notch text-primary"></i>
         </RouterLink>
         <!-- END Logo -->
@@ -79,7 +79,7 @@ onBeforeRouteLeave(() => {
         <!-- Side Header -->
         <div class="content-header">
           <!-- Logo -->
-          <RouterLink :to="{ name: 'landing' }" class="fw-semibold text-dual">
+          <RouterLink :to="{ name: 'backend-dashboard' }" class="fw-semibold text-dual">
             <span class="smini-visible">
               <i class="fa fa-circle-notch text-primary"></i>
             </span>

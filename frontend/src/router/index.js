@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from "vue-router";
+import { useAuthStore } from "@/stores/auth.store";
 
 import NProgress from "nprogress/nprogress.js";
 
@@ -257,6 +258,31 @@ const Error404 = () => import("@/views/errors/404View.vue");
 const Error500 = () => import("@/views/errors/500View.vue");
 const Error503 = () => import("@/views/errors/503View.vue");
 
+// Danh sách các route công khai (không cần đăng nhập)
+const publicRoutes = [
+  'auth-signin',
+  'auth-signin2',
+  'auth-signin3',
+  'auth-signup',
+  'auth-signup2',
+  'auth-signup3',
+  'auth-reminder',
+  'auth-reminder2',
+  'auth-reminder3',
+  'auth-lock',
+  'auth-lock2',
+  'auth-lock3',
+  'auth-two-factor',
+  'auth-two-factor2',
+  'auth-two-factor3',
+  'error-400',
+  'error-401',
+  'error-403',
+  'error-404',
+  'error-500',
+  'error-503'
+];
+
 // Set all routes
 const routes = [
   /*
@@ -268,14 +294,7 @@ const routes = [
   */
   {
     path: "/",
-    component: LayoutLanding,
-    children: [
-      {
-        path: "",
-        name: "landing",
-        component: Landing,
-      },
-    ],
+    redirect: "/backend/dashboard"
   },
 
   /*
@@ -374,6 +393,9 @@ const routes = [
         path: "dashboard",
         name: "backend-dashboard",
         component: BackendDashboard,
+        meta: {
+          layout: LayoutBackend
+        }
       },
 
       /*
@@ -1147,15 +1169,50 @@ const router = createRouter({
 /*eslint-disable no-unused-vars*/
 NProgress.configure({ showSpinner: false });
 
-router.beforeResolve((to, from, next) => {
-  if (to.name) {
-    NProgress.start();
+// Navigation guard
+router.beforeEach(async (to, from, next) => {
+  // Start progress bar
+  NProgress.start();
+
+  // Get auth store
+  const authStore = useAuthStore();
+
+  // Check if route is public
+  if (publicRoutes.includes(to.name)) {
+    // Nếu đã đăng nhập và cố truy cập trang đăng nhập, chuyển về dashboard
+    if (authStore.isAuthenticated && to.name === 'auth-signin') {
+      next({ name: 'backend-dashboard' });
+      return;
+    }
+    next();
+    return;
+  }
+
+  // Check authentication
+  const token = localStorage.getItem('access_token');
+  console.log('Current route:', to.name);
+  console.log('Auth store state:', authStore.isAuthenticated);
+  console.log('Token exists:', !!token);
+
+  if (!token || !authStore.isAuthenticated) {
+    console.log('No token or not authenticated, redirecting to login');
+    // Xóa hết state và token
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('remembered_username');
+    localStorage.removeItem('remembered_password');
+    authStore.isAuthenticated = false;
+    authStore.user = null;
+    
+    localStorage.clear();
+    next({ name: 'auth-signin' });
   }
 
   next();
 });
 
 router.afterEach(() => {
+  // Kết thúc loading bar
   NProgress.done();
 });
 /*eslint-enable no-unused-vars*/

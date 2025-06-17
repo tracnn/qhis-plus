@@ -3,22 +3,13 @@ import apiClient from './config';
 export const authService = {
   // Đăng nhập
   async login(credentials) {
-    const response = await apiClient.post('/auth/login', credentials);
-    if (response.data.access_token) {
-      localStorage.setItem('access_token', response.data.access_token);
-      localStorage.setItem('refresh_token', response.data.refresh_token);
-    }
-    return response.data;
+    return await apiClient.post('/auth/login', credentials);
   },
 
   // Đăng xuất
   async logout() {
-    try {
-      await apiClient.post('/auth/logout');
-    } finally {
-      localStorage.removeItem('access_token');
-      localStorage.removeItem('refresh_token');
-    }
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
   },
 
   // Lấy thông tin user hiện tại
@@ -32,7 +23,8 @@ export const authService = {
     const response = await apiClient.post('/auth/refresh', { refreshToken });
     if (response.data.access_token) {
       localStorage.setItem('access_token', response.data.access_token);
+      localStorage.setItem('refresh_token', response.data.refresh_token);
     }
     return response.data;
-  }
+  },
 }; 

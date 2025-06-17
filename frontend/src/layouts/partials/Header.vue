@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted } from "vue";
 import { useRouter } from "vue-router";
 import { useTemplateStore } from "@/stores/template";
+import { useAuthStore } from "@/stores/auth.store";
 
 // Grab example data
 import notifications from "@/data/notifications";
@@ -9,6 +10,7 @@ import notifications from "@/data/notifications";
 // Main store and Router
 const store = useTemplateStore();
 const router = useRouter();
+const authStore = useAuthStore();
 
 // Reactive variables
 const baseSearchTerm = ref("");
@@ -25,6 +27,10 @@ function eventHeaderSearch(event) {
     store.headerSearch({ mode: "off" });
   }
 }
+
+const handleLogout = () => {
+  authStore.logout();
+};
 
 // Attach ESCAPE key event listener
 onMounted(() => {
@@ -160,12 +166,13 @@ onUnmounted(() => {
                     >
                       <span class="fs-sm fw-medium">Lock Account</span>
                     </RouterLink>
-                    <RouterLink
-                      :to="{ name: 'auth-signin' }"
+                    <a
+                      href="#"
                       class="dropdown-item d-flex align-items-center justify-content-between"
+                      @click.prevent="handleLogout"
                     >
                       <span class="fs-sm fw-medium">Log Out</span>
-                    </RouterLink>
+                    </a>
                   </div>
                 </div>
               </div>

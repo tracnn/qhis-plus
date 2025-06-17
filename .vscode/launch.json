@@ -3,7 +3,7 @@
   "compounds": [
     {
       "name": "Debug Fullstack",
-      "configurations": ["Debug NestJS Backend", "Debug NextJS Frontend"]
+      "configurations": ["Debug NestJS Backend", "Debug VueJS Frontend"]
     }
   ],
   "configurations": [
@@ -37,24 +37,24 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug NextJS Frontend",
+      "name": "Debug VueJS Frontend",
       "runtimeExecutable": "npm",
       "runtimeArgs": [
         "run",
         "dev"
       ],
       "cwd": "${workspaceFolder}/frontend",
-      "port": 3001,
+      "port": 5173,
       "envFile": "${workspaceFolder}/frontend/.env"
     },
     {
       "type": "chrome",
       "request": "launch",
-      "name": "Debug NextJS Frontend (Chrome)",
-      "url": "http://localhost:3001",
+      "name": "Debug VueJS Frontend (Chrome)",
+      "url": "http://localhost:5173",
       "webRoot": "${workspaceFolder}/frontend",
       "sourceMapPathOverrides": {
-        "webpack://_N_E/*": "${webRoot}/*"
+        "webpack:///src/*": "${webRoot}/src/*"
       }
     }
   ]

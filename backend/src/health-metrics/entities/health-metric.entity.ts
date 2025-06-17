@@ -55,8 +55,4 @@ export class HealthMetric extends BaseEntity{
     @ManyToOne(() => User)
     @JoinColumn({ name: 'USER_ID' })
     user: User;
-
-    @ManyToOne(() => FamilyMember, { nullable: true })
-    @JoinColumn({ name: 'FAMILY_MEMBER_ID' })
-    familyMember: FamilyMember;
 }

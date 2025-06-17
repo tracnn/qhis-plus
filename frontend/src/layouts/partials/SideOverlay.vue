@@ -39,7 +39,10 @@ function eventSideOverlay(event) {
 
 // Init SimpleBar (custom scrolling) and attach ESCAPE key event listener
 onMounted(() => {
-  new SimpleBar(document.getElementById("side-overlay"));
+  const el = document.getElementById('simplebar-side-overlay');
+  if (el) {
+    new SimpleBar(el);
+  }
 
   document.addEventListener("keydown", eventSideOverlay);
 });
