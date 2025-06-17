@@ -4,7 +4,7 @@ import { CommandHandler } from "@nestjs/cqrs";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { HealthMetric } from "../entities/health-metric.entity";
-import { calculateBloodPressureStatus, calculateBMI, calculateBMIStatus } from "../utils/health-metrics.ultil";
+import { calculateBloodPressureStatus, calculateBloodPressureStatusNumber, calculateBMI, calculateBMIStatus } from "../utils/health-metrics.ultil";
 
 @CommandHandler(CreateHealthMetricCommand)
 export class CreateHealthMetricHandler implements ICommandHandler<CreateHealthMetricCommand> {
@@ -28,7 +28,10 @@ export class CreateHealthMetricHandler implements ICommandHandler<CreateHealthMe
         healthMetric.bmiStatus = calculateBMIStatus(healthMetric.bmi);
 
         //pre-calculate blood pressure status
-        healthMetric.bloodPressureStatus = calculateBloodPressureStatus(healthMetric.systolic, healthMetric.diastolic);
+        healthMetric.bloodPressureStatus = calculateBloodPressureStatus(healthMetric.systolic, healthMetric.diastolic) || '';
+
+        //pre-calculate blood pressure status number
+        healthMetric.bloodPressureStatusNumber = calculateBloodPressureStatusNumber(healthMetric.bloodPressureStatus);
 
         return await this.healthMetricRepository.save(healthMetric);
     }

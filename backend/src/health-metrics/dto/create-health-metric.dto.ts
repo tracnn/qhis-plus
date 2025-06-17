@@ -53,6 +53,24 @@ export class CreatelHeathMetricDto {
     weightKg: number;
 
     @ApiProperty({
+        description: 'The hbA1c',
+        example: 5.7,
+        required: false,
+    })
+    @IsOptional()
+    @IsNumber()
+    hbA1c: number;
+
+    @ApiProperty({
+        description: 'The glucose',
+        example: 6.5,
+        required: false,
+    })
+    @IsOptional()
+    @IsNumber()
+    glucose: number;
+
+    @ApiProperty({
         description: 'The note',
         example: 'Note',
     })

@@ -40,6 +40,15 @@ export class HealthMetric extends BaseEntity{
     @Column({ name: 'BLOOD_PRESSURE_STATUS', nullable: true })
     bloodPressureStatus: string;
 
+    @Column({ name: 'BLOOD_PRESSURE_STATUS_NUMBER', nullable: true })
+    bloodPressureStatusNumber: number;
+
+    @Column({ name: 'HBA1C', nullable: true })
+    hbA1c: number;
+
+    @Column({ name: 'GLUCOSE', nullable: true })
+    glucose: number;
+
     @Column({ name: 'METRIC_DATE' })
     metricDate: Date;
 

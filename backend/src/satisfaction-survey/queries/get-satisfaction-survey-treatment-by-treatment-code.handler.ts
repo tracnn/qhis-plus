@@ -29,8 +29,6 @@ export class GetSatisfactionSurveyTreatmentByTreatmentCodeHandler implements IQu
             whereCondition.serviceReqCode = IsNull();
         }
         
-        console.log('WHERE CONDITION:', whereCondition);
-        
         const result = await this.satisfactionSurveyRepository.findOne({
             where: whereCondition,
         });
