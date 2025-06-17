@@ -45,7 +45,7 @@ export class GetInvoiceByTransactionHandler implements IQueryHandler<GetInvoiceB
 
         const patientCode = doc.patientCode;
         const treatmentCode = doc.treatmentCode;
-        const originalFileName = `${doc.transactionCode}_${doc.invoiceLookupCode}.pdf`;
+        const originalFileName = `${doc.transactionCode}-${doc.invoiceLookupCode}.pdf`;
         
         const minioFileName = `${patientCode}/${treatmentCode}/${originalFileName}`;
         
@@ -74,7 +74,7 @@ export class GetInvoiceByTransactionHandler implements IQueryHandler<GetInvoiceB
                 case InvoiceTypeBySystem.CYBERBILL:
                     base64 = await this.cyberBillBachMaiService.getInvoicePdf(
                         doc.invoiceLookupCode, doc.transactionCode);
-                        await this.minioService.uploadContent(base64, minioFileName, contentType, metaData);
+                        await this.minioService.uploadContent(base64, minioFileName, contentType, metaData, true);
                     break;
                 default:
                     throw new NotFoundException(ERROR_404.NOT_FOUND_INVOICE_TYPE);

@@ -13,16 +13,25 @@ export class MinioService {
     content: string | Buffer,
     fileName: string,
     mimetype: string,
-    metadata?: Record<string, string>
+    metadata?: Record<string, string>,
+    isBase64: boolean = false
   ): Promise<string> {
     const bucket = this.configService.get<string>('MINIO_BUCKET');
     if (!bucket) {
       throw new Error('Bucket is not configured');
     }
+
     await this.ensureBucket(bucket);
   
     // Nếu là string, convert sang Buffer
-    const buffer = Buffer.isBuffer(content) ? content : Buffer.from(content, 'utf-8');
+    let buffer: Buffer;
+    if (Buffer.isBuffer(content)) {
+      buffer = content;
+    } else if (isBase64) {
+      buffer = Buffer.from(content, 'base64');
+    } else {
+      buffer = Buffer.from(content, 'utf-8');
+    }
     
     const meta = {
       'Content-Type': mimetype,

@@ -14,6 +14,7 @@ import { GetBranchDto } from './dto/get-branch.dto';
 import { GetDoctorsDto } from './dto/get-doctors.dto';
 import { GetClinicsDto } from './dto/get-clinics.dto';
 import { GetInvoiceByTransactionDto } from './dto/get-invoice-by-transaction.dto';
+import { TransactionAccessGuard } from 'src/common/guards/transaction-access.guard';
 
 @ApiTags('HIS RS Module')
 @ApiBearerAuth('access-token')
@@ -100,6 +101,7 @@ export class HisRsModuleController {
   }
 
   @ApiOperation({ summary: 'Get invoice by transaction' })
+  @UseGuards(TransactionAccessGuard)
   @Get('get-invoice-by-transaction')
   async getInvoiceByTransaction(@Req() req: any, @Query() query: GetInvoiceByTransactionDto) {
     return this.hisRsModuleService.getInvoiceByTransaction(req.user.userId, query);

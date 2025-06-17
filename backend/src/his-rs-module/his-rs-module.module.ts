@@ -28,6 +28,7 @@ import { GetInvoiceByTreatmentHandler } from './queries/get-invoice-by-treatment
 import { CyberBillBachMaiService } from './services/cyber-bill-bach-mai.service';
 import { GetInvoiceByTransactionHandler } from './queries/get-invoice-by-transaction.handler';
 import { MinioModule } from '../minio/minio.module';
+import { GetTransactionByIdHandler } from './queries/get-transaction-by-id.handler';
 
 const handlers = [
   GetHistoryByIdentityHandler,
@@ -50,7 +51,8 @@ const handlers = [
   GetClinicsByIdsHandler,
   GetDoctorsByIdsHandler,
   GetInvoiceByTreatmentHandler,
-  GetInvoiceByTransactionHandler
+  GetInvoiceByTransactionHandler,
+  GetTransactionByIdHandler
 ]
 
 @Module({
