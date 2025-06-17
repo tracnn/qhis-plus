@@ -20,10 +20,13 @@ export class GetlHealthMetricsHandler implements IQueryHandler<GetlHealthMetrics
         const limit = getlHealthMetricsDto.limit && getlHealthMetricsDto.limit > 0 ? getlHealthMetricsDto.limit : LIMIT_DEFAULT;
         const offset = (page - 1) * limit;
 
-        const whereClause = {
-            userId,
-            familyMemberId: getlHealthMetricsDto.familyMemberId || IsNull()
+        const whereClause: any = {
+            userId
         };
+          
+        if (getlHealthMetricsDto.familyMemberId) {
+            whereClause.familyMemberId = getlHealthMetricsDto.familyMemberId;
+        }
 
         const [healthMetrics, total] = await this.healthMetricRepository.findAndCount({
             where: whereClause,
