@@ -35,8 +35,8 @@ export class GetClinicSpecialtyHandler implements IQueryHandler<GetClinicSpecial
             this.queryBus.execute(new GetSpecialtiesByIdsQuery(specialtyIds))
         ]);
 
-        const clinicMap = new Map(clinics.map((c: any) => [Number(c.id), c]));
-        const specialtyMap = new Map(specialties.map((s: any) => [String(s.id), s]));
+        const clinicMap = new Map(clinics.map((c: any) => [Number(c.clinicId), c]));
+        const specialtyMap = new Map(specialties.map((s: any) => [String(s.specialtyId), s]));
 
         const data = mappings.map(m => ({
             ...m,
@@ -44,8 +44,6 @@ export class GetClinicSpecialtyHandler implements IQueryHandler<GetClinicSpecial
             specialty: specialtyMap.get(String(m.specialtyId)) || null,
         }));
     
-        return {
-            data
-        };
+        return data;
     }
 }

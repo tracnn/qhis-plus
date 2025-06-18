@@ -6,6 +6,9 @@ import { SOURCE_TYPE } from "../enums/source-type.enum";
 @Entity('APPOINTMENTS')
 export class Appointment extends BaseEntity {
 
+  @Column({ name: 'SYMPTOM', length: 1024, nullable: true })
+  symptom: string;
+
   @Column({ name: 'APPOINTMENT_CODE', unique: true })
   appointmentCode: string;
 
@@ -20,7 +23,7 @@ export class Appointment extends BaseEntity {
   @Column({ name: 'APPOINTMENT_STATUS', default: APPOINTMENT_STATUS.PENDING })
   appointmentStatus: APPOINTMENT_STATUS;
 
-  @Column({ name: 'APPOINTMENT_NOTE' })
+  @Column({ name: 'APPOINTMENT_NOTE', nullable: true })
   appointmentNote: string;
 
   @Column({ name: 'SOURCE_TYPE', default: SOURCE_TYPE.APP_MOBILE })

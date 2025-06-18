@@ -28,7 +28,11 @@ export class GetSpecialtiesByIdsHandler implements IQueryHandler<GetSpecialtiesB
           isActive: true,
         },
       });
-      allSpecialties = allSpecialties.concat(items);
+      const mappedItems = items.map(({ id, ...rest }) => ({
+        ...rest,
+        specialtyId: id,
+      }));
+      allSpecialties = allSpecialties.concat(mappedItems);
     }
     return allSpecialties;
   }

@@ -28,7 +28,11 @@ export class GetTitleByIdsHandler implements IQueryHandler<GetTitleByIdsQuery> {
           isActive: true,
         },
       });
-      allTitles = allTitles.concat(items);
+      const mappedItems = items.map(({ id, ...rest }) => ({
+        ...rest,
+        titleId: id,
+      }));
+      allTitles = allTitles.concat(mappedItems);
     }
     return allTitles;
   }

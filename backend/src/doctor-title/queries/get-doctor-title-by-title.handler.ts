@@ -31,8 +31,8 @@ export class GetDoctorTitleByTitleQueryHandler implements IQueryHandler<GetDocto
         this.queryBus.execute(new GetTitleByIdsQuery(titleIds)),
     ]);
 
-    const doctorMap = new Map(doctors.map((d: any) => [Number(d.id), d]));
-    const titleMap = new Map(titles.map((t: any) => [String(t.id), t]));
+    const doctorMap = new Map(doctors.map((d: any) => [Number(d.doctorId), d]));
+    const titleMap = new Map(titles.map((t: any) => [String(t.titleId), t]));
 
     const data = doctorTitles.map(dt => ({
         ...dt,
@@ -40,8 +40,6 @@ export class GetDoctorTitleByTitleQueryHandler implements IQueryHandler<GetDocto
         ...(titleMap.get(String(dt.titleId)) || null),
     }));
 
-    return { 
-        data
-    };
+    return data;
   }
 }

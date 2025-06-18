@@ -22,8 +22,6 @@ export class GetTitlesHandler implements IQueryHandler<GetTitlesQuery> {
       },
     });
 
-    return {
-      data
-    };
+    return data;
   }
 }

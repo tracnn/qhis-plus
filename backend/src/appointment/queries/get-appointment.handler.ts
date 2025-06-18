@@ -54,8 +54,8 @@ export class GetAppointmentHandler implements IQueryHandler<GetAppointmentQuery>
             this.queryBus.execute(new GetDoctorsByIdsQuery(doctorIds)), // tự định nghĩa nếu chưa có
         ]);
 
-        const clinicMap = new Map(clinics.map((c: any) => [Number(c.id), c]));
-        const doctorMap = new Map(doctors.map((d: any) => [Number(d.id), d]));
+        const clinicMap = new Map(clinics.map((c: any) => [Number(c.clinicId), c]));
+        const doctorMap = new Map(doctors.map((d: any) => [Number(d.doctorId), d]));
 
         // Bước 5: Map lại kết quả
         const result = appointments.map(a => {

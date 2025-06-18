@@ -20,10 +20,10 @@ export class CreateAppointmentDto {
     patientId: string;
 
     @ApiProperty({
-        description: 'appointmentNote',
-        example: 'This is a note',
+        description: 'symptom',
+        example: 'This is a symptom',
     })
     @IsOptional()
     @IsString()
-    appointmentNote: string;
+    symptom: string;
 }

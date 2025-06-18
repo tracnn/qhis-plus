@@ -103,8 +103,8 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
     ]);    
 
     // Tạo map tra cứu nhanh
-    const clinicMap = new Map(clinics.map((c: any) => [Number(c.id), c]));
-    const doctorMap = new Map(doctors.map((d: any) => [Number(d.id), d]));
+    const clinicMap = new Map(clinics.map((c: any) => [Number(c.clinicId), c]));
+    const doctorMap = new Map(doctors.map((d: any) => [Number(d.doctorId), d]));
 
     // Map vào từng slot (dạng nested object: slot.clinic, slot.doctor)
     const result = slots.map(slot => ({
@@ -113,8 +113,6 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
       doctor: doctorMap.get(Number(slot.doctorId)) || null,
     }));
 
-    return {
-      data: result,
-    };
+    return result;
   }
 }

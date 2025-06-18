@@ -22,9 +22,7 @@ export class GetSpecialtiesHandler implements IQueryHandler<GetSpecialtiesQuery>
       },
     });
 
-    return {
-      data
-    };
+    return data;
   }
 }
 
