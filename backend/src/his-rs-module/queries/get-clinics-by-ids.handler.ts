@@ -28,7 +28,7 @@ export class GetClinicsByIdsHandler implements IQueryHandler<GetClinicsByIdsQuer
       const inStr = ids.map((_, i) => `:P${i}`).join(",");
       const sql = `
         SELECT 
-          VHR.ID AS "id",
+          VHR.ID AS "clinicId",
           VHR.ROOM_CODE AS "clinicCode",
           VHR.ROOM_NAME AS "clinicName",
           HA.AREA_CODE AS "areaCode",
