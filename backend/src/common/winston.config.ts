@@ -28,7 +28,7 @@ const consoleFormat = winston.format.combine(
     winston.format.ms(),
     winston.format.errors({ stack: true }),
     winston.format.splat(),
-    nestWinstonModuleUtilities.format.nestLike('QHIS-PLUS', {
+    nestWinstonModuleUtilities.format.nestLike('QHIS-PLUS-BACKEND', {
         prettyPrint: true,
         colors: true,
     }),
