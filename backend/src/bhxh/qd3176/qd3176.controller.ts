@@ -1,7 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors } from '@nestjs/common';
 import { Qd3176Service } from './qd3176.service';
 import { CreateQd3176Dto } from './dto/create-qd3176.dto';
 import { UpdateQd3176Dto } from './dto/update-qd3176.dto';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
 
 @Controller('qd3176')
 export class Qd3176Controller {
@@ -30,5 +32,16 @@ export class Qd3176Controller {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.qd3176Service.remove(+id);
+  }
+
+  @Post('import')
+  @UseInterceptors(FileInterceptor('file', {
+    storage: diskStorage({
+      destination: './uploads',
+      filename: (req, file, cb) => cb(null, file.originalname),
+    }),
+  }))
+  importXml() {
+    return this.qd3176Service.importXml();
   }
 }

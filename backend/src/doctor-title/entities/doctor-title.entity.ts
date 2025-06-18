@@ -11,6 +11,9 @@ export class DoctorTitle extends BaseEntity {
   @Index()
   titleId: string;
 
+  @Column({ name: "AVARTAR_URL", nullable: true })
+  avartarUrl: string;
+
   @Column({ name: "IS_ACTIVE", default: true })
   isActive: boolean;
 }

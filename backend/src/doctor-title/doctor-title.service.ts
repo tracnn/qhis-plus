@@ -6,6 +6,8 @@ import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GetDoctorTitleDto } from './dto/get-doctor-title.dto';
 import { GetDoctorTitleQuery } from './queries/get-doctor-title.query';
 import { GetDoctorTitleByIdQuery } from './queries/get-doctor-title-by-id.query';
+import { GetDoctorTitleByTitleQuery } from './queries/get-doctor-title-by-title.query';
+import { GetDoctorTitleByTitleDto } from './dto/get-doctor-title-by-title.dto';
 
 @Injectable()
 export class DoctorTitleService {
@@ -24,6 +26,10 @@ export class DoctorTitleService {
 
   findOne(id: string) {
     return this.queryBus.execute(new GetDoctorTitleByIdQuery(id));
+  }
+
+  findByTitle(dto: GetDoctorTitleByTitleDto) {
+    return this.queryBus.execute(new GetDoctorTitleByTitleQuery(dto));
   }
 
   update(id: number, updateDoctorTitleDto: UpdateDoctorTitleDto) {

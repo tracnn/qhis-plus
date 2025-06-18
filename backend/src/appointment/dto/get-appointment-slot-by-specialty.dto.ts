@@ -1,8 +1,16 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDateString, IsNumber, IsOptional } from "class-validator";
+import { IsDateString, IsNumber, IsOptional, IsUUID } from "class-validator";
 import { Type } from "class-transformer";
 
 export class GetAppointmentSlotBySpecialtyDto {
+    @ApiProperty({
+        description: 'Optional specialtyId',
+        required: false,
+    })
+    @IsOptional()
+    @IsUUID()
+    specialtyId: string;
+
     @ApiProperty({
         description: 'Optional clinicId',
         required: false,

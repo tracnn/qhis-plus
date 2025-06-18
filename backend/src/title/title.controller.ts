@@ -1,11 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query, UseGuards } from '@nestjs/common';
 import { TitleService } from './title.service';
 import { CreateTitleDto } from './dto/create-title.dto';
 import { UpdateTitleDto } from './dto/update-title.dto';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation } from '@nestjs/swagger';
 import { ApiResponse } from '@nestjs/swagger';
 import { GetTitlesDto } from './dto/get-titles.dto';
+import { ApiTags } from '@nestjs/swagger';
+import { JwtAuthGuard } from '@auth/jwt-auth.guard';
 
+@ApiTags('Title')
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard)
 @Controller('title')
 export class TitleController {
   constructor(private readonly titleService: TitleService) {}

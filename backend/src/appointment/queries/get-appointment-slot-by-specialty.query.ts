@@ -3,7 +3,6 @@ import { GetAppointmentSlotBySpecialtyDto } from "../dto/get-appointment-slot-by
 
 export class GetAppointmentSlotBySpecialtyQuery implements IQuery {
     constructor(
-        public readonly specialtyId: string,
         public readonly dto: GetAppointmentSlotBySpecialtyDto,
     ) {}
 }

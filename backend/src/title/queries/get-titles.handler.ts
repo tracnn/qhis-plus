@@ -15,25 +15,15 @@ export class GetTitlesHandler implements IQueryHandler<GetTitlesQuery> {
   ) {}
 
   async execute(query: GetTitlesQuery): Promise<any> {
-    const { getTitlesDto } = query;
-    const page = getTitlesDto.page && getTitlesDto.page > 0 ? 
-    getTitlesDto.page : PAGE_DEFAULT;
-    const limit = getTitlesDto.limit && getTitlesDto.limit > 0 ? 
-    getTitlesDto.limit : LIMIT_DEFAULT;
-    const offset = (page - 1) * limit;
-
-    const [data, total] = await this.titleRepository.findAndCount({
+    const data = await this.titleRepository.find({
       where: { isActive: true },
-      skip: offset,
-      take: limit,
       order: {
         order: 'ASC',
       },
     });
 
     return {
-      data,
-      pagination: buildPagination(page, limit, total),
+      data
     };
   }
 }

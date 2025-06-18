@@ -34,8 +34,8 @@ export class AppointmentService {
     return await this.queryBus.execute(new GetAppointmentSlotByIdQuery(id));
   }
 
-  async findSlotBySpecialty(specialtyId: string, dto: GetAppointmentSlotBySpecialtyDto) {
-    return await this.queryBus.execute(new GetAppointmentSlotBySpecialtyQuery(specialtyId,  dto));
+  async findSlotBySpecialty(dto: GetAppointmentSlotBySpecialtyDto) {
+    return await this.queryBus.execute(new GetAppointmentSlotBySpecialtyQuery(dto));
   }
 
   async createAppointment(userId: string, appointment: CreateAppointmentDto) {

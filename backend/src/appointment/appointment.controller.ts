@@ -61,9 +61,9 @@ export class AppointmentController {
   @ApiOperation({ summary: 'Get appointment slot by specialty' })
   @ApiResponse({ status: 200, description: 'The appointment slot has been successfully retrieved.' })
   @ApiResponse({ status: 400, description: 'Bad Request' })
-  @Get('slot/specialty/:specialtyId')
-  findSlotBySpecialty(@Param('specialtyId') specialtyId: string, @Query() dto: GetAppointmentSlotBySpecialtyDto) {
-    return this.appointmentService.findSlotBySpecialty(specialtyId, dto);
+  @Get('slot-specialty-doctor')
+  findSlotBySpecialty(@Query() dto: GetAppointmentSlotBySpecialtyDto) {
+    return this.appointmentService.findSlotBySpecialty(dto);
   }
 
   @ApiOperation({ summary: 'Create appointment' })

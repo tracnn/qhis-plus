@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { CreateQd3176Dto } from './dto/create-qd3176.dto';
 import { UpdateQd3176Dto } from './dto/update-qd3176.dto';
+import { XmlImportService } from './services/xml-import.service';
 
 @Injectable()
 export class Qd3176Service {
+  constructor(private readonly xmlImportService: XmlImportService) {}
   create(createQd3176Dto: CreateQd3176Dto) {
     return 'This action adds a new qd3176';
   }
@@ -22,5 +24,9 @@ export class Qd3176Service {
 
   remove(id: number) {
     return `This action removes a #${id} qd3176`;
+  }
+
+  importXml() {
+    return this.xmlImportService.processXmlFolder('/data/import/qd3176');
   }
 }

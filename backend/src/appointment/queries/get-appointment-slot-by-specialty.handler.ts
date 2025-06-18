@@ -20,7 +20,7 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
   ) {}
 
   async execute(query: GetAppointmentSlotBySpecialtyQuery): Promise<any> {
-    const { specialtyId, dto } = query;
+    const { dto } = query;
 
     const activeStatuses = [
       APPOINTMENT_STATUS.PENDING,
@@ -29,16 +29,16 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
       APPOINTMENT_STATUS.COMPLETED,
     ];
 
-    const { clinicId, doctorId, slotDate } = dto;
+    const { clinicId, doctorId, slotDate, specialtyId } = dto;
 
-    const clinicSpecialty = await this.queryBus.execute(
-        new GetClinicSpecialtyBySpecialtyIdQuery(specialtyId, new GetClinicSpecialtyBySpecialtyIdDto()));
-    const clinicIds = clinicSpecialty.data.map((c: any) => c.clinicId);
-
-    if (!clinicIds.length) {
-      return [];
+    let clinicIds: number[] | undefined = undefined;
+    if (specialtyId) {
+      const clinicSpecialty = await this.queryBus.execute(
+          new GetClinicSpecialtyBySpecialtyIdQuery(specialtyId, new GetClinicSpecialtyBySpecialtyIdDto()));
+          clinicIds = clinicSpecialty.data.map((c: any) => c.clinicId);
     }
-    
+
+
     const today = new Date();
     const todayStr = today.toISOString().slice(0, 10); // "YYYY-MM-DD"
     const nowTime = today.toTimeString().slice(0, 5);  // "HH:mm"
@@ -49,9 +49,17 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
         `(slot.slotDate > :todayAfter OR (slot.slotDate = :todayEqual AND slot.slotTime >= :nowTime))`,
         { todayAfter: todayStr, todayEqual: todayStr, nowTime }
     )
-    .andWhere("slot.clinicId IN (:...clinicIds)", { clinicIds })
     .orderBy("slot.slotDate", "ASC")
     .addOrderBy("slot.slotTime", "ASC");
+
+    console.log(clinicIds);
+    if (clinicIds && clinicIds.length > 0) {
+        qb.andWhere("slot.clinicId IN (:...clinicIds)", { clinicIds });
+    } else {
+      if (clinicIds && clinicIds.length === 0) {
+        return [];
+      }
+    }
 
     // filter by clinicId
     if (clinicId) {

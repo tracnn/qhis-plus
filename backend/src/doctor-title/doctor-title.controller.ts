@@ -6,6 +6,7 @@ import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ApiOperation } from '@nestjs/swagger';
 import { GetDoctorTitleDto } from './dto/get-doctor-title.dto';
 import { JwtAuthGuard } from '@auth/jwt-auth.guard';
+import { GetDoctorTitleByTitleDto } from './dto/get-doctor-title-by-title.dto';
 
 @ApiBearerAuth('access-token')
 @UseGuards(JwtAuthGuard)
@@ -36,6 +37,14 @@ export class DoctorTitleController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.doctorTitleService.findOne(id);
+  }
+
+  @ApiOperation({ summary: 'Get doctor title by title' })
+  @ApiResponse({ status: 200, description: 'The doctor title has been successfully retrieved.' })
+  @ApiResponse({ status: 400, description: 'Bad Request' })
+  @Get('title/:titleId')
+  findByTitle(@Query() getDoctorTitleByTitleDto: GetDoctorTitleByTitleDto) {
+    return this.doctorTitleService.findByTitle(getDoctorTitleByTitleDto);
   }
 
   @Patch(':id')

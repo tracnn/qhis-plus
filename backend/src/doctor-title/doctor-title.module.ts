@@ -8,6 +8,7 @@ import { CqrsModule } from '@nestjs/cqrs';
 import { CreateDoctorTitleHandler } from './commands/create-doctor-title.handler';
 import { GetDoctorTitleHandler } from './queries/get-doctor-title.handler';
 import { GetDoctorTitleByIdHandler } from './queries/get-doctor-title-by-id.handler';
+import { GetDoctorTitleByTitleQueryHandler } from './queries/get-doctor-title-by-title.handler';
 
 const CommandHandlers = [
   CreateDoctorTitleHandler,
@@ -16,6 +17,7 @@ const CommandHandlers = [
 const QueryHandlers = [
   GetDoctorTitleHandler,
   GetDoctorTitleByIdHandler,
+  GetDoctorTitleByTitleQueryHandler,
 ];
 
 @Module({

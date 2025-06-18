@@ -19,6 +19,7 @@ import { Xml11SocialInsuranceLeaveCertificate } from './entities/xml11-social-in
 import { Xml12MedicalAssessment } from './entities/xml12-medical-assessment.entity';
 import { Xml13TransferForm } from './entities/xml13-transfer-form.entity';
 import { Xml7DischargePaper } from './entities/xml7-discharge-paper.entity';
+import { XmlImportService } from './services/xml-import.service';
 
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature(
@@ -28,7 +29,7 @@ import { Xml7DischargePaper } from './entities/xml7-discharge-paper.entity';
       Xml10MaternityLeave, Xml11SocialInsuranceLeaveCertificate, Xml12MedicalAssessment, 
       Xml13TransferForm, Xml14ReexamAppointment, Xml15TuberculosisTreatment], BASE_SCHEMA.DEFAULT)],
   controllers: [Qd3176Controller],
-  providers: [Qd3176Service],
+  providers: [Qd3176Service, XmlImportService],
   exports: [CqrsModule],
 })
 export class Qd3176Module {}
