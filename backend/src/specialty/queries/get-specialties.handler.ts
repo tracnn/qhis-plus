@@ -15,25 +15,15 @@ export class GetSpecialtiesHandler implements IQueryHandler<GetSpecialtiesQuery>
   ) {}
 
   async execute(query: GetSpecialtiesQuery): Promise<any> {
-    const { getSpecialtiesDto } = query;
-    const page = getSpecialtiesDto.page && getSpecialtiesDto.page > 0 ? 
-    getSpecialtiesDto.page : PAGE_DEFAULT;
-    const limit = getSpecialtiesDto.limit && getSpecialtiesDto.limit > 0 ? 
-    getSpecialtiesDto.limit : LIMIT_DEFAULT;
-    const offset = (page - 1) * limit;
-
-    const [data, total] = await this.specialtyRepository.findAndCount({
+    const data = await this.specialtyRepository.find({
       where: { isActive: true },
-      skip: offset,
-      take: limit,
       order: {
         order: 'ASC',
       },
     });
 
     return {
-      data,
-      pagination: buildPagination(page, limit, total),
+      data
     };
   }
 }

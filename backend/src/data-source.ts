@@ -13,6 +13,21 @@ import { DoctorTitle } from "./doctor-title/entities/doctor-title.entity";
 import { Appointment } from "./appointment/entities/appointment.entity";
 import { Specialty } from "./specialty/entities/specialty.entity";
 import { Title } from "./title/entities/title.entity";
+import { Xml15TuberculosisTreatment } from './bhxh/qd3176/entities/xml15-tuberculosis-treatment.entity';
+import { Xml1PatientSummary } from './bhxh/qd3176/entities/xml1-patient-summary.entity';
+import { Xml2DrugDetail } from './bhxh/qd3176/entities/xml2-drug-detail.entity';
+import { Xml3ServiceDetail } from './bhxh/qd3176/entities/xml3-service-detail.entity';
+import { Xml4SubclinicalDetail } from './bhxh/qd3176/entities/xml4-subclinical-detail.entity';
+import { Xml5ClinicalProgress } from './bhxh/qd3176/entities/xml5-clinical-progress.entity';
+import { Xml6HivCareRecord } from './bhxh/qd3176/entities/xml6-hiv-care-record.entity';
+import { Xml7DischargePaper } from './bhxh/qd3176/entities/xml7-discharge-paper.entity';
+import { Xml8MedicalRecordSummary } from './bhxh/qd3176/entities/xml8-medical-record-summary.entity';
+import { Xml9BirthCertificate } from './bhxh/qd3176/entities/xml9-birth-certificate.entity';
+import { Xml10MaternityLeave } from './bhxh/qd3176/entities/xml10-maternity-leave.entity';
+import { Xml11SocialInsuranceLeaveCertificate } from './bhxh/qd3176/entities/xml11-social-insurance-leave-certificate.entity';
+import { Xml12MedicalAssessment } from './bhxh/qd3176/entities/xml12-medical-assessment.entity';
+import { Xml13TransferForm } from './bhxh/qd3176/entities/xml13-transfer-form.entity';
+import { Xml14ReexamAppointment } from './bhxh/qd3176/entities/xml14-reexam-appointment.entity';
 
 export default new DataSource({
     type: "oracle",
@@ -34,6 +49,21 @@ export default new DataSource({
         DoctorTitle,
         Specialty,
         Title,
+        Xml1PatientSummary, 
+        Xml2DrugDetail, 
+        Xml3ServiceDetail, 
+        Xml4SubclinicalDetail, 
+        Xml5ClinicalProgress, 
+        Xml6HivCareRecord, 
+        Xml7DischargePaper, 
+        Xml8MedicalRecordSummary, 
+        Xml9BirthCertificate, 
+        Xml10MaternityLeave, 
+        Xml11SocialInsuranceLeaveCertificate, 
+        Xml12MedicalAssessment, 
+        Xml13TransferForm, 
+        Xml14ReexamAppointment, 
+        Xml15TuberculosisTreatment     
     ],
     migrations: [__dirname + "/migrations/*{.ts,.js}"],
     synchronize: false,

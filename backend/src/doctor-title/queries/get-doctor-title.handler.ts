@@ -20,17 +20,12 @@ export class GetDoctorTitleHandler implements IQueryHandler<GetDoctorTitleQuery>
     async execute(query: GetDoctorTitleQuery): Promise<any> {
         const { getDoctorTitleDto } = query;
 
-        const { page = PAGE_DEFAULT, limit = LIMIT_DEFAULT } = getDoctorTitleDto;
-
-        const skip = (page - 1) * limit;
-        const [doctorTitles, total] = await this.doctorTitleRepository.findAndCount({
-            skip,
-            take: limit,
+        const doctorTitles = await this.doctorTitleRepository.find({
             where: { isActive: true },
         });
 
         if (!doctorTitles.length) {
-            return { data: []};
+            return [];
         }
 
         const doctorIds = doctorTitles.map(doctorTitle => doctorTitle.doctorId);
@@ -50,8 +45,7 @@ export class GetDoctorTitleHandler implements IQueryHandler<GetDoctorTitleQuery>
         }));
 
         return { 
-            data, 
-            pagination: buildPagination(page, limit, total),
+            data
         };
 
     }

@@ -19,16 +19,12 @@ export class GetClinicSpecialtyHandler implements IQueryHandler<GetClinicSpecial
     async execute(query: GetClinicSpecialtyQuery): Promise<any> {
         const { dto } = query;
 
-        const { page = PAGE_DEFAULT, limit = LIMIT_DEFAULT } = dto;
-
-        const skip = (page - 1) * limit;
-        const [mappings, total] = await this.clinicSpecialtyRepository.findAndCount({
-            skip,
-            take: limit,
+        const mappings = await this.clinicSpecialtyRepository.find({
             where: { isActive: true },
         });
+        
         if (!mappings.length) {
-            return { data: [], pagination: { page, limit, total: 0 } };
+            return [];
         }
 
         const clinicIds = mappings.map(m => m.clinicId);
@@ -49,8 +45,7 @@ export class GetClinicSpecialtyHandler implements IQueryHandler<GetClinicSpecial
         }));
     
         return {
-            data,
-            pagination: buildPagination(page, limit, total),
+            data
         };
     }
 }

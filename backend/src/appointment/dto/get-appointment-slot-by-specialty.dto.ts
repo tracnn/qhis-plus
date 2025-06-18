@@ -1,9 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BaseDto } from "../../common/base.dto";
-import { IsNotEmpty, IsNumber, IsOptional } from "class-validator";
+import { IsDateString, IsNumber, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 
-export class GetAppointmentSlotBySpecialtyDto extends BaseDto {
+export class GetAppointmentSlotBySpecialtyDto {
     @ApiProperty({
         description: 'Optional clinicId',
         required: false,
@@ -21,4 +20,12 @@ export class GetAppointmentSlotBySpecialtyDto extends BaseDto {
     @IsNumber()
     @Type(() => Number)
     doctorId: number;
+
+    @ApiProperty({
+        description: 'Optional slotDate',
+        required: false,
+    })
+    @IsOptional()
+    @IsDateString()
+    slotDate: string;
 }

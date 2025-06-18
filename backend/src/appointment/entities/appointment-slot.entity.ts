@@ -4,6 +4,9 @@ import { SLOT_TYPE } from "../enums/slot-type.enum";
 import { SLOT_TIME } from "../enums/slot-time.enum";
 
 @Entity('APPOINTMENT_SLOTS')
+@Index(['clinicId', 'isActive'])
+@Index(['doctorId', 'isActive'])
+@Index(['slotDate', 'slotTime', 'isActive'])
 export class AppointmentSlot extends BaseEntity {
   @Column({ name: 'SLOT_DATE', type: 'varchar', length: 10 })
   @Index()

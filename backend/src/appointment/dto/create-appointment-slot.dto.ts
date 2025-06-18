@@ -1,4 +1,4 @@
-import { IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
+import { IsDateString, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 import { SLOT_TIME } from "../enums/slot-time.enum";
 import { ApiProperty } from "@nestjs/swagger";
 import { SLOT_TYPE } from "../enums/slot-type.enum";
@@ -9,7 +9,7 @@ export class CreateAppointmentSlotDto {
         example: '2025-01-01',
     })
     @IsNotEmpty()
-    @IsString()
+    @IsDateString()
     slotDate: string;
 
     @ApiProperty({
@@ -38,8 +38,8 @@ export class CreateAppointmentSlotDto {
     doctorId: number;
 
     @ApiProperty({
-        description: 'Mã dịch vụ',
-        example: 'XN001',
+        description: 'Mã dịch vụ khám',
+        example: 'K59',
     })
     @IsOptional()
     @IsString()
@@ -47,7 +47,7 @@ export class CreateAppointmentSlotDto {
 
     @ApiProperty({
         description: 'Giá dịch vụ',
-        example: 100000,
+        example: 300000,
     })
     @IsOptional()
     @IsNumber()

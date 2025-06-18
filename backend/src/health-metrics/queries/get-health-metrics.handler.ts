@@ -31,7 +31,10 @@ export class GetlHealthMetricsHandler implements IQueryHandler<GetlHealthMetrics
         const [healthMetrics, total] = await this.healthMetricRepository.findAndCount({
             where: whereClause,
             skip: offset,
-            take: limit
+            take: limit,
+            order: {
+                metricDate: 'DESC'
+            }
         });
 
         return {

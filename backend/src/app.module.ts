@@ -38,6 +38,7 @@ import { TitleModule } from './title/title.module';
 import { ClinicSpecialtyModule } from './clinic-specialty/clinic-specialty.module';
 import { DoctorTitleModule } from './doctor-title/doctor-title.module';
 import { SmsModule } from './sms/sms.module';
+import { Qd3176Module } from './bhxh/qd3176/qd3176.module';
 
 @Module({
   imports: [
@@ -98,6 +99,7 @@ import { SmsModule } from './sms/sms.module';
     TitleModule,
     ClinicSpecialtyModule,
     DoctorTitleModule,
+    Qd3176Module,
   ],
   controllers: [AppController],
   providers: [AppService, ZaloService, OrganizationConfigService],

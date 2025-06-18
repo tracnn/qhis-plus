@@ -15,16 +15,16 @@ export class CreateAppointmentSlotCommandHandler implements ICommandHandler<Crea
 
   async execute(command: CreateAppointmentSlotCommand): Promise<any> {
     const { createAppointmentSlotDto } = command;
+    const { slotDate, slotTime, clinicId, doctorId } = createAppointmentSlotDto;
 
-    const checkSlot = await this.appointmentSlotRepository.find({
-      where: {
-        slotDate: createAppointmentSlotDto.slotDate,
-        slotTime: createAppointmentSlotDto.slotTime,
-        clinicId: createAppointmentSlotDto.clinicId,
-      },
+    const checkSlot = await this.appointmentSlotRepository.findOne({
+      where: [
+        { slotDate, slotTime, clinicId, isActive: true },
+        { slotDate, slotTime, doctorId, isActive: true },
+      ],
     });
 
-    if (checkSlot.length > 0) {
+    if (checkSlot) {
       throw new BadRequestException(ERROR_400.SLOT_EXISTS);
     }
 

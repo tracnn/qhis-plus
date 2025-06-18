@@ -29,17 +29,16 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
       APPOINTMENT_STATUS.COMPLETED,
     ];
 
-    const { page = PAGE_DEFAULT, limit = LIMIT_DEFAULT, clinicId, doctorId } = dto;
-    const skip = (page - 1) * limit;
+    const { clinicId, doctorId, slotDate } = dto;
 
     const clinicSpecialty = await this.queryBus.execute(
         new GetClinicSpecialtyBySpecialtyIdQuery(specialtyId, new GetClinicSpecialtyBySpecialtyIdDto()));
     const clinicIds = clinicSpecialty.data.map((c: any) => c.clinicId);
 
     if (!clinicIds.length) {
-      return { data: [], pagination: { page, limit, total: 0 } };
+      return [];
     }
-
+    
     const today = new Date();
     const todayStr = today.toISOString().slice(0, 10); // "YYYY-MM-DD"
     const nowTime = today.toTimeString().slice(0, 5);  // "HH:mm"
@@ -51,8 +50,6 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
         { todayAfter: todayStr, todayEqual: todayStr, nowTime }
     )
     .andWhere("slot.clinicId IN (:...clinicIds)", { clinicIds })
-    .skip((page - 1) * limit)
-    .take(limit)
     .orderBy("slot.slotDate", "ASC")
     .addOrderBy("slot.slotTime", "ASC");
 
@@ -63,6 +60,10 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
     // filter by doctorId
     if (doctorId) {
         qb.andWhere("slot.doctorId = :doctorId", { doctorId: doctorId });
+    }
+    // filter by slotDate
+    if (slotDate) {
+        qb.andWhere("slot.slotDate = :slotDate", { slotDate: slotDate });
     }
 
     // check if slot is already booked
@@ -75,12 +76,11 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
       )
     `, { activeStatuses });
 
-    const [slots, total] = await qb.getManyAndCount();
+    const slots = await qb.getMany();
 
     if (!slots.length) {
         return {
             data: [],
-            pagination: buildPagination(page, limit, total),
         };
     }
 
@@ -107,7 +107,6 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
 
     return {
       data: result,
-      pagination: buildPagination(page, limit, total),
     };
   }
 }
