@@ -1,4 +1,4 @@
-import { XmlSummaryType } from 'src/bhxh/enums/bhxh.enum';
+import { XmlSummaryType } from '../../enums/bhxh.enum';
 import { Entity, Column, Index } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 
@@ -9,52 +9,52 @@ export class Xml1PatientSummary extends BaseEntity {
   @Index()
   maLk: string;
 
-  @Column({ name: 'STT', type: 'int' })
+  @Column({ name: 'STT', type: 'int', nullable: true })
   stt: number;
 
-  @Column({ name: 'MA_BN', length: 100 })
+  @Column({ name: 'MA_BN', length: 100, nullable: true })
   @Index()
   maBn: string;
 
-  @Column({ name: 'HO_TEN', length: 255 })
+  @Column({ name: 'HO_TEN', length: 255, nullable: true })
   hoTen: string;
 
   @Column({ name: 'SO_CCCD', length: 50, nullable: true })
   @Index()
   soCccd: string;
 
-  @Column({ name: 'NGAY_SINH', length: 12 })
+  @Column({ name: 'NGAY_SINH', length: 12, nullable: true })
   ngaySinh: string;
 
-  @Column({ name: 'GIOI_TINH', type: 'int' })
+  @Column({ name: 'GIOI_TINH', type: 'int', nullable: true })
   gioiTinh: number;
 
   @Column({ name: 'NHOM_MAU', length: 5, nullable: true })
   nhomMau: string;
 
-  @Column({ name: 'MA_QUOC_TICH', length: 3 })
-  maQuocTich: string;
+  @Column({ name: 'MA_QUOCTICH', length: 3, nullable: true })
+  maQuoctich: string;
 
-  @Column({ name: 'MA_DAN_TOC', length: 2 })
-  maDanToc: string;
+  @Column({ name: 'MA_DANTOC', length: 2, nullable: true })
+  maDantoc: string;
 
-  @Column({ name: 'MA_NGHE_NGHIEP', length: 2 })
+  @Column({ name: 'MA_NGHE_NGHIEP', length: 2, nullable: true })
   maNgheNghiep: string;
 
   @Column({ name: 'DIA_CHI', type: 'varchar', length: 4000 })
   diaChi: string;
 
-  @Column({ name: 'MA_TINH_CU_TRU', length: 3 })
+  @Column({ name: 'MATINH_CU_TRU', length: 3, nullable: true })
   @Index()
-  maTinhCuTru: string;
+  matinhCuTru: string;
 
-  @Column({ name: 'MA_HUYEN_CU_TRU', length: 3, nullable: true })
+  @Column({ name: 'MAHUYEN_CU_TRU', length: 3, nullable: true })
   @Index()
-  maHuyenCuTru: string;
+  mahuyenCuTru: string;
 
-  @Column({ name: 'MA_XA_CU_TRU', length: 5, nullable: true })
+  @Column({ name: 'MAXA_CU_TRU', length: 5, nullable: true })
   @Index()
-  maXaCuTru: string;
+  maxaCuTru: string;
 
   @Column({ name: 'DIEN_THOAI', length: 15, nullable: true })
   dienThoai: string;
@@ -85,13 +85,13 @@ export class Xml1PatientSummary extends BaseEntity {
   @Column({ name: 'MA_LY_DO_VNT', length: 5, nullable: true })
   maLyDoVnt: string;
 
-  @Column({ name: 'CHAN_DOAN_VAO', type: 'varchar', length: 4000 })
+  @Column({ name: 'CHAN_DOAN_VAO', type: 'varchar', length: 4000, nullable: true })
   chanDoanVao: string;
 
-  @Column({ name: 'CHAN_DOAN_RV', type: 'varchar', length: 4000 })
+  @Column({ name: 'CHAN_DOAN_RV', type: 'varchar', length: 4000, nullable: true })
   chanDoanRv: string;
 
-  @Column({ name: 'MA_BENH_CHINH', length: 7 })
+  @Column({ name: 'MA_BENH_CHINH', length: 100, nullable: true })
   maBenhChinh: string;
 
   @Column({ name: 'MA_BENH_KT', length: 100, nullable: true })
@@ -103,9 +103,9 @@ export class Xml1PatientSummary extends BaseEntity {
   @Column({ name: 'MA_PTTT_QT', length: 125, nullable: true })
   maPtttQt: string;
 
-  @Column({ name: 'MA_DOI_TUONG_KCB', length: 4 })
+  @Column({ name: 'MA_DOITUONG_KCB', length: 4, nullable: true })
   @Index()
-  maDoiTuongKcb: string;
+  maDoituongKcb: string;
 
   @Column({ name: 'MA_NOI_DI', length: 5, nullable: true })
   maNoiDi: string;
@@ -116,7 +116,7 @@ export class Xml1PatientSummary extends BaseEntity {
   @Column({ name: 'MA_TAI_NAN', type: 'int', nullable: true })
   maTaiNan: number;
 
-  @Column({ name: 'NGAY_VAO', length: 12 })
+  @Column({ name: 'NGAY_VAO', length: 12, nullable: true })
   @Index()
   ngayVao: string;
 
@@ -124,23 +124,23 @@ export class Xml1PatientSummary extends BaseEntity {
   @Index()
   ngayVaoNoiTru: string;
 
-  @Column({ name: 'NGAY_RA', length: 12 })
+  @Column({ name: 'NGAY_RA', length: 12, nullable: true })
   @Index()
   ngayRa: string;
 
   @Column({ name: 'GIAY_CHUYEN_TUYEN', length: 50, nullable: true })
   giayChuyenTuyen: string;
 
-  @Column({ name: 'SO_NGAY_DTRI', type: 'int' })
+  @Column({ name: 'SO_NGAY_DTRI', type: 'int', nullable: true })
   soNgayDtri: number;
 
   @Column({ name: 'PP_DIEU_TRI', type: 'varchar', length: 4000, nullable: true })
   ppDieuTri: string;
 
-  @Column({ name: 'KET_QUA_DTRI', type: 'int' })
+  @Column({ name: 'KET_QUA_DTRI', type: 'int', nullable: true })
   ketQuaDtri: number;
 
-  @Column({ name: 'MA_LOAI_RV', type: 'int' })
+  @Column({ name: 'MA_LOAI_RV', type: 'int', nullable: true })
   @Index()
   maLoaiRv: number;
 
@@ -151,50 +151,50 @@ export class Xml1PatientSummary extends BaseEntity {
   @Index()
   ngayTtoan: string;
 
-  @Column({ name: 'T_THUOC', type: 'decimal', precision: 15, scale: 2 })
+  @Column({ name: 'T_THUOC', type: 'decimal', precision: 15, scale: 2, nullable: true })
   tThuoc: number;
 
-  @Column({ name: 'T_VTYT', type: 'decimal', precision: 15, scale: 2 })
+  @Column({ name: 'T_VTYT', type: 'decimal', precision: 15, scale: 2, nullable: true })
   tVtyt: number;
 
-  @Column({ name: 'T_TONGCHI_BV', type: 'decimal', precision: 15, scale: 2 })
+  @Column({ name: 'T_TONGCHI_BV', type: 'decimal', precision: 15, scale: 2, nullable: true })
   tTongchiBv: number;
 
-  @Column({ name: 'T_TONGCHI_BH', type: 'decimal', precision: 15, scale: 2 })
+  @Column({ name: 'T_TONGCHI_BH', type: 'decimal', precision: 15, scale: 2, nullable: true })
   tTongchiBh: number;
 
-  @Column({ name: 'T_BNTT', type: 'decimal', precision: 15, scale: 2 })
+  @Column({ name: 'T_BNTT', type: 'decimal', precision: 15, scale: 2, nullable: true })
   tBntt: number;
 
-  @Column({ name: 'T_BNCCT', type: 'decimal', precision: 15, scale: 2 })
+  @Column({ name: 'T_BNCCT', type: 'decimal', precision: 15, scale: 2, nullable: true })
   tBncct: number;
 
-  @Column({ name: 'T_BHTT', type: 'decimal', precision: 15, scale: 2 })
+  @Column({ name: 'T_BHTT', type: 'decimal', precision: 15, scale: 2, nullable: true })
   tBhtt: number;
 
-  @Column({ name: 'T_NGUONKHAC', type: 'decimal', precision: 15, scale: 2 })
+  @Column({ name: 'T_NGUONKHAC', type: 'decimal', precision: 15, scale: 2, nullable: true })
   tNguonkhac: number;
 
-  @Column({ name: 'T_BHTT_GDV', type: 'decimal', precision: 15, scale: 2 })
+  @Column({ name: 'T_BHTT_GDV', type: 'decimal', precision: 15, scale: 2, nullable: true })
   tBhttGdv: number;
 
-  @Column({ name: 'NAM_QT', type: 'int' })
+  @Column({ name: 'NAM_QT', type: 'int', nullable: true })
   @Index()
   namQt: number;
 
-  @Column({ name: 'THANG_QT', type: 'int' })
+  @Column({ name: 'THANG_QT', type: 'int', nullable: true })
   @Index()
   thangQt: number;
 
-  @Column({ name: 'MA_LOAI_KCB', length: 2 })
+  @Column({ name: 'MA_LOAI_KCB', length: 2, nullable: true })
   @Index()
   maLoaiKcb: string;
 
-  @Column({ name: 'MA_KHOA', length: 50 })
+  @Column({ name: 'MA_KHOA', length: 50, nullable: true })
   @Index()
   maKhoa: string;
 
-  @Column({ name: 'MA_CSKCB', length: 5 })
+  @Column({ name: 'MA_CSKCB', length: 5, nullable: true })
   @Index()
   maCskcb: string;
 
@@ -213,10 +213,10 @@ export class Xml1PatientSummary extends BaseEntity {
   @Column({ name: 'NGAY_TAI_KHAM', length: 50, nullable: true })
   ngayTaiKham: string;
 
-  @Column({ name: 'MA_HSBA', length: 100 })
+  @Column({ name: 'MA_HSBA', length: 100, nullable: true })
   maHsba: string;
 
-  @Column({ name: 'MA_TTDV', length: 255 })
+  @Column({ name: 'MA_TTDV', length: 255, nullable: true })
   maTtdv: string;
 
   @Column({ name: 'DU_PHONG', type: 'varchar', length: 4000, nullable: true })

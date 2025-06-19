@@ -36,26 +36,26 @@ import { BaseEntity } from '../../../common/base.entity';
     @Column({ name: 'DON_VI_TINH', length: 50 })
     donViTinh: string;
   
-    @Column({ name: 'HAM_LUONG', length: 1024 })
+    @Column({ name: 'HAM_LUONG', length: 1024, nullable: true })
     hamLuong: string;
   
-    @Column({ name: 'DUONG_DUNG', length: 4 })
+    @Column({ name: 'DUONG_DUNG', length: 4, nullable: true })
     @Index()
     duongDung: string;
   
-    @Column({ name: 'DANG_BAO_CHE', length: 1024 })
+    @Column({ name: 'DANG_BAO_CHE', length: 1024, nullable: true })
     dangBaoChe: string;
   
     @Column({ name: 'LIEU_DUNG', length: 1024 })
     lieuDung: string;
   
-    @Column({ name: 'CACH_DUNG', length: 1024 })
+    @Column({ name: 'CACH_DUNG', length: 1024, nullable: true })
     cachDung: string;
   
-    @Column({ name: 'SO_DANG_KY', length: 255 })
+    @Column({ name: 'SO_DANG_KY', length: 255, nullable: true })
     soDangKy: string;
   
-    @Column({ name: 'TT_THAU', length: 255 })
+    @Column({ name: 'TT_THAU', length: 255, nullable: true })
     @Index()
     ttThau: string;
   
@@ -77,19 +77,19 @@ import { BaseEntity } from '../../../common/base.entity';
     @Column({ name: 'THANH_TIEN_BH', type: 'decimal', precision: 15, scale: 2 })
     thanhTienBh: number;
   
-    @Column({ name: 'T_NGUONKHAC_NSNN', type: 'decimal', precision: 15, scale: 2 })
+    @Column({ name: 'T_NGUONKHAC_NSNN', type: 'decimal', precision: 15, scale: 2, nullable: true })
     tNguonKhacNsnn: number;
   
-    @Column({ name: 'T_NGUONKHAC_VTNN', type: 'decimal', precision: 15, scale: 2 })
+    @Column({ name: 'T_NGUONKHAC_VTNN', type: 'decimal', precision: 15, scale: 2, nullable: true })
     tNguonKhacVtnn: number;
   
-    @Column({ name: 'T_NGUONKHAC_VTTN', type: 'decimal', precision: 15, scale: 2 })
+    @Column({ name: 'T_NGUONKHAC_VTTN', type: 'decimal', precision: 15, scale: 2, nullable: true })
     tNguonKhacVttn: number;
   
-    @Column({ name: 'T_NGUONKHAC_CL', type: 'decimal', precision: 15, scale: 2 })
+    @Column({ name: 'T_NGUONKHAC_CL', type: 'decimal', precision: 15, scale: 2, nullable: true })
     tNguonKhacCl: number;
   
-    @Column({ name: 'T_NGUONKHAC', type: 'decimal', precision: 15, scale: 2 })
+    @Column({ name: 'T_NGUONKHAC', type: 'decimal', precision: 15, scale: 2, nullable: true })
     tNguonKhac: number;
   
     @Column({ name: 'MUC_HUONG', type: 'int' })
@@ -112,7 +112,7 @@ import { BaseEntity } from '../../../common/base.entity';
     @Index()
     maBacSi: string;
   
-    @Column({ name: 'MA_DICH_VU', length: 255 })
+    @Column({ name: 'MA_DICH_VU', length: 255, nullable: true })
     @Index()
     maDichVu: string;
   

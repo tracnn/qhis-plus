@@ -26,7 +26,7 @@ export class Qd3176Service {
     return `This action removes a #${id} qd3176`;
   }
 
-  importXml() {
-    return this.xmlImportService.processXmlFolder('/data/import/qd3176');
+  uploadXml(files: Express.Multer.File[]) {
+    return this.xmlImportService.processXmlFiles(files);
   }
 }

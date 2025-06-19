@@ -1,8 +1,8 @@
 import { Entity, Column, Index } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 
-@Entity('XML11_SOCIAL_INSURANCE_LEAVE_CERTIFICATE')
-export class Xml11SocialInsuranceLeaveCertificate extends BaseEntity {
+@Entity('XML11_INSURANCE_LEAVE')
+export class Xml11InsuranceLeave extends BaseEntity {
   @Column({ name: 'XML1_ID' })
   @Index()
   xml1Id: string;

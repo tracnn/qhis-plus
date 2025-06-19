@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, HttpException, HttpStatus, UploadedFiles } from '@nestjs/common';
 import { Qd3176Service } from './qd3176.service';
 import { CreateQd3176Dto } from './dto/create-qd3176.dto';
 import { UpdateQd3176Dto } from './dto/update-qd3176.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
+import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import * as multer from 'multer';
 
 @Controller('qd3176')
 export class Qd3176Controller {
@@ -34,14 +34,20 @@ export class Qd3176Controller {
     return this.qd3176Service.remove(+id);
   }
 
-  @Post('import')
-  @UseInterceptors(FileInterceptor('file', {
-    storage: diskStorage({
-      destination: './uploads',
-      filename: (req, file, cb) => cb(null, file.originalname),
-    }),
+  @Post('upload')
+  @UseInterceptors(FilesInterceptor('files', 100, {
+    storage: multer.memoryStorage(),
+    fileFilter: (req, file, cb) => {
+      if (!file.originalname.match(/\.xml$/)) {
+        return cb(
+          new HttpException('Chỉ chấp nhận file XML', HttpStatus.BAD_REQUEST),
+          false,
+        );
+      }
+      cb(null, true);
+    },
   }))
-  importXml() {
-    return this.qd3176Service.importXml();
+  uploadXml(@UploadedFiles() files: Express.Multer.File[]) {
+    return this.qd3176Service.uploadXml(files);
   }
 }

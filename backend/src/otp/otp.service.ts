@@ -22,6 +22,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ERROR_404 } from '@common/error-messages/error-404';
 import { ERROR_403 } from '@common/error-messages/error-403';
 import { SmsService } from './services/sms.service';
+import { SendOtpCommand } from '../sms/commands/send-otp.command';
 
 @Injectable()
 export class OtpService {
@@ -31,7 +32,7 @@ export class OtpService {
         @InjectQueue('otp-queue') private readonly otpQueue: Queue,
         private readonly zaloService: ZaloService,
         private readonly smsService: SmsService,
-        @InjectRepository(Otp) private readonly otpRepository: Repository<Otp>
+        @InjectRepository(Otp) private readonly otpRepository: Repository<Otp>,
     ) {}
 
     async requestOtp(phone: string, zalo_user_id?: string, otp?: string): Promise<any> {
@@ -124,50 +125,36 @@ export class OtpService {
         const expiresAt = new Date(dto.expiresAt).getTime();
         const expireIn = Math.max(0, Math.ceil((expiresAt - now) / 1000));
         
-        if (zaloResult.error < 400) {
-            const resultData = {
-                status: zaloResult.status,
-                message: zaloResult.message,
+        if (zaloResult.success) {
+            const resultZalo = {
+                status: 201,
+                message: 'Gửi OTP tới ZALO thành công',
                 otpChannel: OTPChannel.ZALO,
                 expireIn: expireIn
             }
 
-            return resultData;
+            return resultZalo;
         }
 
         //2. Send OTP by SMS
-        if (zaloResult.status > 400) {
-            const smsResult = await this.smsService.sendMessage({
-                phoneNumber: dto.phone,
-                functionCode: 'OTP_REGISTER',
-                parameters: [dto.otp || '']
-            });
-            if (smsResult === 'success') {
-                const otpChannel = OTPChannel.SMS;
-                const data = {
-                    status: 'success',
+        if (!zaloResult.success) {
+            const smsResult = await this.commandBus.execute(new SendOtpCommand({
+                phone: dto.phone,
+                otp: dto.otp || '',
+            }));
+
+            if (smsResult.RPLY.ERROR == '0') {
+                const resultSms = {
+                    status: 201,
                     message: 'Gửi OTP tới SMS thành công',
-                    otpChannel: otpChannel,
+                    otpChannel: OTPChannel.SMS,
                     expireIn: expireIn
                 }
-                return {
-                    data: data
-                };
-            } else {
-                throw new ForbiddenException(smsResult);
+                return resultSms;
             }
         }
 
-        //3. Failed
-        const data = {
-            status: 'error',
-            message: 'Gửi OTP tới Zalo và SMS thất bại',
-            otpChannel: OTPChannel.ZALO,
-            expireIn: expireIn
-        }
-        return {
-            data: data
-        };
+        throw new ForbiddenException(ERROR_403.FORBIDDEN_OTP_SEND_FAILED);
     }
 
     private isOtpExpired(otp: any): boolean {

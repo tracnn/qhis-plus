@@ -116,7 +116,7 @@ export class Xml3ServiceDetail extends BaseEntity {
     @Index()
     maBacSi: string;
 
-    @Column({ name: 'NGUOI_THUC_HIEN', length: 255, nullable: true })
+    @Column({ name: 'NGUOI_THUC_HIEN', length: 1024, nullable: true })
     @Index()
     nguoiThucHien: string;
 

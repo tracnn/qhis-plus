@@ -118,16 +118,32 @@ export class ZaloService {
           })
         );
       }
+
+      // Nếu vẫn lỗi sau khi retry, return kết quả lỗi thay vì throw
       if (response.data[ZALO_CONSTANTS.ERROR]) {
-        throw new HttpException(`${ZALO_CONSTANTS.API_ERROR} ${response.data[ZALO_CONSTANTS.MESSAGE]}`, HttpStatus.BAD_REQUEST);
+        this.logger.warn(`[Send Zalo] Failed: ${response.data[ZALO_CONSTANTS.MESSAGE]}`);
+        return {
+          success: false,
+          method: 'zalo',
+          error: response.data[ZALO_CONSTANTS.MESSAGE],
+          errorCode: response.data[ZALO_CONSTANTS.ERROR],
+        };
       }
 
       this.logger.log(`[Send Zalo] Success: ${JSON.stringify(response.data)}`);
-      return response.data;
+      return {
+        success: true,
+        method: 'zalo',
+        data: response.data,
+      };
 
     } catch (error) {
       this.logger.error('Error sending Zalo message:', error.message);
-      throw new HttpException('Failed to send Zalo message', HttpStatus.INTERNAL_SERVER_ERROR);
+      return {
+        success: false,
+        method: 'zalo',
+        error: error.message,
+      };
     }
   }
 

@@ -1,32 +1,37 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { SendOtpCommand } from "./send-otp.command";
-import { OTP_CONSTANTS } from "../constants/send-otp.constant";
 import axios from "axios";
+import { SMS_BRANCHNAME_PARAMS, SMS_URL } from "../constants/sms-branchname-bachmai.constant";
 
 @CommandHandler(SendOtpCommand)
 export class SendOtpHandler implements ICommandHandler<SendOtpCommand> {
-    async execute(command: SendOtpCommand) {
+    async execute(command: SendOtpCommand): Promise<any> {
         const { sendOtpDto } = command;
-        const { phone } = sendOtpDto;
+        const { phone, otp } = sendOtpDto;
 
-        const otp = Math.floor(100000 + Math.random() * 900000).toString();
+        const body = {
+            RQST: {
+                ...SMS_BRANCHNAME_PARAMS,
+                MOBILELIST: this.formatPhoneNumber(phone),
+                PARAMS: [
+                    {
+                        NUM: '1',
+                        CONTENT: otp
+                    }
+                ],
+            }
+        };
 
-        const content = OTP_CONSTANTS.ContentTemplate.replace("{otp}", otp);
-        const apiKey = OTP_CONSTANTS.ApiKey;
-        const secretKey = OTP_CONSTANTS.SecretKey;
-        const smsType = OTP_CONSTANTS.SmsType;
-        const brandname = OTP_CONSTANTS.Brandname;
-        const rootUrl = OTP_CONSTANTS.RootUrl;
-        
-        const response = await axios.post(rootUrl, {
-            ApiKey: apiKey,
-            SecretKey: secretKey,
-            SmsType: smsType,
-            Phone: phone,
-            Content: content,
-            Brandname: brandname,
+        const response = await axios.post(SMS_URL, body, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
         });
 
         return response.data;
+    }
+
+    private formatPhoneNumber(phone: string): string {
+        return phone.startsWith('84') ? phone : `84${phone.slice(1)}`;
     }
 }

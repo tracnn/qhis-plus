@@ -9,4 +9,12 @@ export class SendOtpDto {
     @IsNotEmpty()
     @IsString()
     phone: string;
+
+    @ApiProperty({
+        description: 'The OTP code',
+        example: '123456',
+    })
+    @IsNotEmpty()
+    @IsString()
+    otp: string;
 }

@@ -148,15 +148,11 @@ export class UserService {
         const key = `register:${createUserDto.phoneNumber}`;
         await redisClient.set(key, JSON.stringify(createUserDto), 'EX', REDIS_CONFIG.REGISTER_TTL);
         
-        await this.otpService.sendOTPRegister({
+        return await this.otpService.sendOTPRegister({
             phone: createUserDto.phoneNumber,
             otp: otpResult.otpCode,
             expiresAt: otpResult.expiresAt
         });
-
-        return {
-            ...plainToInstance(UserResponseDto, createUserDto),
-        };
     }
 
     async findAll(query: GetUsersDto) {

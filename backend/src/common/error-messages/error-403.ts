@@ -16,4 +16,5 @@ export const ERROR_403 = {
     DOCUMENT_NOT_FOUND: { message: 'Không tìm thấy tài liệu' },
     FORBIDDEN_UPDATE_SUPPORT_REQUEST: { message: 'Bạn không có quyền cập nhật thông tin yêu cầu hỗ trợ này' },
     FORBIDDEN_DELETE_SUPPORT_REQUEST: { message: 'Bạn không có quyền xóa yêu cầu hỗ trợ này' },
+    FORBIDDEN_OTP_SEND_FAILED: { message: 'Gửi OTP tới Zalo và SMS thất bại' },
 }

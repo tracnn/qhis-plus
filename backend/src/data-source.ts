@@ -24,7 +24,7 @@ import { Xml7DischargePaper } from './bhxh/qd3176/entities/xml7-discharge-paper.
 import { Xml8MedicalRecordSummary } from './bhxh/qd3176/entities/xml8-medical-record-summary.entity';
 import { Xml9BirthCertificate } from './bhxh/qd3176/entities/xml9-birth-certificate.entity';
 import { Xml10MaternityLeave } from './bhxh/qd3176/entities/xml10-maternity-leave.entity';
-import { Xml11SocialInsuranceLeaveCertificate } from './bhxh/qd3176/entities/xml11-social-insurance-leave-certificate.entity';
+import { Xml11InsuranceLeave } from './bhxh/qd3176/entities/xml11-insurance-leave.entity';
 import { Xml12MedicalAssessment } from './bhxh/qd3176/entities/xml12-medical-assessment.entity';
 import { Xml13TransferForm } from './bhxh/qd3176/entities/xml13-transfer-form.entity';
 import { Xml14ReexamAppointment } from './bhxh/qd3176/entities/xml14-reexam-appointment.entity';
@@ -59,7 +59,7 @@ export default new DataSource({
         Xml8MedicalRecordSummary, 
         Xml9BirthCertificate, 
         Xml10MaternityLeave, 
-        Xml11SocialInsuranceLeaveCertificate, 
+        Xml11InsuranceLeave, 
         Xml12MedicalAssessment, 
         Xml13TransferForm, 
         Xml14ReexamAppointment, 

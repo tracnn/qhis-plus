@@ -52,7 +52,7 @@ export class Xml14ReexamAppointment extends BaseEntity {
     @Column({ name: 'CHAN_DOAN_RV', type: 'varchar', length: 4000, nullable: true })
     chanDoanRv: string;
 
-    @Column({ name: 'MA_BENH_CHINH', length: 7, nullable: true })
+    @Column({ name: 'MA_BENH_CHINH', length: 100, nullable: true })
     @Index()
     maBenhChinh: string;
 

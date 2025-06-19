@@ -17,4 +17,5 @@ export const ERROR_400 = {
     APPOINTMENT_SLOT_NOT_FOUND: { message: 'Slot không tồn tại' },
     SLOT_ALREADY_BOOKED: { message: 'Slot đã có người đặt, vui lòng chọn slot khác' },
     ACCOUNT_WAITING_FOR_ACTIVATION: { message: 'Tài khoản đang chờ kích hoạt' },
+    INVALID_XML_3176_FILE: { message: 'File XML không hợp lệ' },
 }
