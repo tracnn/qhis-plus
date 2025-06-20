@@ -13,21 +13,21 @@ import { DoctorTitle } from "./doctor-title/entities/doctor-title.entity";
 import { Appointment } from "./appointment/entities/appointment.entity";
 import { Specialty } from "./specialty/entities/specialty.entity";
 import { Title } from "./title/entities/title.entity";
-import { Xml15TuberculosisTreatment } from './bhxh/qd3176/entities/xml15-tuberculosis-treatment.entity';
-import { Xml1PatientSummary } from './bhxh/qd3176/entities/xml1-patient-summary.entity';
-import { Xml2DrugDetail } from './bhxh/qd3176/entities/xml2-drug-detail.entity';
-import { Xml3ServiceDetail } from './bhxh/qd3176/entities/xml3-service-detail.entity';
-import { Xml4SubclinicalDetail } from './bhxh/qd3176/entities/xml4-subclinical-detail.entity';
-import { Xml5ClinicalProgress } from './bhxh/qd3176/entities/xml5-clinical-progress.entity';
-import { Xml6HivCareRecord } from './bhxh/qd3176/entities/xml6-hiv-care-record.entity';
-import { Xml7DischargePaper } from './bhxh/qd3176/entities/xml7-discharge-paper.entity';
-import { Xml8MedicalRecordSummary } from './bhxh/qd3176/entities/xml8-medical-record-summary.entity';
-import { Xml9BirthCertificate } from './bhxh/qd3176/entities/xml9-birth-certificate.entity';
-import { Xml10MaternityLeave } from './bhxh/qd3176/entities/xml10-maternity-leave.entity';
-import { Xml11InsuranceLeave } from './bhxh/qd3176/entities/xml11-insurance-leave.entity';
-import { Xml12MedicalAssessment } from './bhxh/qd3176/entities/xml12-medical-assessment.entity';
-import { Xml13TransferForm } from './bhxh/qd3176/entities/xml13-transfer-form.entity';
-import { Xml14ReexamAppointment } from './bhxh/qd3176/entities/xml14-reexam-appointment.entity';
+import { Qd3176Xml1s } from './bhxh/qd3176/entities/qd3176-xml1s.entity';
+import { Qd3176Xml2s } from './bhxh/qd3176/entities/qd3176-xml2s.entity';
+import { Qd3176Xml3s } from './bhxh/qd3176/entities/qd3176-xml3s.entity';
+import { Qd3176Xml4s } from './bhxh/qd3176/entities/qd3176-xml4s.entity';
+import { Qd3176Xml5s } from './bhxh/qd3176/entities/qd3176-xml5s.entity';
+import { Qd3176Xml6s } from './bhxh/qd3176/entities/qd3176-xml6s.entity';
+import { Qd3176Xml7s } from './bhxh/qd3176/entities/qd3176-xml7s.entity';
+import { Qd3176Xml8s } from './bhxh/qd3176/entities/qd3176-xml8s.entity';
+import { Qd3176Xml9s } from './bhxh/qd3176/entities/qd3176-xml9s.entity';
+import { Qd3176Xml10s } from './bhxh/qd3176/entities/qd3176-xml10s.entity';
+import { Qd3176Xml11s } from './bhxh/qd3176/entities/qd3176-xml11s.entity';
+import { Qd3176Xml12s } from './bhxh/qd3176/entities/qd3176-xml12s.entity';
+import { Qd3176Xml13s } from './bhxh/qd3176/entities/qd3176-xml13s.entity';
+import { Qd3176Xml14s } from './bhxh/qd3176/entities/qd3176-xml14s.entity';
+import { Qd3176Xml15s } from './bhxh/qd3176/entities/qd3176-xml15s.entity';
 
 export default new DataSource({
     type: "oracle",
@@ -49,21 +49,21 @@ export default new DataSource({
         DoctorTitle,
         Specialty,
         Title,
-        Xml1PatientSummary, 
-        Xml2DrugDetail, 
-        Xml3ServiceDetail, 
-        Xml4SubclinicalDetail, 
-        Xml5ClinicalProgress, 
-        Xml6HivCareRecord, 
-        Xml7DischargePaper, 
-        Xml8MedicalRecordSummary, 
-        Xml9BirthCertificate, 
-        Xml10MaternityLeave, 
-        Xml11InsuranceLeave, 
-        Xml12MedicalAssessment, 
-        Xml13TransferForm, 
-        Xml14ReexamAppointment, 
-        Xml15TuberculosisTreatment     
+        Qd3176Xml1s, 
+        Qd3176Xml2s, 
+        Qd3176Xml3s, 
+        Qd3176Xml4s, 
+        Qd3176Xml5s, 
+        Qd3176Xml6s, 
+        Qd3176Xml7s, 
+        Qd3176Xml8s, 
+        Qd3176Xml9s, 
+        Qd3176Xml10s, 
+        Qd3176Xml11s, 
+        Qd3176Xml12s, 
+        Qd3176Xml13s, 
+        Qd3176Xml14s, 
+        Qd3176Xml15s,     
     ],
     migrations: [__dirname + "/migrations/*{.ts,.js}"],
     synchronize: false,

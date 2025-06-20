@@ -1,8 +1,8 @@
 import { Column, Entity, Index } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 
-@Entity('XML13_TRANSFER_FORM')
-export class Xml13TransferForm extends BaseEntity {
+@Entity('QD3176_XML13S')
+export class Qd3176Xml13s extends BaseEntity {
     @Column({ name: 'XML1_ID' })
     @Index()
     xml1Id: string;

@@ -1,8 +1,8 @@
 import { Column, Entity, Index } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 
-@Entity('XML8_MEDICAL_RECORD_SUMMARY')
-export class Xml8MedicalRecordSummary extends BaseEntity {
+@Entity('QD3176_XML8S')
+export class Qd3176Xml8s extends BaseEntity {
     @Column({ name: 'XML1_ID' })
     @Index()
     xml1Id: string;

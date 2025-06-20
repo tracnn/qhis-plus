@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, Htt
 import { Qd3176Service } from './qd3176.service';
 import { CreateQd3176Dto } from './dto/create-qd3176.dto';
 import { UpdateQd3176Dto } from './dto/update-qd3176.dto';
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import * as multer from 'multer';
 
 @Controller('qd3176')
@@ -35,7 +35,7 @@ export class Qd3176Controller {
   }
 
   @Post('upload')
-  @UseInterceptors(FilesInterceptor('files', 100, {
+  @UseInterceptors(FilesInterceptor('files', 2000, {
     storage: multer.memoryStorage(),
     fileFilter: (req, file, cb) => {
       if (!file.originalname.match(/\.xml$/)) {

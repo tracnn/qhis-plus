@@ -10,6 +10,8 @@ import { GetAppointmentSlotBySpecialtyQuery } from "./get-appointment-slot-by-sp
 import { GetClinicSpecialtyBySpecialtyIdQuery } from "../../clinic-specialty/queries/get-clinic-specialty-by-specialty-id.query";
 import { GetClinicSpecialtyBySpecialtyIdDto } from "src/clinic-specialty/dto/get-clinic-specialty-by-specialty-id.dto";
 import { APPOINTMENT_STATUS } from "../enums/appointment-status.enum";
+import { GetTitleByIdsQuery } from "src/title/queries/get-title-by-ids.query";
+import { GetDoctorTitleByDoctorIdsQuery } from "src/doctor-title/queries/get-doctor-title-by-doctor-ids.query";
 
 @QueryHandler(GetAppointmentSlotBySpecialtyQuery)
 export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<GetAppointmentSlotBySpecialtyQuery> {
@@ -38,7 +40,6 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
           clinicIds = clinicSpecialty.data.map((c: any) => c.clinicId);
     }
 
-
     const today = new Date();
     const todayStr = today.toISOString().slice(0, 10); // "YYYY-MM-DD"
     const nowTime = today.toTimeString().slice(0, 5);  // "HH:mm"
@@ -52,7 +53,6 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
     .orderBy("slot.slotDate", "ASC")
     .addOrderBy("slot.slotTime", "ASC");
 
-    console.log(clinicIds);
     if (clinicIds && clinicIds.length > 0) {
         qb.andWhere("slot.clinicId IN (:...clinicIds)", { clinicIds });
     } else {
@@ -97,20 +97,23 @@ export class GetAppointmentSlotBySpecialtyQueryHandler implements IQueryHandler<
     const doctorIdsUsed = Array.from(new Set(slots.map(slot => slot.doctorId)));
 
     // Query dữ liệu liên quan qua CQRS
-    const [clinics, doctors] = await Promise.all([
+    const [clinics, doctors, doctorTitles] = await Promise.all([
       this.queryBus.execute(new GetClinicsByIdsQuery(clinicIdsUsed)),
       this.queryBus.execute(new GetDoctorsByIdsQuery(doctorIdsUsed)),
+      this.queryBus.execute(new GetDoctorTitleByDoctorIdsQuery(doctorIdsUsed)),
     ]);    
 
     // Tạo map tra cứu nhanh
     const clinicMap = new Map(clinics.map((c: any) => [Number(c.clinicId), c]));
     const doctorMap = new Map(doctors.map((d: any) => [Number(d.doctorId), d]));
+    const doctorTitleMap = new Map(doctorTitles.map((dt: any) => [Number(dt.doctorId), dt]));
 
     // Map vào từng slot (dạng nested object: slot.clinic, slot.doctor)
     const result = slots.map(slot => ({
       ...slot,
       clinic: clinicMap.get(Number(slot.clinicId)) || null,
-      doctor: doctorMap.get(Number(slot.doctorId)) || null,
+      //doctor: doctorMap.get(Number(slot.doctorId)) || null,
+      doctorTitle: doctorTitleMap.get(Number(slot.doctorId)) || null,
     }));
 
     return result;

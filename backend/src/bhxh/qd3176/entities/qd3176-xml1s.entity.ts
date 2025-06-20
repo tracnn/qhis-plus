@@ -2,9 +2,9 @@ import { XmlSummaryType } from '../../enums/bhxh.enum';
 import { Entity, Column, Index } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 
-@Entity('XML1_PATIENT_SUMMARY')
+@Entity('QD3176_XML1S')
 @Index(['maCskcb', 'maLk', 'stt'])
-export class Xml1PatientSummary extends BaseEntity {
+export class Qd3176Xml1s extends BaseEntity {
   @Column({ name: 'MA_LK', length: 100 })
   @Index()
   maLk: string;
@@ -94,13 +94,13 @@ export class Xml1PatientSummary extends BaseEntity {
   @Column({ name: 'MA_BENH_CHINH', length: 100, nullable: true })
   maBenhChinh: string;
 
-  @Column({ name: 'MA_BENH_KT', length: 100, nullable: true })
+  @Column({ name: 'MA_BENH_KT', length: 255, nullable: true })
   maBenhKt: string;
 
-  @Column({ name: 'MA_BENH_YHCT', length: 150, nullable: true })
+  @Column({ name: 'MA_BENH_YHCT', length: 255, nullable: true })
   maBenhYhct: string;
 
-  @Column({ name: 'MA_PTTT_QT', length: 125, nullable: true })
+  @Column({ name: 'MA_PTTT_QT', length: 255, nullable: true })
   maPtttQt: string;
 
   @Column({ name: 'MA_DOITUONG_KCB', length: 4, nullable: true })
@@ -201,11 +201,11 @@ export class Xml1PatientSummary extends BaseEntity {
   @Column({ name: 'MA_KHUVUC', length: 2, nullable: true })
   maKhuvuc: string;
 
-  @Column({ name: 'CAN_NANG', length: 6, nullable: true })
-  canNang: string;
+  @Column({ name: 'CAN_NANG', nullable: true })
+  canNang: number;
 
-  @Column({ name: 'CAN_NANG_CON', length: 100, nullable: true })
-  canNangCon: string;
+  @Column({ name: 'CAN_NANG_CON', nullable: true })
+  canNangCon: number;
 
   @Column({ name: 'NAM_NAM_LIEN_TUC', length: 8, nullable: true })
   namNamLienTuc: string;

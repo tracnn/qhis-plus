@@ -2,138 +2,121 @@ import { CommandHandler, ICommandHandler } from "@nestjs/cqrs";
 import { CreateFullXmlRecordCommand } from "./create-full-xml-record.command";
 import { InjectDataSource } from "@nestjs/typeorm";
 import { DataSource } from "typeorm";
-import { Xml1PatientSummary } from "../entities/xml1-patient-summary.entity";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { Xml2DrugDetail } from "../entities/xml2-drug-detail.entity";
-import { Xml3ServiceDetail } from "../entities/xml3-service-detail.entity";
-import { Xml4SubclinicalDetail } from "../entities/xml4-subclinical-detail.entity";
-import { Xml5ClinicalProgress } from "../entities/xml5-clinical-progress.entity";
-import { Xml6HivCareRecord } from "../entities/xml6-hiv-care-record.entity";
-import { Xml7DischargePaper } from "../entities/xml7-discharge-paper.entity";
-import { Xml8MedicalRecordSummary } from "../entities/xml8-medical-record-summary.entity";
-import { Xml9BirthCertificate } from "../entities/xml9-birth-certificate.entity";
-import { Xml10MaternityLeave } from "../entities/xml10-maternity-leave.entity";
-import { Xml11InsuranceLeave } from "../entities/xml11-insurance-leave.entity";
-import { Xml12MedicalAssessment } from "../entities/xml12-medical-assessment.entity";
-import { Xml13TransferForm } from "../entities/xml13-transfer-form.entity";
-import { Xml14ReexamAppointment } from "../entities/xml14-reexam-appointment.entity";
-import { Xml15TuberculosisTreatment } from "../entities/xml15-tuberculosis-treatment.entity";
+import { Qd3176Xml1s } from "../entities/qd3176-xml1s.entity";
+import { Qd3176Xml2s } from "../entities/qd3176-xml2s.entity";
+import { Qd3176Xml3s } from "../entities/qd3176-xml3s.entity";
+import { Qd3176Xml4s } from "../entities/qd3176-xml4s.entity";
+import { Qd3176Xml5s } from "../entities/qd3176-xml5s.entity";
+import { Qd3176Xml6s } from "../entities/qd3176-xml6s.entity";
+import { Qd3176Xml7s } from "../entities/qd3176-xml7s.entity";
+import { Qd3176Xml8s } from "../entities/qd3176-xml8s.entity";
+import { Qd3176Xml9s } from "../entities/qd3176-xml9s.entity";
+import { Qd3176Xml10s } from "../entities/qd3176-xml10s.entity";
+import { Qd3176Xml11s } from "../entities/qd3176-xml11s.entity";
+import { Qd3176Xml12s } from "../entities/qd3176-xml12s.entity";
+import { Qd3176Xml13s } from "../entities/qd3176-xml13s.entity";
+import { Qd3176Xml14s } from "../entities/qd3176-xml14s.entity";
+import { Qd3176Xml15s } from "../entities/qd3176-xml15s.entity";
 import { snakeUpperToCamel } from "../utils/snake-upper-to-camel.utils";
+import { QD3176_XML_TYPE } from "../enums/qd3176.enum";
+import { Logger } from "@nestjs/common";
+import { BASE_SCHEMA } from "../../../constant/common.constant";
 
 @CommandHandler(CreateFullXmlRecordCommand)
 export class CreateFullXmlRecordHandler implements ICommandHandler<CreateFullXmlRecordCommand> {
+    private readonly logger = new Logger(CreateFullXmlRecordHandler.name);
     constructor(
-        @InjectDataSource()
+        @InjectDataSource(BASE_SCHEMA.DEFAULT)
         private readonly dataSource: DataSource,
-        @InjectRepository(Xml1PatientSummary)
-        private readonly xml1PatientSummaryRepository: Repository<Xml1PatientSummary>,
-        @InjectRepository(Xml2DrugDetail)
-        private readonly xml2DrugDetailRepository: Repository<Xml2DrugDetail>,
-        @InjectRepository(Xml3ServiceDetail)
-        private readonly xml3ServiceDetailRepository: Repository<Xml3ServiceDetail>,
-        @InjectRepository(Xml4SubclinicalDetail)
-        private readonly xml4SubclinicalDetailRepository: Repository<Xml4SubclinicalDetail>,
-        @InjectRepository(Xml5ClinicalProgress)
-        private readonly xml5ClinicalProgressRepository: Repository<Xml5ClinicalProgress>,
-        @InjectRepository(Xml6HivCareRecord)
-        private readonly xml6HivCareRecordRepository: Repository<Xml6HivCareRecord>,
-        @InjectRepository(Xml7DischargePaper)
-        private readonly xml7DischargePaperRepository: Repository<Xml7DischargePaper>,
-        @InjectRepository(Xml8MedicalRecordSummary)
-        private readonly xml8MedicalRecordSummaryRepository: Repository<Xml8MedicalRecordSummary>,
-        @InjectRepository(Xml9BirthCertificate)
-        private readonly xml9BirthCertificateRepository: Repository<Xml9BirthCertificate>,
-        @InjectRepository(Xml10MaternityLeave)
-        private readonly xml10MaternityLeaveRepository: Repository<Xml10MaternityLeave>,
-        @InjectRepository(Xml11InsuranceLeave)
-        private readonly xml11InsuranceLeaveRepository: Repository<Xml11InsuranceLeave>,
-        @InjectRepository(Xml12MedicalAssessment)
-        private readonly xml12MedicalAssessmentRepository: Repository<Xml12MedicalAssessment>,
-        @InjectRepository(Xml13TransferForm)
-        private readonly xml13TransferFormRepository: Repository<Xml13TransferForm>,
-        @InjectRepository(Xml14ReexamAppointment)
-        private readonly xml14ReexamAppointmentRepository: Repository<Xml14ReexamAppointment>,
-        @InjectRepository(Xml15TuberculosisTreatment)
-        private readonly xml15TuberculosisTreatmentRepository: Repository<Xml15TuberculosisTreatment>,
     ) {}
     async execute(command: CreateFullXmlRecordCommand) {
         const {xmlPayloads} = command;
+        this.logger.log('Start handling CreateFullXmlRecordCommand');
 
         return await this.dataSource.transaction(async manager => {
 
-            //console.log(xmlPayloads.XML1);
-            // 1. Insert XML1
-            const xml1 = manager.getRepository(Xml1PatientSummary).create(xmlPayloads.XML1);
-            //console.log(xml1);
-
-            const savedXml1 = await manager.getRepository(Xml1PatientSummary).save(xml1 as unknown as Xml1PatientSummary);
+            const savedXml1 = await manager.getRepository(Qd3176Xml1s).save(
+                manager.getRepository(Qd3176Xml1s).create(xmlPayloads.XML1 as Qd3176Xml1s)
+              );
       
             const xml1Id = savedXml1.id;
+            this.logger.log(`XML1 saved with id: ${xml1Id}`);
     
             // 2. Insert các bảng XML2 đến XML15, liên kết xml1Id
             for (const key of Object.keys(xmlPayloads)) {
-                if (key === 'XML1') continue;
+                if (key === QD3176_XML_TYPE.XML1) continue;
 
                 const rawData = xmlPayloads[key];
+                this.logger.log(`Processing XML ${key}`);
                 
                 switch (key) {
-                    case 'XML2':
+                    case QD3176_XML_TYPE.XML2:
                         const chiTietThuoc = rawData.dsachChiTietThuoc?.CHI_TIET_THUOC;
                         const chiTietThuocItems = Array.isArray(chiTietThuoc) ? 
                         chiTietThuoc : chiTietThuoc ? [chiTietThuoc] : [];
                         for (const item of chiTietThuocItems) {
                             const normalizedItem = snakeUpperToCamel(item);
-                            const xml2 = manager.getRepository(Xml2DrugDetail).create(xmlPayloads.XML2);
-                            await manager.getRepository(Xml2DrugDetail).save({ ...normalizedItem, xml1Id });
+                            //const xml2 = manager.getRepository(Qd3176Xml2s).create(xmlPayloads.XML2);
+                            const savedXml2 = await manager.getRepository(Qd3176Xml2s).save({ ...normalizedItem, xml1Id });
+                            this.logger.log(`Saved XML2: ${savedXml2.id}`);
                         }
+                        this.logger.log(`Saved ${chiTietThuocItems.length} XML2 items`);
                         break;
-                    case 'XML3':
+                    case QD3176_XML_TYPE.XML3:
                         const chiTietDichVu = rawData.dsachChiTietDvkt?.CHI_TIET_DVKT;
                         const chiTietDichVuItems = Array.isArray(chiTietDichVu) ? 
                         chiTietDichVu : chiTietDichVu ? [chiTietDichVu] : [];
                         for (const item of chiTietDichVuItems) {
                             const normalizedItem = snakeUpperToCamel(item);
-                            const xml3 = manager.getRepository(Xml3ServiceDetail).create(xmlPayloads.XML3);
-                            await manager.getRepository(Xml3ServiceDetail).save({ ...normalizedItem, xml1Id });
+                            //const xml3 = manager.getRepository(Qd3176Xml3s).create(xmlPayloads.XML3);
+                            const savedXml3 = await manager.getRepository(Qd3176Xml3s).save({ ...normalizedItem, xml1Id });
+                            this.logger.log(`Saved XML3: ${savedXml3.id}`);
                         }
+                        this.logger.log(`Saved ${chiTietDichVuItems.length} XML3 items`);
                         break;
 
-                    case 'XML4':
+                    case QD3176_XML_TYPE.XML4:
                         const dsachChiTietCls = rawData.dsachChiTietCls?.CHI_TIET_CLS;
                         const dsachChiTietClsItems = Array.isArray(dsachChiTietCls) ? 
                         dsachChiTietCls : dsachChiTietCls ? [dsachChiTietCls] : [];
                         for (const item of dsachChiTietClsItems) {
                             const normalizedItem = snakeUpperToCamel(item);
-                            const xml4 = manager.getRepository(Xml4SubclinicalDetail).create(xmlPayloads.XML4);
-                            await manager.getRepository(Xml4SubclinicalDetail).save({ ...normalizedItem, xml1Id });
+                            //const xml4 = manager.getRepository(Qd3176Xml4s).create(xmlPayloads.XML4);
+                            const savedXml4 = await manager.getRepository(Qd3176Xml4s).save({ ...normalizedItem, xml1Id });
+                            this.logger.log(`Saved XML4: ${savedXml4.id}`);
                         }
+                        this.logger.log(`Saved ${dsachChiTietClsItems.length} XML4 items`);
                         break;
 
-                    case 'XML5':
+                    case QD3176_XML_TYPE.XML5:
                         const dienBien = rawData.dsachChiTietDienBienBenh?.CHI_TIET_DIEN_BIEN_BENH;
                         const dienBienItems = Array.isArray(dienBien) ? 
                         dienBien : dienBien ? [dienBien] : [];
                         for (const item of dienBienItems) {
                             const normalizedItem = snakeUpperToCamel(item);
-                            const xml5 = manager.getRepository(Xml5ClinicalProgress).create(xmlPayloads.XML5);
-                            await manager.getRepository(Xml5ClinicalProgress).save({ ...normalizedItem, xml1Id });
+                            //const xml5 = manager.getRepository(Qd3176Xml5s).create(xmlPayloads.XML5);
+                            const savedXml5 = await manager.getRepository(Qd3176Xml5s).save({ ...normalizedItem, xml1Id });
+                            this.logger.log(`Saved XML5: ${savedXml5.id}`);
                         }
+                        this.logger.log(`Saved ${dienBienItems.length} XML5 items`);
                         break;
 
-                    case 'XML7':
-                        const xml7 = manager.getRepository(Xml7DischargePaper).create(xmlPayloads.XML7);
-                        await manager.getRepository(Xml7DischargePaper).save({ ...rawData, xml1Id });
+                    case QD3176_XML_TYPE.XML7:
+                        //const xml7 = manager.getRepository(Qd3176Xml7s).create(xmlPayloads.XML7);
+                        const savedXml7 = await manager.getRepository(Qd3176Xml7s).save({ ...rawData, xml1Id });
+                        this.logger.log(`Saved XML7: ${savedXml7.id}`);
                         break;
 
-                    case 'XML8':
-                        const xml8 = manager.getRepository(Xml8MedicalRecordSummary).create(xmlPayloads.XML8);
-                        await manager.getRepository(Xml8MedicalRecordSummary).save({ ...rawData, xml1Id });
+                    case QD3176_XML_TYPE.XML8:
+                        //const xml8 = manager.getRepository(Qd3176Xml8s).create(xmlPayloads.XML8);
+                        const savedXml8 = await manager.getRepository(Qd3176Xml8s).save({ ...rawData, xml1Id });
+                        this.logger.log(`Saved XML8: ${savedXml8.id}`);
                         break;
 
-                    case 'XML14':
-                        const xml14 = manager.getRepository(Xml14ReexamAppointment).create(xmlPayloads.XML14);
-                        await manager.getRepository(Xml14ReexamAppointment).save({ ...rawData, xml1Id });
+                    case QD3176_XML_TYPE.XML14:
+                        //const xml14 = manager.getRepository(Qd3176Xml14s).create(xmlPayloads.XML14);
+                        const savedXml14 = await manager.getRepository(Qd3176Xml14s).save({ ...rawData, xml1Id });
+                        this.logger.log(`Saved XML14: ${savedXml14.id}`);
                         break;
                 }
             }
@@ -143,24 +126,4 @@ export class CreateFullXmlRecordHandler implements ICommandHandler<CreateFullXml
               };
         });
     }
-
-    private getEntityByLoaiXml(type: string): any {
-        switch (type) {
-          case 'XML2': return Xml2DrugDetail;
-          case 'XML3': return Xml3ServiceDetail;
-          case 'XML4': return Xml4SubclinicalDetail;
-          case 'XML5': return Xml5ClinicalProgress;
-          case 'XML6': return Xml6HivCareRecord;
-          case 'XML7': return Xml7DischargePaper;
-          case 'XML8': return Xml8MedicalRecordSummary;
-          case 'XML9': return Xml9BirthCertificate;
-          case 'XML10': return Xml10MaternityLeave;
-          case 'XML11': return Xml11InsuranceLeave;
-          case 'XML12': return Xml12MedicalAssessment;
-          case 'XML13': return Xml13TransferForm;
-          case 'XML14': return Xml14ReexamAppointment;
-          case 'XML15': return Xml15TuberculosisTreatment;
-          default: throw new Error(`Unsupported XML type: ${type}`);
-        }
-      }
 }

@@ -11,6 +11,10 @@ export class DoctorTitle extends BaseEntity {
   @Index()
   titleId: string;
 
+  @Column({ name: "SPECIALTY_ID" })
+  @Index()
+  specialtyId: string;
+
   @Column({ name: "AVARTAR_URL", nullable: true })
   avartarUrl: string;
 

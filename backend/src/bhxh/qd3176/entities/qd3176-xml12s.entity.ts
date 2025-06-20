@@ -1,8 +1,8 @@
 import { Entity, Column, Index } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 
-@Entity('XML12_MEDICAL_ASSESSMENT')
-export class Xml12MedicalAssessment extends BaseEntity {
+@Entity('QD3176_XML12S')
+export class Qd3176Xml12s extends BaseEntity {
     @Column({ name: 'NGUOI_CHU_TRI', length: 255, nullable: true })
     nguoiChuTri: string;
 

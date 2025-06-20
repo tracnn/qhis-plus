@@ -1,8 +1,8 @@
 import { Column, Entity, Index } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 
-@Entity('XML4_SUBCLINICAL_DETAIL')
-export class Xml4SubclinicalDetail extends BaseEntity {
+@Entity('QD3176_XML4S')
+export class Qd3176Xml4s extends BaseEntity {
     @Column({ name: 'XML1_ID' })
     @Index()
     xml1Id: string;
@@ -11,10 +11,10 @@ export class Xml4SubclinicalDetail extends BaseEntity {
     @Index()
     maLk: string;
 
-    @Column({ name: 'STT', type: 'int' })
+    @Column({ name: 'STT', type: 'int', nullable: true })
     stt: number;
 
-    @Column({ name: 'MA_DICH_VU', length: 50 })
+    @Column({ name: 'MA_DICH_VU', length: 50, nullable: true })
     @Index()
     maDichVu: string;
 

@@ -1,7 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsOptional, IsUUID } from "class-validator";
+import { BaseDto } from "../../common/base.dto";
 
-export class GetDoctorTitleByTitleDto {
+export class GetDoctorTitleByTitleDto extends BaseDto {
     
     @ApiProperty({
         description: 'Title ID',

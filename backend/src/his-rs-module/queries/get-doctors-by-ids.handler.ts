@@ -33,7 +33,6 @@ export class GetDoctorsByIdsHandler implements IQueryHandler<GetDoctorsByIdsQuer
             ID AS "doctorId",
             LOGINNAME AS "doctorCode",
             TDL_USERNAME AS "doctorName",
-            TITLE AS "title",
             TDL_MOBILE AS "phoneNumber",
             TDL_EMAIL AS "email"
         FROM 

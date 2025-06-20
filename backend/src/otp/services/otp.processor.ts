@@ -33,7 +33,6 @@ export class OtpProcessor {
     //     },
     //   },
     // );
-    console.log('Gửi OTP qua Zalo');
   }
 
   private async sendSmsOtp(phone: string, otp: string) {
@@ -42,6 +41,5 @@ export class OtpProcessor {
     //   phone,
     //   message: `Mã OTP của bạn là: ${otp}.`,
     // });
-    console.log('Gửi OTP qua SMS');
   }
 }

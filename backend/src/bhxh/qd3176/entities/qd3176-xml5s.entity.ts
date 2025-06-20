@@ -1,8 +1,8 @@
 import { Column, Entity, Index } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 
-@Entity('XML5_CLINICAL_PROGRESS')
-export class Xml5ClinicalProgress extends BaseEntity {
+@Entity('QD3176_XML5S')
+export class Qd3176Xml5s extends BaseEntity {
   @Column({ name: 'XML1_ID' })
   @Index()
   xml1Id: string;
@@ -11,7 +11,7 @@ export class Xml5ClinicalProgress extends BaseEntity {
   @Index()
   maLk: string;
 
-  @Column({ name: 'STT', type: 'int' })
+  @Column({ name: 'STT', type: 'int', nullable: true })
   stt: number;
 
   @Column({ name: 'DIEN_BIEN_LS', type: 'varchar', length: 4000, nullable: true })

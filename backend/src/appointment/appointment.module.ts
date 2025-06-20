@@ -12,6 +12,7 @@ import { GetAppointmentSlotByIdQueryHandler } from './queries/get-appointment-sl
 import { GetAppointmentSlotBySpecialtyQueryHandler } from './queries/get-appointment-slot-by-specialty.handler';
 import { CreateAppointmentHandler } from './commands/create-appointment.handler';
 import { GetAppointmentHandler } from './queries/get-appointment.handler';
+import { GetDoctorIdsFromAppointmentSlotQueryHandler } from './queries/get-doctor-ids-from-appointment-slot.handler';
 
 const CommandHandlers = [
   CreateAppointmentSlotCommandHandler,
@@ -23,6 +24,7 @@ const QueryHandlers = [
   GetAppointmentSlotByIdQueryHandler,
   GetAppointmentSlotBySpecialtyQueryHandler,
   GetAppointmentHandler,
+  GetDoctorIdsFromAppointmentSlotQueryHandler,
 ];
 
 @Module({
