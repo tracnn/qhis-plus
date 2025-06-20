@@ -48,6 +48,7 @@ export class GetAppointmentHandler implements IQueryHandler<GetAppointmentQuery>
         // Bước 3: Lấy unique doctorId, clinicId, serviceCode từ slot
         const doctorIds = Array.from(new Set(slots.map(s => s.doctorId).filter(Boolean)));
         const clinicIds = Array.from(new Set(slots.map(s => s.clinicId).filter(Boolean)));
+
         // Giả sử bạn đã có các query tương ứng
         const [clinics, doctors] = await Promise.all([
             this.queryBus.execute(new GetClinicsByIdsQuery(clinicIds)),

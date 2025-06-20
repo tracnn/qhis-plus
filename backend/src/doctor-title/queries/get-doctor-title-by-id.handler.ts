@@ -14,7 +14,10 @@ export class GetDoctorTitleByIdHandler implements IQueryHandler<GetDoctorTitleBy
 
     async execute(query: GetDoctorTitleByIdQuery): Promise<any> {
         const { id } = query;
-        const doctorTitle = await this.doctorTitleRepository.findOne({ where: { id } });
+        const doctorTitle = await this.doctorTitleRepository.findOne({
+            where: { id },
+            relations: ['title', 'specialty'],
+        });
         if (!doctorTitle) {
             throw new NotFoundException(ERROR_404.NOT_FOUND_DOCTOR_TITLE);
         }
