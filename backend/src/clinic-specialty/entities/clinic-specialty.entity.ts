@@ -7,7 +7,7 @@ export class ClinicSpecialty extends BaseEntity {
   @Index()
   clinicId: number;
 
-  @Column({ name: 'SPECIALTY_ID' })
+  @Column({ type: 'uuid', name: 'SPECIALTY_ID' })
   @Index()
   specialtyId: string;
 
