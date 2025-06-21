@@ -5,7 +5,7 @@ export function buildPagination(page: number, limit: number, totalItems: number)
         page: Number(page),
         limit: Number(limit),
         pageCount: Number(pageCount),
-        //hasNext: Number(page) < Number(pageCount),
-        //hasPrev: Number(page) > 1,
+        hasNext: Number(page) < Number(pageCount),
+        hasPrev: Number(page) > 1,
     };
 } 
