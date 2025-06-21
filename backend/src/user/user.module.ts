@@ -23,9 +23,14 @@ import { UpdateUserActiveStatusHandler } from './commands/update-user-active-sta
 import { UpdatePasswordWithOtpHandler } from './commands/update-password-with-otp.handler';
 import { CheckDuplicatePhoneNumberHandler } from './queries/check-duplicate-phone-number.handler';
 import { ChangePasswordHandler } from './commands/change-password.handler';
+import { GetPatientFromUserByIdsQueryHandler } from './queries/get-patient-from-user-by-ids.handler';
 
 const CommandHandlers = [
   ChangePasswordHandler,
+];
+
+const QueryHandlers = [
+  GetPatientFromUserByIdsQueryHandler,
 ];
 
 @Module({
@@ -54,6 +59,7 @@ const CommandHandlers = [
     UpdateUserActiveStatusHandler,
     UpdatePasswordWithOtpHandler,
     CheckDuplicatePhoneNumberHandler,
+    ...QueryHandlers,
     ...CommandHandlers,
     registerExtendedRepo(User, UserRepository, 'UserRepository', BASE_SCHEMA.DEFAULT),
   ],

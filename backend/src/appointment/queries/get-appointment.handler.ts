@@ -9,6 +9,8 @@ import { buildPagination } from "@common/pagination.util";
 import { AppointmentSlot } from "../entities/appointment-slot.entity";
 import { GetClinicsByIdsQuery } from "../../his-rs-module/queries/get-clinics-by-ids.query";
 import { GetDoctorsByIdsQuery } from "../../his-rs-module/queries/get-doctors-by-ids.query";
+import { GetPatientFromFamilyMemberByIdsQuery } from "../../family-members/queries/get-patient-from-family-member-by-ids.query";
+import { GetPatientFromUserByIdsQuery } from "../../user/queries/get-patient-from-user-by-ids.query";
 
 @QueryHandler(GetAppointmentQuery)
 export class GetAppointmentHandler implements IQueryHandler<GetAppointmentQuery> {
@@ -49,14 +51,20 @@ export class GetAppointmentHandler implements IQueryHandler<GetAppointmentQuery>
         const doctorIds = Array.from(new Set(slots.map(s => s.doctorId).filter(Boolean)));
         const clinicIds = Array.from(new Set(slots.map(s => s.clinicId).filter(Boolean)));
 
-        // Giả sử bạn đã có các query tương ứng
-        const [clinics, doctors] = await Promise.all([
+        // patient maybe family member or user
+        const patientIds = appointments.map(a => a.patientId);
+
+        // Promise.all get data from multiple queries
+        const [clinics, doctors, patientsFromFamilyMembers, patientsFromUsers] = await Promise.all([
             this.queryBus.execute(new GetClinicsByIdsQuery(clinicIds)),
             this.queryBus.execute(new GetDoctorsByIdsQuery(doctorIds)), // tự định nghĩa nếu chưa có
+            this.queryBus.execute(new GetPatientFromFamilyMemberByIdsQuery(patientIds)),
+            this.queryBus.execute(new GetPatientFromUserByIdsQuery(patientIds)),
         ]);
 
         const clinicMap = new Map(clinics.map((c: any) => [Number(c.clinicId), c]));
         const doctorMap = new Map(doctors.map((d: any) => [Number(d.doctorId), d]));
+        const patients = [...patientsFromFamilyMembers, ...patientsFromUsers].filter(Boolean);
 
         // Bước 5: Map lại kết quả
         const result = appointments.map(a => {
@@ -66,6 +74,7 @@ export class GetAppointmentHandler implements IQueryHandler<GetAppointmentQuery>
                 slot,
                 clinic: slot ? clinicMap.get(Number(slot.clinicId)) || null : null,
                 doctor: slot ? doctorMap.get(Number(slot.doctorId)) || null : null,
+                patient: patients.find(p => p.patientId === a.patientId) || null,
             };
         });
 

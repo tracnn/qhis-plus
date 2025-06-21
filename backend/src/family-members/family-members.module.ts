@@ -15,12 +15,19 @@ import { UpdateFamilyMemberHandler } from './commands/update-family-member.handl
 import { GetFamilyMembersByUserIdHandler } from './queries/get-family-members-by-user-id.handler';
 import { CanCreateFamilyMemberHandler } from './queries/can-create-family-member.handler';
 import { AddressLocationResolverService } from '../user/services/address-location-resolver.service';
+import { GetPatientFromFamilyMemberByIdsQueryHandler } from './queries/get-patient-from-family-member-by-ids.handler';
+import { GetPatientFromFamilyMemberByIdQueryHandler } from './queries/get-patient-from-family-member-by-id.handler';
 
 const CommandHandlers = [
   CreateFamilyMemberHandler,
   UpdateFamilyMemberHandler,
   GetFamilyMembersByUserIdHandler,
   CanCreateFamilyMemberHandler,
+];
+
+const QueryHandlers = [
+  GetPatientFromFamilyMemberByIdsQueryHandler,
+  GetPatientFromFamilyMemberByIdQueryHandler,
 ];
 
 @Module({
@@ -32,7 +39,7 @@ const CommandHandlers = [
     UserModule,
   ],
   controllers: [FamilyMembersController],
-  providers: [FamilyMembersService, ...CommandHandlers,
+  providers: [FamilyMembersService, ...CommandHandlers, ...QueryHandlers,
     AddressLocationResolverService,
     registerExtendedRepo(FamilyMember, FamilyMemberRepository, 'FamilyMemberRepository', BASE_SCHEMA.DEFAULT)
   ],
