@@ -1,7 +1,7 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { BaseEntity } from "../../common/base.entity";
-import { Specialty } from "src/specialty/entities/specialty.entity";
-import { Title } from "src/title/entities/title.entity";
+import { Specialty } from "../../specialty/entities/specialty.entity";
+import { Title } from "../../title/entities/title.entity";
 
 @Entity('DOCTOR_TITLES')
 export class DoctorTitle extends BaseEntity {

@@ -3,7 +3,7 @@ import { BaseEntity } from '../../../common/base.entity';
 
 @Entity('QD3176_XML8S')
 export class Qd3176Xml8s extends BaseEntity {
-    @Column({ name: 'XML1_ID' })
+    @Column({ type: 'uuid', name: 'XML1_ID' })
     @Index()
     xml1Id: string;
 
@@ -78,7 +78,7 @@ export class Qd3176Xml8s extends BaseEntity {
     @Column({ name: 'DU_PHONG', type: 'varchar', length: 4000, nullable: true })
     duPhong: string;
 
-    @Column({ name: 'IMPORT_SESSION_ID', nullable: true })
+    @Column({ type: 'uuid', name: 'IMPORT_SESSION_ID', nullable: true })
     @Index()
     importSessionId: string;
 }

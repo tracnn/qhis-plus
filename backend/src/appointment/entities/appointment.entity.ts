@@ -12,7 +12,7 @@ export class Appointment extends BaseEntity {
   @Column({ name: 'APPOINTMENT_CODE', unique: true })
   appointmentCode: string;
 
-  @Column({ name: 'APPOINTMENT_SLOT_ID' })
+  @Column({ type: 'uuid', name: 'APPOINTMENT_SLOT_ID' })
   @Index()
   appointmentSlotId: string;
 

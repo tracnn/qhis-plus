@@ -8,7 +8,8 @@ import { snakeUpperToCamel } from "../utils/snake-upper-to-camel.utils";
 @Injectable()
 export class XmlImportService {  
   constructor(private readonly commandBus: CommandBus) {}
-  async processXmlFiles(files: Express.Multer.File[]) {
+
+  async processXmlFiles(files: Express.Multer.File[], importSessionId: string) {
     const results: any[] = [];
 
     for (const file of files) {
@@ -34,7 +35,7 @@ export class XmlImportService {
         filePayloads[type] = normalized;
       }
 
-      const result = await this.commandBus.execute(new CreateFullXmlRecordCommand(filePayloads));
+      const result = await this.commandBus.execute(new CreateFullXmlRecordCommand(filePayloads, importSessionId));
       results.push({ fileName: file.originalname, result });
     }
 

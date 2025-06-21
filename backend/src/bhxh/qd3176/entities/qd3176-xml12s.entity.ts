@@ -112,7 +112,7 @@ export class Qd3176Xml12s extends BaseEntity {
     @Column({ name: 'DU_PHONG', type: 'varchar', length: 4000, nullable: true })
     duPhong: string;
 
-    @Column({ name: 'IMPORT_SESSION_ID', nullable: true })
+    @Column({ type: 'uuid', name: 'IMPORT_SESSION_ID', nullable: true })
     @Index()
     importSessionId: string;
 }

@@ -45,6 +45,7 @@ lerna-debug.log*
 # temp directory
 .temp
 .tmp
+/xml3176-folder
 
 # Runtime data
 pids

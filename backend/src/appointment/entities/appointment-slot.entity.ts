@@ -12,7 +12,7 @@ export class AppointmentSlot extends BaseEntity {
   @Index()
   slotDate: string;
 
-  @Column({ name: 'SLOT_TIME', type: 'varchar' })
+  @Column({ name: 'SLOT_TIME', type: 'varchar', length: 5 })
   @Index()
   slotTime: SLOT_TIME;
 

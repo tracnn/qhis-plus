@@ -1,9 +1,10 @@
-import { XmlSummaryType } from '../../enums/bhxh.enum';
+import { XML_SUMMARY_TYPE } from '../../enums/bhxh.enum';
 import { Entity, Column, Index } from 'typeorm';
 import { BaseEntity } from '../../../common/base.entity';
 
 @Entity('QD3176_XML1S')
 @Index(['maCskcb', 'maLk', 'stt'])
+@Index(['maTheBhyt', 'ngayVao', 'thangQt', 'namQt', 'maLoaiKcb', 'maCskcb'])
 export class Qd3176Xml1s extends BaseEntity {
   @Column({ name: 'MA_LK', length: 100 })
   @Index()
@@ -222,11 +223,11 @@ export class Qd3176Xml1s extends BaseEntity {
   @Column({ name: 'DU_PHONG', type: 'varchar', length: 4000, nullable: true })
   duPhong: string;
 
-  @Column({ name: 'XML_SUMMARY_TYPE', enum: XmlSummaryType, default: XmlSummaryType.HOSO_DUNG })
+  @Column({ name: 'XML_SUMMARY_TYPE', enum: XML_SUMMARY_TYPE, default: XML_SUMMARY_TYPE.CORRECT, length: 20 })
   @Index()
-  xmlSummaryType: XmlSummaryType;
+  xmlSummaryType: XML_SUMMARY_TYPE;
 
-  @Column({ name: 'IMPORT_SESSION_ID', nullable: true })
+  @Column({ type: 'uuid', name: 'IMPORT_SESSION_ID', nullable: true })
   @Index()
   importSessionId: string;
 }

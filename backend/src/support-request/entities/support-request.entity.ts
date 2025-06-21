@@ -4,7 +4,7 @@ import { SupportRequestStatus, SupportRequestType } from "../enums/support-reque
 
 @Entity({ name: 'SUPPORT_REQUESTS' })
 export class SupportRequest extends BaseEntity {
-    @Column({ name: 'USER_ID' })
+    @Column({ type: 'uuid', name: 'USER_ID' })
     @Index()
     userId: string;
 

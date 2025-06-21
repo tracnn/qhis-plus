@@ -4,6 +4,9 @@ import { CreateQd3176Dto } from './dto/create-qd3176.dto';
 import { UpdateQd3176Dto } from './dto/update-qd3176.dto';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import * as multer from 'multer';
+import { GetXml1sByIdentityDto } from './dto/get-xml1s-by-identity.dto';
+import { ApiOperation, ApiParam } from '@nestjs/swagger';
+import { randomUUID } from 'crypto';
 
 @Controller('qd3176')
 export class Qd3176Controller {
@@ -48,6 +51,35 @@ export class Qd3176Controller {
     },
   }))
   uploadXml(@UploadedFiles() files: Express.Multer.File[]) {
-    return this.qd3176Service.uploadXml(files);
+    const importSessionId = randomUUID();
+    return this.qd3176Service.uploadXml(files, importSessionId);
+  }
+
+  @ApiOperation({ summary: 'get xml1s by identity' })
+  @ApiParam({ name: 'identity', description: 'CCCD/Mã thẻ BHYT' })
+  @Get('xml1s/:identity')
+  getXml1sByIdentity(@Param('identity') identity: string) {
+    return this.qd3176Service.getXml1sByIdentity({ identity });
+  }
+
+  @ApiOperation({ summary: 'get xml2s by xml1Id' })
+  @ApiParam({ name: 'xml1Id', description: 'ID XML1' })
+  @Get('xml2s/:xml1Id')
+  getXml2sByXml1Id(@Param('xml1Id') xml1Id: string) {
+    return this.qd3176Service.getXml2sByXml1Id({ xml1Id });
+  }
+
+  @ApiOperation({ summary: 'get xml3s by xml1Id' })
+  @ApiParam({ name: 'xml1Id', description: 'ID XML1' })
+  @Get('xml3s/:xml1Id')
+  getXml3sByXml1Id(@Param('xml1Id') xml1Id: string) {
+    return this.qd3176Service.getXml3sByXml1Id({ xml1Id });
+  }
+
+  @ApiOperation({ summary: 'get xml4s by xml1Id' })
+  @ApiParam({ name: 'xml1Id', description: 'ID XML1' })
+  @Get('xml4s/:xml1Id')
+  getXml4sByXml1Id(@Param('xml1Id') xml1Id: string) {
+    return this.qd3176Service.getXml4sByXml1Id({ xml1Id });
   }
 }

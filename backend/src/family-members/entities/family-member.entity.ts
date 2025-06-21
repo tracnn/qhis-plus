@@ -5,20 +5,20 @@ import { User } from "../../user/entities/user.entity";
 
 @Entity('FAMILY_MEMBERS')
 export class FamilyMember extends BaseEntity {
-    @Column({ name: 'USER_ID' })
+    @Column({ type: 'uuid', name: 'USER_ID' })
     @Index({ unique: false })
     userId: string;
 
     @Column({ name: 'FULL_NAME', type: 'varchar', length: 255 })
     fullName: string;
 
-    @Column({ name: 'BIRTH_DATE'})
+    @Column({ name: 'BIRTH_DATE', length: 10 })
     birthDate: string;
 
     @Column({ name: 'GENDER_CODE' })
     genderCode: number;
 
-    @Column({ name: 'IDENTITY_NUMBER', type: 'varchar', length: 255 })
+    @Column({ name: 'IDENTITY_NUMBER', type: 'varchar', length: 100 })
     @Index({ unique: false })
     identityNumber: string;
 

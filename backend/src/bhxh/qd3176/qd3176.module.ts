@@ -21,8 +21,36 @@ import { Qd3176Xml13s } from './entities/qd3176-xml13s.entity';
 import { Qd3176Xml7s } from './entities/qd3176-xml7s.entity';
 import { XmlImportService } from './services/xml-import.service';
 import { CreateFullXmlRecordHandler } from './commands/create-full-xml-record.handler';
+import { GetXml1sByIdentityHandler } from './queries/get-xml1s-by-identity.handler';
+import { Qd3176Xml1sRepository } from './repositories/qd3176-xml1s.repository';
+import { registerExtendedRepo } from '@common/base.repository.provider';
+import { Qd3176Xml2sRepository } from './repositories/qd3176-xml2s.repository';
+import { GetXml2sByXml1IdHandler } from './queries/get-xml2s-by-xml1-id.handler';
+import { Qd3176Xml3sRepository } from './repositories/qd3176-xml3s.repository';
+import { GetXml3sByXml1IdHandler } from './queries/get-xml3s-by-xml1-id.handler';
+import { Qd3176Xml4sRepository } from './repositories/qd3176-xml4s.repository';
+import { GetXml4sByXml1IdHandler } from './queries/get-xml4s-by-xml1-id.handler';
+import { UpdateXml1sByKeyHandler } from './commands/update-xml1s-by-key.handler';
+import { XmlPollingImportService } from './services/xml-polling-import.service';
 
-const CommandHandlers = [CreateFullXmlRecordHandler];
+const CommandHandlers = [
+  CreateFullXmlRecordHandler,
+  UpdateXml1sByKeyHandler
+];
+
+const QueryHandlers = [
+  GetXml1sByIdentityHandler, 
+  GetXml2sByXml1IdHandler,
+  GetXml3sByXml1IdHandler,
+  GetXml4sByXml1IdHandler
+];
+
+const registerRepositories = [
+    registerExtendedRepo(Qd3176Xml1s, Qd3176Xml1sRepository, 'Qd3176Xml1sRepository', BASE_SCHEMA.DEFAULT),
+    registerExtendedRepo(Qd3176Xml2s, Qd3176Xml2sRepository, 'Qd3176Xml2sRepository', BASE_SCHEMA.DEFAULT),
+    registerExtendedRepo(Qd3176Xml3s, Qd3176Xml3sRepository, 'Qd3176Xml3sRepository', BASE_SCHEMA.DEFAULT),
+    registerExtendedRepo(Qd3176Xml4s, Qd3176Xml4sRepository, 'Qd3176Xml4sRepository', BASE_SCHEMA.DEFAULT),
+];
 
 @Module({
   imports: [CqrsModule, TypeOrmModule.forFeature(
@@ -31,7 +59,8 @@ const CommandHandlers = [CreateFullXmlRecordHandler];
       Qd3176Xml7s, Qd3176Xml8s, Qd3176Xml9s, Qd3176Xml10s, 
       Qd3176Xml11s, Qd3176Xml12s, Qd3176Xml13s, Qd3176Xml14s, Qd3176Xml15s], BASE_SCHEMA.DEFAULT)],
   controllers: [Qd3176Controller],
-  providers: [Qd3176Service, XmlImportService, ...CommandHandlers],
+  providers: [Qd3176Service, XmlImportService, XmlPollingImportService,
+    ...CommandHandlers, ...QueryHandlers, ...registerRepositories],
   exports: [CqrsModule],
 })
 export class Qd3176Module {}
